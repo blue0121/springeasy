@@ -24,7 +24,7 @@ public class HttpProperties {
     @NoArgsConstructor
     public static class HttpConfigProperties {
         private String id;
-        private boolean async;
+        private boolean async = false;
         private String baseUrl;
         private List<HttpHeaderProperties> headers;
     }
