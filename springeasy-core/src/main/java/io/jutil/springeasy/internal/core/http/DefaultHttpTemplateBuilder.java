@@ -1,12 +1,12 @@
 package io.jutil.springeasy.internal.core.http;
 
+import io.jutil.springeasy.core.http.AsyncHttpTemplate;
 import io.jutil.springeasy.core.http.HttpTemplate;
 import io.jutil.springeasy.core.http.HttpTemplateBuilder;
 import io.jutil.springeasy.core.util.AssertUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.http.HttpClient;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,8 +19,6 @@ public class DefaultHttpTemplateBuilder implements HttpTemplateBuilder {
 
 	private String id;
 	private String baseUrl;
-	private String username;
-	private String password;
 	private final Map<String, String> defaultHeaders = new HashMap<>();
 
 	private HttpClient httpClient;
@@ -34,19 +32,17 @@ public class DefaultHttpTemplateBuilder implements HttpTemplateBuilder {
 		return new DefaultHttpTemplate(this);
 	}
 
+	@Override
+	public AsyncHttpTemplate buildAsync() {
+		this.init();
+		return new DefaultAsyncHttpTemplate(this);
+	}
+
 	private void init() {
 		AssertUtil.notNull(httpClient, "HttpClient");
 
-		if (username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
-			defaultHeaders.put("Authorization", this.authorization());
-		}
-		log.info("Initialize HttpClient, id: {}, baseUrl: {}, username: {}, password: {}, defaultHeaders: {}",
-				id, baseUrl, username, password, defaultHeaders);
-	}
-
-	private String authorization() {
-		String auth = username + ":" + password;
-		return "Basic " + Base64.getEncoder().encodeToString(auth.getBytes());
+		log.info("Initialize HttpClient, id: {}, baseUrl: {}, defaultHeaders: {}",
+				id, baseUrl, defaultHeaders);
 	}
 
 	@Override
@@ -58,18 +54,6 @@ public class DefaultHttpTemplateBuilder implements HttpTemplateBuilder {
 	@Override
 	public HttpTemplateBuilder setBaseUrl(String baseUrl) {
 		this.baseUrl = baseUrl;
-		return this;
-	}
-
-	@Override
-	public HttpTemplateBuilder setUsername(String username) {
-		this.username = username;
-		return this;
-	}
-
-	@Override
-	public HttpTemplateBuilder setPassword(String password) {
-		this.password = password;
 		return this;
 	}
 
@@ -99,14 +83,6 @@ public class DefaultHttpTemplateBuilder implements HttpTemplateBuilder {
 
 	public String getBaseUrl() {
 		return baseUrl;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public String getPassword() {
-		return password;
 	}
 
 	public Map<String, String> getDefaultHeaders() {

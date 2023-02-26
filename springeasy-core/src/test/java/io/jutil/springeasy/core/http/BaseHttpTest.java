@@ -21,7 +21,7 @@ public class BaseHttpTest {
     protected void init() {
         var httpClient = HttpClient.newHttpClient();
         var baseUrl = "http://localhost:" + port;
-        httpTemplate = HttpTemplate.builder()
+        httpTemplate = HttpTemplateBuilder.create()
                 .setBaseUrl(baseUrl)
                 .setHttpClient(httpClient)
                 .build();

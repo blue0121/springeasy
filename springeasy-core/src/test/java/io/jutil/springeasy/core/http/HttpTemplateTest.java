@@ -22,7 +22,7 @@ public class HttpTemplateTest extends BaseHttpTest {
     @Test
     public void testGetString() {
         var url = "/test/blue";
-        var response = httpTemplate.getSync(url);
+        var response = httpTemplate.get(url);
         System.out.println(response.getBody());
         Assertions.assertEquals(200, response.getStatusCode());
         Assertions.assertTrue(response.is2xxStatus());
@@ -33,7 +33,7 @@ public class HttpTemplateTest extends BaseHttpTest {
     public void testUpload() throws Exception {
         var path = Paths.get(HttpTemplateTest.class.getResource("/json/string.json").toURI());
         var url = "/upload";
-        var response = httpTemplate.uploadSync(url, HttpMethod.POST, path);
+        var response = httpTemplate.upload(url, HttpMethod.POST, path);
         System.out.println(response.getBody());
         Assertions.assertEquals(200, response.getStatusCode());
         Assertions.assertTrue(response.is2xxStatus());
@@ -45,7 +45,7 @@ public class HttpTemplateTest extends BaseHttpTest {
         var uuid = UUID.randomUUID().toString();
         var url = "/download";
         var path = Files.createTempFile(uuid, ".json");
-        var response = httpTemplate.downloadSync(url, path);
+        var response = httpTemplate.download(url, path);
         Assertions.assertEquals(200, response.getStatusCode());
         Assertions.assertTrue(response.is2xxStatus());
         Assertions.assertEquals(20L, Files.size(response.getBody()));

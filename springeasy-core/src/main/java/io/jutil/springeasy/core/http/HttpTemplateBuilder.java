@@ -1,5 +1,7 @@
 package io.jutil.springeasy.core.http;
 
+import io.jutil.springeasy.internal.core.http.DefaultHttpTemplateBuilder;
+
 import java.net.http.HttpClient;
 import java.util.Map;
 
@@ -9,15 +11,17 @@ import java.util.Map;
  */
 public interface HttpTemplateBuilder {
 
+	static HttpTemplateBuilder create() {
+		return new DefaultHttpTemplateBuilder();
+	}
+
 	HttpTemplate build();
+
+	AsyncHttpTemplate buildAsync();
 
 	HttpTemplateBuilder setId(String id);
 
 	HttpTemplateBuilder setBaseUrl(String baseUrl);
-
-	HttpTemplateBuilder setUsername(String username);
-
-	HttpTemplateBuilder setPassword(String password);
 
 	HttpTemplateBuilder putDefaultHeader(String name, String value);
 
