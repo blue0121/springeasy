@@ -10,6 +10,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>springeasy-core</module>
+		<module>springeasy-spring</module>
 	</modules>
 
 	<properties>

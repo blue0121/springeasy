@@ -1,0 +1,18 @@
+springeasy:
+  http:
+    enabled: true
+    configs:
+      - id: test1
+        async: false
+        headers:
+          - name: Accept
+            value: application/json
+          - name: Content-Type
+            value: application/json
+      - id: test2
+        async: true
+        headers:
+          - name: Accept
+            value: application/json
+          - name: Content-Type
+            value: application/json
