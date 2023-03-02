@@ -19,7 +19,7 @@ class DateTest {
 		System.out.println(now1);
 		System.out.println(now2);
 		System.out.println(ins.toEpochMilli());
-		Assertions.assertNotNull(now1);
+		Assertions.assertNotNull(ins);
 	}
 
 }
