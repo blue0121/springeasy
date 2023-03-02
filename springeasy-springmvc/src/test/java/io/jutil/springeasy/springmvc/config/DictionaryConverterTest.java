@@ -11,18 +11,22 @@ import org.junit.jupiter.api.Test;
  * @author Jin Zheng
  * @since 2023-01-28
  */
-public class DictionaryConverterTest extends BaseTest {
+class DictionaryConverterTest extends BaseTest {
     private Status status = Status.ACTIVE;
 
     @BeforeEach
-    public void beforeEach() {
+    void beforeEach() {
         this.init();
     }
 
     @Test
-    public void testString() {
-        var url = this.buildUrl("/dictionary");
+    void testString() {
         var json = "{\"name\":\"blue\",\"status\":\"正常\"}";
+        this.verify(json);
+    }
+
+    private void verify(String json) {
+        var url = this.buildUrl("/dictionary");
         var response = httpTemplate.post(url, json);
         Assertions.assertEquals(200, response.getStatusCode());
 
@@ -32,27 +36,15 @@ public class DictionaryConverterTest extends BaseTest {
     }
 
     @Test
-    public void testNumber1() {
-        var url = this.buildUrl("/dictionary");
+    void testNumber1() {
         var json = "{\"name\":\"blue\",\"status\":\"0\"}";
-        var response = httpTemplate.post(url, json);
-        Assertions.assertEquals(200, response.getStatusCode());
-
-        var body = response.convertTo(DictionaryResponse.class);
-        Assertions.assertEquals("blue", body.getName());
-        Assertions.assertEquals(status, body.getStatus());
+        this.verify(json);
     }
 
     @Test
-    public void testNumber2() {
-        var url = this.buildUrl("/dictionary");
+    void testNumber2() {
         var json = "{\"name\":\"blue\",\"status\":0}";
-        var response = httpTemplate.post(url, json);
-        Assertions.assertEquals(200, response.getStatusCode());
-
-        var body = response.convertTo(DictionaryResponse.class);
-        Assertions.assertEquals("blue", body.getName());
-        Assertions.assertEquals(status, body.getStatus());
+        this.verify(json);
     }
 
 }

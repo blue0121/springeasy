@@ -15,11 +15,11 @@ import org.junit.jupiter.params.provider.CsvSource;
  * @author Jin Zheng
  * @since 2023-01-03
  */
-public class PhoneTest {
+class PhoneTest {
 	@ParameterizedTest
 	@CsvSource({"13000000000,true", "020-8888888,true", "(020)8888888,true", "88888888,true", ",true",
 			"1300000000a,false", "1300000000,false", "888888888,false", "a8888888,false"})
-	public void testValid(String text, boolean valid) {
+	void testValid(String text, boolean valid) {
 		var obj = new TestObject(text);
 		if (valid) {
 			ValidationUtil.valid(obj, GetOperation.class);
@@ -34,7 +34,7 @@ public class PhoneTest {
 	@Setter
 	@NoArgsConstructor
 	@AllArgsConstructor
-	public static class TestObject {
+	static class TestObject {
 		@Phone(groups = GetOperation.class)
 		private String phone;
 	}

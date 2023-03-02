@@ -15,10 +15,10 @@ import org.junit.jupiter.params.provider.CsvSource;
  * @author Jin Zheng
  * @since 2023-01-03
  */
-public class VinTest {
+class VinTest {
 	@ParameterizedTest
 	@CsvSource({"01234567891234567,true", ",true", "0,false"})
-	public void testValid(String text, boolean valid) {
+	void testValid(String text, boolean valid) {
 		var obj = new TestObject(text);
 		if (valid) {
 			ValidationUtil.valid(obj, GetOperation.class);
@@ -33,7 +33,7 @@ public class VinTest {
 	@Setter
 	@NoArgsConstructor
 	@AllArgsConstructor
-	public static class TestObject {
+	static class TestObject {
 		@Vin(groups = GetOperation.class)
 		private String vin;
 	}

@@ -21,7 +21,7 @@ public abstract class AbstractResponse<T> implements Response<T> {
 	private Map<String, List<String>> map;
 	private T body;
 
-	public AbstractResponse(HttpResponse<T> response) {
+	protected AbstractResponse(HttpResponse<T> response) {
 		this.statusCode = response.statusCode();
 		this.body = response.body();
 		this.map = response.headers().map();

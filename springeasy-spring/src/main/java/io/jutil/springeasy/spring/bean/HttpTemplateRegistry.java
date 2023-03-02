@@ -1,6 +1,7 @@
 package io.jutil.springeasy.spring.bean;
 
 import io.jutil.springeasy.spring.config.HttpProperties;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -18,11 +19,10 @@ import java.util.Map;
  * @author Jin Zheng
  * @since 2022-12-26
  */
+@NoArgsConstructor
 public class HttpTemplateRegistry implements BeanDefinitionRegistryPostProcessor, EnvironmentAware {
     private HttpProperties httpProperties;
 
-	public HttpTemplateRegistry() {
-	}
 
     private HttpClient initHttpClient() {
         return HttpClient.newHttpClient();
@@ -62,6 +62,7 @@ public class HttpTemplateRegistry implements BeanDefinitionRegistryPostProcessor
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        // NOSONAR
     }
 
     @Override

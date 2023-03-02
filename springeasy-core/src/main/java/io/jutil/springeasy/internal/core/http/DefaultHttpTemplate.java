@@ -36,8 +36,11 @@ public class DefaultHttpTemplate extends AbstractHttpTemplate implements HttpTem
 			var response = httpClient.send(builder.build(),
 					HttpResponse.BodyHandlers.ofString());
 			return new DefaultStringResponse(response);
-		}
-		catch (Exception e) {
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			this.handleException(e);
+			return null;
+		} catch (Exception e) {
 			this.handleException(e);
 			return null;
 		}
@@ -52,8 +55,11 @@ public class DefaultHttpTemplate extends AbstractHttpTemplate implements HttpTem
 			var response = httpClient.send(builder.build(),
 					HttpResponse.BodyHandlers.ofFile(file));
 			return new DefaultPathResponse(response);
-		}
-		catch (Exception e) {
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			this.handleException(e);
+			return null;
+		} catch (Exception e) {
 			this.handleException(e);
 			return null;
 		}
@@ -71,8 +77,11 @@ public class DefaultHttpTemplate extends AbstractHttpTemplate implements HttpTem
 			var response = httpClient.send(builder.build(),
 					HttpResponse.BodyHandlers.ofString());
 			return new DefaultStringResponse(response);
-		}
-		catch (Exception e) {
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			this.handleException(e);
+			return null;
+		} catch (Exception e) {
 			this.handleException(e);
 			return null;
 		}

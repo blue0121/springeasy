@@ -18,6 +18,8 @@ import java.util.NoSuchElementException;
  * @since 1.0 2020-04-30
  */
 public class MultiPartIterator implements Iterator<byte[]> {
+	private static final byte[] ZERO_BYTES = new byte[0];
+
 	private final Iterator<MultiPartItem> iterator;
 	private final String boundary;
 	private final Charset charset;
@@ -42,7 +44,7 @@ public class MultiPartIterator implements Iterator<byte[]> {
 			return false;
 		}
 
-		if (next != null) {
+		if (next != null && next.length != 0) {
 			return true;
 		}
 
@@ -52,7 +54,7 @@ public class MultiPartIterator implements Iterator<byte[]> {
 		catch (IOException e) {
 			throw new UncheckedIOException(e);
 		}
-		if (next == null) {
+		if (next == null || next.length == 0) {
 			done = true;
 			return false;
 		}
@@ -84,7 +86,7 @@ public class MultiPartIterator implements Iterator<byte[]> {
 			}
 		}
 		if (!iterator.hasNext()) {
-			return null;
+			return ZERO_BYTES;
 		}
 
 		MultiPartItem item = iterator.next();
@@ -112,7 +114,7 @@ public class MultiPartIterator implements Iterator<byte[]> {
 				this.buildFilePart(value, item.getName(), item.getFilename(), item.getContentType());
 				break;
 			default:
-				return null;
+				return ZERO_BYTES;
 		}
 		return value.toString().getBytes(charset);
 	}

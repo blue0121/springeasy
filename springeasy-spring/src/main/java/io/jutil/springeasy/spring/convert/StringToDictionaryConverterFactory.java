@@ -18,7 +18,7 @@ public class StringToDictionaryConverterFactory implements ConverterFactory<Stri
             throw new IllegalArgumentException("目标类型不是字典类型：" + targetType.getName());
         }
 
-        return new StringToDictionaryConverter(targetType);
+        return new StringToDictionaryConverter<>(targetType);
     }
 
     private class StringToDictionaryConverter<T extends Dictionary> implements Converter<String, T> {

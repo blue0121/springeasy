@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
  * @author Jin Zheng
  * @since 2023-01-02-21:26
  */
-public class ErrorCodeTest extends BaseTest {
+class ErrorCodeTest extends BaseTest {
 
 	@BeforeEach
 	public void beforeEach() {
@@ -20,7 +20,7 @@ public class ErrorCodeTest extends BaseTest {
 	}
 
 	@Test
-	public void testJson() {
+	void testJson() {
 		var url = this.buildUrl("/test");
 		var request = new TestRequest("");
 		var response = httpTemplate.post(url, JsonUtil.output(request));

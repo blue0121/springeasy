@@ -7,8 +7,8 @@ package io.jutil.springeasy.springmvc.exception;
 public class ErrorCodeException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
-	private ErrorCode errorCode;
-	private Object[] args;
+	private transient ErrorCode errorCode;
+	private transient Object[] args;
 	private String message;
 
 	public ErrorCodeException(ErrorCode errorCode, Object... args) {

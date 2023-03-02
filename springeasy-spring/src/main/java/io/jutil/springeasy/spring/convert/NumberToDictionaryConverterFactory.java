@@ -17,7 +17,7 @@ public class NumberToDictionaryConverterFactory  implements ConverterFactory<Num
             throw new IllegalArgumentException("目标类型不是字典类型：" + targetType.getName());
         }
 
-        return new NumberToDictionaryConverter(targetType);
+        return new NumberToDictionaryConverter<>(targetType);
     }
 
     private class NumberToDictionaryConverter<T extends Dictionary> implements Converter<Number, T> {

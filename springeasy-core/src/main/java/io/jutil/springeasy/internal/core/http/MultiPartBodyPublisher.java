@@ -15,6 +15,7 @@ import java.util.function.Supplier;
  * @since 1.0 2020-04-30
  */
 public class MultiPartBodyPublisher {
+	private static final Random RANDOM = new Random();
 	private static final String SPLIT = "---------------------------";
 	private static final String BOUNDARY = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private final List<MultiPartItem> itemList = new ArrayList<>();
@@ -80,11 +81,10 @@ public class MultiPartBodyPublisher {
 	private String generateBoundary() {
 		StringBuilder buffer = new StringBuilder(SPLIT.length() * 2);
 		buffer.append(SPLIT);
-		Random rand = new Random();
 		int count = 14;
 
 		for (int i = 0; i < count; ++i) {
-			int index = rand.nextInt(BOUNDARY.length());
+			int index = RANDOM.nextInt(BOUNDARY.length());
 			buffer.append(BOUNDARY.charAt(index));
 		}
 		return buffer.toString();

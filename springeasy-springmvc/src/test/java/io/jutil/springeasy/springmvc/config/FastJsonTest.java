@@ -14,15 +14,15 @@ import java.util.Map;
  * @author Jin Zheng
  * @since 2023-01-02-19:42
  */
-public class FastJsonTest extends BaseTest {
+class FastJsonTest extends BaseTest {
 
 	@BeforeEach
-	public void beforeEach() {
+	void beforeEach() {
 		this.init();
 	}
 
 	@Test
-	public void testString() {
+	void testString() {
 		var url = this.buildUrl("/test/blue");
 		var response = httpTemplate.get(url, Map.of("Accept", "text/plain"));
 		Assertions.assertEquals(200, response.getStatusCode());
@@ -30,7 +30,7 @@ public class FastJsonTest extends BaseTest {
 	}
 
 	@Test
-	public void testJson() {
+	void testJson() {
 		var url = this.buildUrl("/test");
 		var request = new TestRequest("blue");
 		var response = httpTemplate.post(url, JsonUtil.output(request));

@@ -8,6 +8,8 @@ import java.util.Map;
  * @since 1.0 2019-05-18
  */
 public class AssertUtil {
+	private static final String IS_EMPTY = " is empty.";
+
 	private AssertUtil() {
 	}
 
@@ -47,7 +49,7 @@ public class AssertUtil {
 		}
 
 		if (str == null || str.isEmpty()) {
-			throw new NullPointerException(name + " is empty.");
+			throw new NullPointerException(name + IS_EMPTY);
 		}
 	}
 
@@ -57,7 +59,7 @@ public class AssertUtil {
 		}
 
 		if (list == null || list.isEmpty()) {
-			throw new NullPointerException(name + " is empty.");
+			throw new NullPointerException(name + IS_EMPTY);
 		}
 	}
 
@@ -67,7 +69,7 @@ public class AssertUtil {
 		}
 
 		if (map == null || map.isEmpty()) {
-			throw new NullPointerException(name + " is empty.");
+			throw new NullPointerException(name + IS_EMPTY);
 		}
 	}
 
@@ -77,7 +79,7 @@ public class AssertUtil {
 		}
 
 		if (array == null || array.length == 0) {
-			throw new NullPointerException(name + " is empty.");
+			throw new NullPointerException(name + IS_EMPTY);
 		}
 	}
 
@@ -87,13 +89,7 @@ public class AssertUtil {
 		}
 
 		if (array == null || array.length == 0) {
-			throw new NullPointerException(name + " is empty.");
-		}
-	}
-
-	public static void equal(long n1, long n2, String text) {
-		if (n1 != n2) {
-			throw new IllegalArgumentException(text);
+			throw new NullPointerException(name + IS_EMPTY);
 		}
 	}
 

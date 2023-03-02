@@ -18,20 +18,20 @@ import org.springframework.test.context.ActiveProfiles;
  */
 @ActiveProfiles("http")
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class HttpTemplateTest {
+class HttpTemplateTest {
     @LocalServerPort
-    protected int port;
+    int port;
 
 	@Autowired
     @Qualifier("test1")
-    private HttpTemplate httpTemplate;
+    HttpTemplate httpTemplate;
 
     @Autowired
     @Qualifier("test2")
-    private AsyncHttpTemplate asyncHttpTemplate;
+    AsyncHttpTemplate asyncHttpTemplate;
 
     @Test
-    public void testPost() {
+    void testPost() {
         var url = "http://localhost:" + port + "/test";
         var request = new TestRequest("blue");
         var response = httpTemplate.post(url, JsonUtil.output(request));
@@ -42,7 +42,7 @@ public class HttpTemplateTest {
     }
 
     @Test
-    public void testPostAsync() throws Exception {
+    void testPostAsync() throws Exception {
         var url = "http://localhost:" + port + "/test";
         var request = new TestRequest("red");
         var response = asyncHttpTemplate.post(url, JsonUtil.output(request)).get();

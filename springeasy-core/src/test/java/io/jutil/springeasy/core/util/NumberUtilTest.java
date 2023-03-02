@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
  * @author Jin Zheng
  * @since 2023-01-28
  */
-public class NumberUtilTest {
+class NumberUtilTest {
 	public NumberUtilTest() {
 	}
 
     @Test
-    public void testIsInteger() {
+    void testIsInteger() {
         Assertions.assertTrue(NumberUtil.isInteger("-1"));
         Assertions.assertTrue(NumberUtil.isInteger("0"));
         Assertions.assertTrue(NumberUtil.isInteger("1"));

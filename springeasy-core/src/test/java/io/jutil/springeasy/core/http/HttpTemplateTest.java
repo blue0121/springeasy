@@ -12,15 +12,15 @@ import java.util.UUID;
  * @author Jin Zheng
  * @since 2022-12-21
  */
-public class HttpTemplateTest extends BaseHttpTest {
+class HttpTemplateTest extends BaseHttpTest {
 
     @BeforeEach
-    public void beforeEach() {
+    void beforeEach() {
         this.init();
     }
 
     @Test
-    public void testGetString() {
+    void testGetString() {
         var url = "/test/blue";
         var response = httpTemplate.get(url);
         System.out.println(response.getBody());
@@ -30,7 +30,7 @@ public class HttpTemplateTest extends BaseHttpTest {
     }
 
     @Test
-    public void testUpload() throws Exception {
+    void testUpload() throws Exception {
         var path = Paths.get(HttpTemplateTest.class.getResource("/json/string.json").toURI());
         var url = "/upload";
         var response = httpTemplate.upload(url, HttpMethod.POST, path);
@@ -41,7 +41,7 @@ public class HttpTemplateTest extends BaseHttpTest {
     }
 
     @Test
-    public void testDownload() throws Exception {
+    void testDownload() throws Exception {
         var uuid = UUID.randomUUID().toString();
         var url = "/download";
         var path = Files.createTempFile(uuid, ".json");

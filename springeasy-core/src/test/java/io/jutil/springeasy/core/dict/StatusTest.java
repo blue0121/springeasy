@@ -9,14 +9,12 @@ import org.junit.jupiter.api.Test;
  * @author Jin Zheng
  * @since 2022-12-20
  */
-public class StatusTest {
+class StatusTest {
     private DictionaryCache cache = DictionaryCache.getInstance();
 
-	public StatusTest() {
-	}
 
     @Test
-    public void testToString() {
+    void testToString() {
         var status = Status.ACTIVE;
         var json = JsonUtil.output(status);
         System.out.println(json);
@@ -27,7 +25,7 @@ public class StatusTest {
     }
 
     @Test
-    public void testString() {
+    void testString() {
         Assertions.assertEquals("正常", cache.getNameFromObject(Status.ACTIVE));
         Assertions.assertEquals("作废", cache.getNameFromObject(Status.INACTIVE));
 
@@ -36,7 +34,7 @@ public class StatusTest {
     }
 
     @Test
-    public void testNumber() {
+    void testNumber() {
         Assertions.assertEquals(0, cache.getIndexFromObject(Status.ACTIVE));
         Assertions.assertEquals(1, cache.getIndexFromObject(Status.INACTIVE));
 

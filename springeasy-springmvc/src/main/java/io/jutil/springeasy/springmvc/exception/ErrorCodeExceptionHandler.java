@@ -17,7 +17,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Jin Zheng
@@ -70,7 +69,7 @@ public class ErrorCodeExceptionHandler extends ResponseEntityExceptionHandler {
 		List<FieldError> errors = bindingResult.getFieldErrors();
 		String errorStr = StringUtil.join(errors.stream()
 						.map(DefaultMessageSourceResolvable::getDefaultMessage)
-						.collect(Collectors.toList()),
+						.toList(),
 				",");
 		log.warn("BindException: {}", errorStr);
 		return ErrorCode.INVALID_PARAM.toJsonString(errorStr);

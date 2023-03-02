@@ -11,15 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StringUtilTest
-{
-	public StringUtilTest()
-	{
-	}
-	
+class StringUtilTest {
+
 	@Test
-	public void testTemplate1()
-	{
+	void testTemplate1() {
 		String tpl = "{{first.DATA}}车牌：{{keyword1.DATA}}投保公司：{{keyword2.DATA}}车主：{{keyword3.DATA}}报价金额：{{keyword4.DATA}}时间：{{keyword5.DATA}}{{remark.DATA}}";
 		String result = "你好车牌：粤A12345投保公司：中国平安车主：羊驼报价金额：￥1000元时间：2016-02-14通知";
 		Map<String, String> param = new HashMap<>();
@@ -34,10 +29,9 @@ public class StringUtilTest
 		System.out.println(content);
 		Assertions.assertEquals(result, content, "模板消息错误");
 	}
-	
+
 	@Test
-	public void testTemplate2()
-	{
+	void testTemplate2() {
 		String tpl = "{one}-{two}={one}";
 		String result = "2-1=2";
 		Map<String, String> param = new HashMap<>();
@@ -49,7 +43,7 @@ public class StringUtilTest
 	}
 
 	@Test
-	public void testTemplate3() {
+	void testTemplate3() {
 		String tpl = "${p1:v}-${p2:c}=${p3}";
 		Map<String, String> param = Map.of("p1", "a");
 		String result = "a-c=";
@@ -59,8 +53,7 @@ public class StringUtilTest
 	}
 
 	@Test
-	public void testSplit()
-	{
+	void testSplit() {
 		String s1 = "1,2;3   4  5|6";
 		List<String> list1 = Arrays.asList("1", "2", "3", "4", "5", "6");
 		Assertions.assertEquals(list1, StringUtil.split(s1));
@@ -69,8 +62,7 @@ public class StringUtilTest
 	}
 
 	@Test
-	public void testLeftPad()
-	{
+	void testLeftPad() {
 		Assertions.assertNull(StringUtil.leftPad(null, 0, "0"));
 		Assertions.assertEquals("000123", StringUtil.leftPad("123", 6, "0"));
 		Assertions.assertEquals("1234", StringUtil.leftPad("1234", 2, "0"));
@@ -79,8 +71,7 @@ public class StringUtilTest
 	}
 
 	@Test
-	public void testJoin()
-	{
+	void testJoin() {
 		Assertions.assertEquals("a,b,c", StringUtil.join(Arrays.asList("a", "b", "c"), ","));
 		Assertions.assertEquals("a", StringUtil.join(Arrays.asList("a"), ","));
 		Assertions.assertEquals("abc", StringUtil.join(Arrays.asList("a", "b", "c"), ""));
@@ -90,8 +81,7 @@ public class StringUtilTest
 	}
 
 	@Test
-	public void testGetJdbcType()
-	{
+	void testGetJdbcType() {
 		Assertions.assertEquals("mysql", StringUtil.getJdbcType("jdbc:mysql://localhost:3306/db"));
 		Assertions.assertEquals("oracle", StringUtil.getJdbcType("jdbc:oracle:thin:@localhost:1521:db"));
 		Assertions.assertEquals("sqlserver", StringUtil.getJdbcType("jdbc:sqlserver://localhost:1433;databasename=db"));
@@ -99,8 +89,7 @@ public class StringUtilTest
 	}
 
 	@Test
-	public void testGetString()
-	{
+	void testGetString() {
 		String json = StringUtil.getString(StringUtilTest.class, "/json/string.json");
 		System.out.println(json);
 		Assertions.assertNotNull(json);
@@ -111,7 +100,7 @@ public class StringUtilTest
 	}
 
 	@Test
-	public void testRepeat() {
+	void testRepeat() {
 		String repeat1 = StringUtil.repeat("?", 4, ",");
 		Assertions.assertEquals("?,?,?,?", repeat1);
 
@@ -121,5 +110,5 @@ public class StringUtilTest
 		String repeat3 = StringUtil.repeat("?", 1, null);
 		Assertions.assertEquals("?", repeat3);
 	}
-	
+
 }

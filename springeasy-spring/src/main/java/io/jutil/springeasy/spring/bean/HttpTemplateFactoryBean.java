@@ -2,6 +2,7 @@ package io.jutil.springeasy.spring.bean;
 
 import io.jutil.springeasy.core.http.HttpTemplate;
 import io.jutil.springeasy.core.http.HttpTemplateBuilder;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -12,6 +13,7 @@ import java.util.Map;
  * @author Jin Zheng
  * @since 1.0 2021-04-20
  */
+@NoArgsConstructor
 public class HttpTemplateFactoryBean implements FactoryBean<HttpTemplate>, InitializingBean {
 	private String id;
 	private String baseUrl;
@@ -20,8 +22,6 @@ public class HttpTemplateFactoryBean implements FactoryBean<HttpTemplate>, Initi
 
 	private HttpTemplate httpTemplate;
 
-	public HttpTemplateFactoryBean() {
-	}
 
 	@Override
 	public HttpTemplate getObject() throws Exception {

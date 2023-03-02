@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 public class HttpTemplateAutoConfiguration {
 
 	@Bean
-	public static HttpTemplateRegistry httpTemplateRegistry() {
+	public HttpTemplateRegistry httpTemplateRegistry() {
 		return new HttpTemplateRegistry();
 	}
 }

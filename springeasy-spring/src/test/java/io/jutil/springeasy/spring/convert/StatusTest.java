@@ -14,21 +14,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.convert.ConversionService;
 
 @SpringBootTest(classes = Application.class)
-public class StatusTest {
+class StatusTest {
     @Autowired
-    private ConversionService conversionService;
+    ConversionService conversionService;
 
-	public StatusTest() {
-	}
 
     @Test
-    public void testString() {
+    void testString() {
         Assertions.assertEquals(Status.ACTIVE, conversionService.convert("正常", Status.class));
         Assertions.assertEquals(Status.INACTIVE, conversionService.convert("作废", Status.class));
     }
 
     @Test
-    public void testNumber() {
+    void testNumber() {
         Assertions.assertEquals(Status.ACTIVE, conversionService.convert("0", Status.class));
         Assertions.assertEquals(Status.INACTIVE, conversionService.convert("1", Status.class));
 

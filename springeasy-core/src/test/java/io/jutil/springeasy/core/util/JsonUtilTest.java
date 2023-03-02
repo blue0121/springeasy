@@ -15,15 +15,13 @@ import java.time.format.DateTimeFormatter;
  * @author Jin Zheng
  * @since 2022-12-20
  */
-public class JsonUtilTest {
+class JsonUtilTest {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-	public JsonUtilTest() {
-	}
 
     @Test
-    public void testToString() {
+    void testToString() {
         var now = DateUtil.now();
         var user = new User(1, "blue", now);
         var json = JsonUtil.toString(user);
@@ -36,7 +34,7 @@ public class JsonUtilTest {
     }
 
     @Test
-    public void testOutput() {
+    void testOutput() {
         var now = DateUtil.now();
         var user = new User(1, "blue", now);
         var json = JsonUtil.output(user);
@@ -49,7 +47,7 @@ public class JsonUtilTest {
     }
 
     @Test
-    public void testFromString() {
+    void testFromString() {
         var json1 = "{\"@type\":\"io.jutil.springeasy.core.util.JsonUtilTest$User\",\"createTime\":\"2022-12-20 14:50:53\",\"id\":1,\"name\":\"blue\"}";
         var json2 = "{\"createTime\":\"2022-12-20 14:50:54\",\"id\":1,\"name\":\"blue\"}";
 

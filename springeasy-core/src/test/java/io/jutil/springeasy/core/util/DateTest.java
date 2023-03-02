@@ -8,10 +8,10 @@ import java.time.Instant;
  * @author Jin Zheng
  * @since 2023-01-10
  */
-public class DateTest {
+class DateTest {
 
 	@Test
-	public void testInstant() {
+	void testInstant() {
 		var now1 = System.currentTimeMillis();
 		var ins = Instant.now();
 		var now2 = ins.getEpochSecond() * 1000 + ins.getNano() / 1_000_000;

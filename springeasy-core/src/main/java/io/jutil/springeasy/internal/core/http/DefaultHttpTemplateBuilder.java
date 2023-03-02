@@ -4,6 +4,7 @@ import io.jutil.springeasy.core.http.AsyncHttpTemplate;
 import io.jutil.springeasy.core.http.HttpTemplate;
 import io.jutil.springeasy.core.http.HttpTemplateBuilder;
 import io.jutil.springeasy.core.util.AssertUtil;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.http.HttpClient;
@@ -15,6 +16,7 @@ import java.util.Map;
  * @since 2021-07-02
  */
 @Slf4j
+@NoArgsConstructor
 public class DefaultHttpTemplateBuilder implements HttpTemplateBuilder {
 
 	private String id;
@@ -23,8 +25,6 @@ public class DefaultHttpTemplateBuilder implements HttpTemplateBuilder {
 
 	private HttpClient httpClient;
 
-	public DefaultHttpTemplateBuilder() {
-	}
 
 	@Override
 	public HttpTemplate build() {
