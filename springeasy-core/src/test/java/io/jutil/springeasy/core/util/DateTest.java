@@ -1,5 +1,6 @@
 package io.jutil.springeasy.core.util;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
@@ -18,6 +19,7 @@ class DateTest {
 		System.out.println(now1);
 		System.out.println(now2);
 		System.out.println(ins.toEpochMilli());
+		Assertions.assertNotNull(now1);
 	}
 
 }

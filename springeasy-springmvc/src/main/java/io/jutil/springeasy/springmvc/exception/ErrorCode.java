@@ -13,8 +13,8 @@ import java.util.Set;
 public class ErrorCode {
 	public static final int STATUS_TO_CODE = 1_000;
 
-	public static final String CODE = "code";
-	public static final String MESSAGE = "message";
+	public static final String KEY_CODE = "code";
+	public static final String KEY_MESSAGE = "message";
 
 	// 200
 	public static final ErrorCode SUCCESS = new ErrorCode(200, 0, "成功");
@@ -78,8 +78,8 @@ public class ErrorCode {
 
 	public final String toJsonString(Object... args) {
 		JSONObject json = new JSONObject();
-		json.put(CODE, this.getCode());
-		json.put(MESSAGE, this.getMessage(args));
+		json.put(KEY_CODE, this.getCode());
+		json.put(KEY_MESSAGE, this.getMessage(args));
 		return json.toJSONString();
 	}
 

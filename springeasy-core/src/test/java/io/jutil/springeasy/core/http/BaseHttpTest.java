@@ -11,7 +11,7 @@ import java.net.http.HttpClient;
  * @since 2022-12-21
  */
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BaseHttpTest {
+public abstract class BaseHttpTest {
     @LocalServerPort
     protected int port;
 

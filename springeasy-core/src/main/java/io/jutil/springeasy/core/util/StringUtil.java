@@ -16,7 +16,7 @@ import java.util.Map;
  * @since 1.0
  */
 public class StringUtil {
-	public static final String SPLIT = "[\\s,;\\|]";
+	public static final String STR_SPLIT = "[\\s,;\\|]";
 
 	private StringUtil() {
 	}
@@ -192,7 +192,7 @@ public class StringUtil {
 			return list;
 		}
 
-		for (String s : str.split(SPLIT)) {
+		for (String s : str.split(STR_SPLIT)) {
 			s = s.trim();
 			if (s.isEmpty()) {
 				continue;
