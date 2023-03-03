@@ -90,7 +90,7 @@ class StringUtilTest {
 
 	@Test
 	void testGetString() {
-		String json = StringUtil.getString(StringUtilTest.class, "/json/string.json");
+		String json = StringUtil.getString("classpath:/json/string.json");
 		System.out.println(json);
 		Assertions.assertNotNull(json);
 		Assertions.assertFalse(json.isEmpty());

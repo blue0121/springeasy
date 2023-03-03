@@ -5,9 +5,9 @@ import java.net.http.HttpRequest;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Supplier;
 
 /**
@@ -15,7 +15,7 @@ import java.util.function.Supplier;
  * @since 1.0 2020-04-30
  */
 public class MultiPartBodyPublisher {
-	private static final Random RANDOM = new Random();
+	private static final SecureRandom RANDOM = new SecureRandom();
 	private static final String STR_SPLIT = "---------------------------";
 	private static final String STR_BOUNDARY = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	private final List<MultiPartItem> itemList = new ArrayList<>();

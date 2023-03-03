@@ -1,6 +1,8 @@
 package io.jutil.springeasy.core.util;
 
-import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -149,35 +151,26 @@ public class StringUtil {
 	/**
 	 * 从类所在模块路径文件读取文本
 	 *
-	 * @param clazz     类
-	 * @param classpath 类路径文件
+	 * @param path     classpath: 开头表示从类路径读取，否则从文件系统读取
 	 * @return 读取的文本
 	 */
-	public static String getString(Class<?> clazz, String classpath) {
-		if (classpath == null || classpath.isEmpty()) {
-			return null;
+	public static String getString(String path) {
+		AssertUtil.notEmpty(path, "Path");
+
+		if (FileUtil.isClassPath(path)) {
+			var classpath = FileUtil.extractClassPath(path);
+			try (var is = StringUtil.class.getResourceAsStream(classpath)) {
+				return new String(is.readAllBytes(), StandardCharsets.UTF_8);
+			} catch (IOException e) {
+				throw new UncheckedIOException(e);
+			}
 		}
 
-		if (clazz == null) {
-			clazz = StringUtil.class;
+		try (var is = new FileInputStream(path)) {
+			return new String(is.readAllBytes(), StandardCharsets.UTF_8);
+		} catch (IOException e) {
+			throw new UncheckedIOException(e);
 		}
-		InputStream is = clazz.getResourceAsStream(classpath);
-		if (is == null) {
-			ClassLoader loader = Thread.currentThread().getContextClassLoader();
-			String path = classpath;
-			if (classpath.startsWith("/")) {
-				path = classpath.substring(1);
-			}
-			is = loader.getResourceAsStream(path);
-		}
-		String str = null;
-		try (InputStream in = is) {
-			byte[] buf = in.readAllBytes();
-			str = new String(buf, StandardCharsets.UTF_8);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return str;
 	}
 
 	/**
