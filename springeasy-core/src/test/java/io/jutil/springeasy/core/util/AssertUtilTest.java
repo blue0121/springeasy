@@ -14,6 +14,7 @@ class AssertUtilTest {
 
 	@Test
 	void testNotNull() {
+		AssertUtil.notNull(new Object(), null);
 		AssertUtil.notNull(new Object(), "Object");
 		Assertions.assertThrows(NullPointerException.class,
 				() -> AssertUtil.notNull(null, "Object"));
@@ -21,6 +22,7 @@ class AssertUtilTest {
 
 	@Test
 	void testPositive() {
+		AssertUtil.positive(1, null);
 		AssertUtil.positive(1, "Number");
 		Assertions.assertThrows(IllegalArgumentException.class,
 				() -> AssertUtil.positive(0, "Number"));
@@ -30,6 +32,7 @@ class AssertUtilTest {
 
 	@Test
 	void testNonNegative() {
+		AssertUtil.nonNegative(0, null);
 		AssertUtil.nonNegative(0, "Number");
 		AssertUtil.nonNegative(1, "Number");
 		Assertions.assertThrows(IllegalArgumentException.class,
@@ -38,22 +41,34 @@ class AssertUtilTest {
 
 	@Test
 	void testNotEmpty() {
+		AssertUtil.notEmpty("str", null);
 		AssertUtil.notEmpty("str", "String");
+		AssertUtil.notEmpty(List.of(1), null);
 		AssertUtil.notEmpty(List.of(1), "List");
+		AssertUtil.notEmpty(Map.of(1, 1), null);
 		AssertUtil.notEmpty(Map.of(1, 1), "Map");
+		AssertUtil.notEmpty(new String[]{"Str"}, null);
 		AssertUtil.notEmpty(new String[]{"Str"}, "Array");
+		AssertUtil.notEmpty(new byte[]{1}, null);
 		AssertUtil.notEmpty(new byte[]{1}, "Byte Array");
 
 		Assertions.assertThrows(NullPointerException.class,
 				() -> AssertUtil.notEmpty("", "String"));
+		var list = List.of();
 		Assertions.assertThrows(NullPointerException.class,
-				() -> AssertUtil.notEmpty(List.of(), "List"));
+				() -> AssertUtil.notEmpty(list, "List"));
+
+		var map = Map.of();
 		Assertions.assertThrows(NullPointerException.class,
-				() -> AssertUtil.notEmpty(Map.of(), "Map"));
+				() -> AssertUtil.notEmpty(map, "Map"));
+
+		var array = new String[0];
 		Assertions.assertThrows(NullPointerException.class,
-				() -> AssertUtil.notEmpty(new String[0], "Array"));
+				() -> AssertUtil.notEmpty(array, "Array"));
+
+		var byteArray = new byte[0];
 		Assertions.assertThrows(NullPointerException.class,
-				() -> AssertUtil.notEmpty(new byte[0], "Byte Array"));
+				() -> AssertUtil.notEmpty(byteArray, "Byte Array"));
 	}
 
 	@Test

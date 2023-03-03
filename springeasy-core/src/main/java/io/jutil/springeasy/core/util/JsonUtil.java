@@ -31,12 +31,12 @@ public class JsonUtil {
 			return new byte[0];
 		}
 
-		if (object instanceof byte[]) {
-			return (byte[]) object;
+		if (object instanceof byte[] bytes) {
+			return bytes;
 		}
 
-		if (object instanceof CharSequence) {
-			return object.toString().getBytes(StandardCharsets.UTF_8);
+		if (object instanceof CharSequence str) {
+			return str.toString().getBytes(StandardCharsets.UTF_8);
 		}
 
 		return JSON.toJSONBytes(object, writer);
@@ -73,8 +73,8 @@ public class JsonUtil {
 			return null;
 		}
 
-		if (object instanceof byte[]) {
-			return String.format("{%d byte array}", ((byte[]) object).length);
+		if (object instanceof byte[] bytes) {
+			return String.format("{%d byte array}", bytes.length);
 		}
 
 		if (object instanceof CharSequence) {

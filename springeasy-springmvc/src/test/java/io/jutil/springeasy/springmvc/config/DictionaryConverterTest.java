@@ -21,6 +21,7 @@ class DictionaryConverterTest extends BaseTest {
 
     @Test
     void testString() {
+        // NOSONAR
         var json = "{\"name\":\"blue\",\"status\":\"正常\"}";
         this.verify(json);
     }
@@ -37,12 +38,14 @@ class DictionaryConverterTest extends BaseTest {
 
     @Test
     void testNumber1() {
+        // NOSONAR
         var json = "{\"name\":\"blue\",\"status\":\"0\"}";
         this.verify(json);
     }
 
     @Test
     void testNumber2() {
+        // NOSONAR
         var json = "{\"name\":\"blue\",\"status\":0}";
         this.verify(json);
     }

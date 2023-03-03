@@ -37,6 +37,7 @@ public class DefaultHttpTemplate extends AbstractHttpTemplate implements HttpTem
 					HttpResponse.BodyHandlers.ofString());
 			return new DefaultStringResponse(response);
 		} catch (Exception e) {
+			// NOSONAR
 			this.handleException(e);
 			return null;
 		}
@@ -52,6 +53,7 @@ public class DefaultHttpTemplate extends AbstractHttpTemplate implements HttpTem
 					HttpResponse.BodyHandlers.ofFile(file));
 			return new DefaultPathResponse(response);
 		} catch (Exception e) {
+			// NOSONAR
 			this.handleException(e);
 			return null;
 		}
@@ -70,6 +72,7 @@ public class DefaultHttpTemplate extends AbstractHttpTemplate implements HttpTem
 					HttpResponse.BodyHandlers.ofString());
 			return new DefaultStringResponse(response);
 		} catch (Exception e) {
+			// NOSONAR
 			this.handleException(e);
 			return null;
 		}

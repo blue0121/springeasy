@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,6 +20,44 @@ class JsonUtilTest {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+    @Test
+    void testToBytes() {
+        Assertions.assertEquals(0, JsonUtil.toBytes(null).length);
+        Assertions.assertArrayEquals(new byte[] {1}, JsonUtil.toBytes(new byte[] {1}));
+        Assertions.assertArrayEquals("正常".getBytes(), JsonUtil.toBytes("正常"));
+
+        var user = new User(1, "blue", DateUtil.now());
+        var b = JsonUtil.toBytes(user);
+        Assertions.assertTrue(b.length > 0);
+    }
+
+    @Test
+    void testFromBytes1() {
+        Assertions.assertNull(JsonUtil.fromBytes(null));
+
+        var user = new User(1, "blue", DateUtil.now());
+        var b = JsonUtil.toBytes(user);
+        User view = JsonUtil.fromBytes(b);
+        this.verify(user, view);
+    }
+
+    private void verify(User user, User view) {
+        Assertions.assertEquals(user.getId(), view.getId());
+        Assertions.assertEquals(user.getName(), view.getName());
+        Assertions.assertEquals(user.getCreateTime(), view.getCreateTime());
+    }
+
+    @Test
+    void testFromBytes2() {
+        Assertions.assertNull(JsonUtil.fromBytes(null, Object.class));
+        Assertions.assertArrayEquals(new byte[] {1}, JsonUtil.fromBytes(new byte[] {1}, byte[].class));
+        Assertions.assertEquals("正常", JsonUtil.fromBytes("正常".getBytes(), String.class));
+
+        var user = new User(1, "blue", DateUtil.now());
+        var b = JsonUtil.toBytes(user);
+        User view = JsonUtil.fromBytes(b, User.class);
+        this.verify(user, view);
+    }
 
     @Test
     void testToString() {

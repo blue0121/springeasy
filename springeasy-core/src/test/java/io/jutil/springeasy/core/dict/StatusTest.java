@@ -22,6 +22,8 @@ class StatusTest {
         Assertions.assertEquals(0, obj.getIntValue("value"));
         Assertions.assertEquals("正常", obj.getString("name"));
         Assertions.assertEquals("primary", obj.getString("color"));
+
+        Assertions.assertEquals("Status{正常}", status.toString());
     }
 
     @Test
