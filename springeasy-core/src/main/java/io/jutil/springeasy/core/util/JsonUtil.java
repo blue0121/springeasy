@@ -89,8 +89,8 @@ public class JsonUtil {
 			return null;
 		}
 
-		if (object instanceof byte[]) {
-			return String.format("{%d byte array}", ((byte[]) object).length);
+		if (object instanceof byte[] bytes) {
+			return String.format("{%d byte array}", bytes.length);
 		}
 
 		if (object instanceof CharSequence) {

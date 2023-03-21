@@ -10,12 +10,12 @@ public class ExceptionUtil {
 	private ExceptionUtil() {
 	}
 
-	public static Throwable getRootCause(Exception e) {
-		Throwable ee = e;
+	public static Throwable getRootCause(Throwable e) {
+		Throwable ee = e.getCause();
 		while (ee != null) {
 			ee = ee.getCause();
 		}
-		return ee;
+		return e;
 	}
 
 	/**
@@ -36,9 +36,7 @@ public class ExceptionUtil {
 	 * @return 字符串
 	 */
 	public static String exceptionToString(Throwable e, int lines) {
-		while (e.getCause() != null) {
-			e = e.getCause();
-		}
+		e = getRootCause(e);
 
 		lines = Math.max(1, lines);
 		StringBuilder sb = new StringBuilder(4096);

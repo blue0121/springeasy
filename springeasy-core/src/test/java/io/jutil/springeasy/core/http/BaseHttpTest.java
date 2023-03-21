@@ -16,6 +16,7 @@ public abstract class BaseHttpTest {
     protected int port;
 
     protected HttpTemplate httpTemplate;
+    protected AsyncHttpTemplate asyncHttpTemplate;
 
 
     protected void init() {
@@ -25,6 +26,11 @@ public abstract class BaseHttpTest {
                 .setBaseUrl(baseUrl)
                 .setHttpClient(httpClient)
                 .build();
+
+        asyncHttpTemplate = HttpTemplateBuilder.create()
+                .setBaseUrl(baseUrl)
+                .setHttpClient(httpClient)
+                .buildAsync();
 
     }
 }

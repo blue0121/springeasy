@@ -32,7 +32,7 @@ public class DefaultAsyncHttpTemplate extends AbstractHttpTemplate implements As
 		var publisher = this.publisher(body);
 		var builder = this.builder(uri, method, header, publisher);
 		var future = httpClient.sendAsync(builder.build(), HttpResponse.BodyHandlers.ofString());
-		return future.thenApply(s -> new DefaultStringResponse(s));
+		return future.thenApply(DefaultStringResponse::new);
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class DefaultAsyncHttpTemplate extends AbstractHttpTemplate implements As
 		var publisher = this.publisher(body);
 		var builder = this.builder(uri, method, header, publisher);
 		var future = httpClient.sendAsync(builder.build(), HttpResponse.BodyHandlers.ofFile(file));
-		return future.thenApply(s -> new DefaultPathResponse(s));
+		return future.thenApply(DefaultPathResponse::new);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class DefaultAsyncHttpTemplate extends AbstractHttpTemplate implements As
 		var pub = this.buildBodyPublisher(publisher, textParam, fileParam);
 		var builder = this.builder(uri, method, header, pub);
 		var future = httpClient.sendAsync(builder.build(), HttpResponse.BodyHandlers.ofString());
-		return future.thenApply(s -> new DefaultStringResponse(s));
+		return future.thenApply(DefaultStringResponse::new);
 	}
 
 }

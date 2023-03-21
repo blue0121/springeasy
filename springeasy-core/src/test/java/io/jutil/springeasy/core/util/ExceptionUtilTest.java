@@ -11,8 +11,9 @@ class ExceptionUtilTest {
 
     @Test
     void testExceptionToString() {
-        var ex = new RuntimeException();
+        var ex = new RuntimeException("exe");
         var str = ExceptionUtil.exceptionToString(ex);
+        System.out.println(str);
         Assertions.assertNotNull(str);
     }
 

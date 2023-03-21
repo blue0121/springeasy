@@ -257,8 +257,7 @@ public class StringUtil {
 			return null;
 		}
 
-		String jdbcType = jdbcUrl.substring(len, index);
-		return jdbcType;
+		return jdbcUrl.substring(len, index);
 	}
 
 	/**
