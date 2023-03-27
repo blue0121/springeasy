@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
  * @author Jin Zheng
  * @since 1.0 2021-04-23
  */
-class CacheExpiry {
+class CacheExpiryTest {
     private Cache<Integer, Integer> cache;
 
 	@BeforeEach

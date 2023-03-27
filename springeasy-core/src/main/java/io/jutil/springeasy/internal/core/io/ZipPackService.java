@@ -28,7 +28,7 @@ public class ZipPackService implements PackService {
 
 	@Override
 	public void pack(String packPath, String... srcPaths) throws PackException {
-		AssertUtil.notEmpty(packPath, "Zip file path");
+		AssertUtil.notEmpty(packPath, "Pack path");
 		AssertUtil.notEmpty(srcPaths, "Source Paths");
 		var buf = new byte[IoConst.BUFFER_SIZE];
 		var target = this.buildPath(true, rootPath, packPath);
@@ -62,8 +62,8 @@ public class ZipPackService implements PackService {
 
 	@Override
 	public void unpack(String packPath, String unpackPath) throws PackException {
-		AssertUtil.notEmpty(packPath, "Zip file path");
-		AssertUtil.notEmpty(unpackPath, "Zip file path");
+		AssertUtil.notEmpty(packPath, "Pack path");
+		AssertUtil.notEmpty(unpackPath, "Unpack path");
 		var target = this.buildPath(false, rootPath, packPath);
 		var unzip = this.buildPath(true, rootPath, unpackPath);
 		if (!Files.exists(target)) {

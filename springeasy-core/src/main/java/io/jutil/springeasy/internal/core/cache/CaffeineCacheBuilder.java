@@ -16,8 +16,6 @@ import java.util.concurrent.TimeUnit;
 public class CaffeineCacheBuilder implements CacheBuilder {
 	private Caffeine<Object, Object> caffeine = Caffeine.newBuilder();
 
-	public CaffeineCacheBuilder() {
-	}
 
 	@Override
 	public CaffeineCacheBuilder expireAfterWrite(long val, TimeUnit unit) {

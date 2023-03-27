@@ -21,11 +21,11 @@ class SingletonTest {
 		Assertions.assertEquals(1, Singleton.size());
 		Group group2 = Singleton.get(Group.class, k -> new Group());
 		Assertions.assertEquals(1, Singleton.size());
-		Assertions.assertTrue(group1 == group2);
+		Assertions.assertSame(group1, group2);
 	}
 
 	@Test
-	public void testPut() {
+	void testPut() {
 		Group group1 = new Group();
 		Group group2 = new Group();
 
@@ -37,7 +37,7 @@ class SingletonTest {
 	}
 
 	@Test
-	public void testRemove() {
+	void testRemove() {
 		Group group1 = new Group();
 		Singleton.put(group1);
 		Assertions.assertEquals(1, Singleton.size());
