@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,6 +33,19 @@ class CacheLoaderTest {
         Assertions.assertEquals(100, cache.get(10));
         cache.put(10, 10);
         Assertions.assertEquals(10, cache.get(10));
+    }
+
+    @Test
+    void testGetAll() {
+        var rs = Map.of(1, 10, 2, 20, 3, 30);
+        var kset = List.of(1, 2, 3);
+        Assertions.assertEquals(rs, cache.getAll(kset));
+
+        cache.refreshAll(kset);
+        Assertions.assertEquals(rs, cache.getAll(kset));
+
+        cache.removeAll(kset);
+        Assertions.assertEquals(rs, cache.getAll(kset));
     }
 
 }

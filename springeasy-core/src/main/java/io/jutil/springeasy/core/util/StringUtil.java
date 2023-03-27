@@ -1,9 +1,5 @@
 package io.jutil.springeasy.core.util;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -108,7 +104,8 @@ public class StringUtil {
 	 * @param split  变量分栏符
 	 * @return 生成的字符串
 	 */
-	public static String template(String template, Map<String, String> param, String prefix, String suffix, String split) {
+	public static String template(String template, Map<String, String> param,
+	                              String prefix, String suffix, String split) {
 		AssertUtil.notEmpty(template, "模板");
 		AssertUtil.notEmpty(param, "参数");
 		AssertUtil.notEmpty(prefix, "前缀");
@@ -146,31 +143,6 @@ public class StringUtil {
 			content.append(template.substring(endPos + suffix.length()));
 		}
 		return content.toString();
-	}
-
-	/**
-	 * 从类所在模块路径文件读取文本
-	 *
-	 * @param path     classpath: 开头表示从类路径读取，否则从文件系统读取
-	 * @return 读取的文本
-	 */
-	public static String getString(String path) {
-		AssertUtil.notEmpty(path, "Path");
-
-		if (FileUtil.isClassPath(path)) {
-			var classpath = FileUtil.extractClassPath(path);
-			try (var is = StringUtil.class.getResourceAsStream(classpath)) {
-				return new String(is.readAllBytes(), StandardCharsets.UTF_8);
-			} catch (IOException e) {
-				throw new UncheckedIOException(e);
-			}
-		}
-
-		try (var is = new FileInputStream(path)) {
-			return new String(is.readAllBytes(), StandardCharsets.UTF_8);
-		} catch (IOException e) {
-			throw new UncheckedIOException(e);
-		}
 	}
 
 	/**

@@ -1,7 +1,5 @@
 package io.jutil.springeasy.core.util;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -86,17 +84,6 @@ class StringUtilTest {
 		Assertions.assertEquals("oracle", StringUtil.getJdbcType("jdbc:oracle:thin:@localhost:1521:db"));
 		Assertions.assertEquals("sqlserver", StringUtil.getJdbcType("jdbc:sqlserver://localhost:1433;databasename=db"));
 		Assertions.assertEquals("postgresql", StringUtil.getJdbcType("jdbc:postgresql://localhost:5432/db"));
-	}
-
-	@Test
-	void testGetString() {
-		String json = StringUtil.getString("classpath:/json/string.json");
-		System.out.println(json);
-		Assertions.assertNotNull(json);
-		Assertions.assertFalse(json.isEmpty());
-		JSONObject object = JSON.parseObject(json);
-		Assertions.assertNotNull(object);
-		Assertions.assertEquals("blue", object.getString("name"));
 	}
 
 	@Test

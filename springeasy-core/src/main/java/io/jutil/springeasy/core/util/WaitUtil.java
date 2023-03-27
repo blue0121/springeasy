@@ -19,7 +19,13 @@ public class WaitUtil {
 	}
 
 	public static void await(CountDownLatch latch) {
-		await(latch, DEFAULT_TIMEOUT, DEFAULT_TIME_UNIT);
+		try {
+			latch.await();
+		}
+		catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			log.warn("CountDownLatch await timeout");
+		}
 	}
 
 	public static void await(CountDownLatch latch, long timeout, TimeUnit unit) {
@@ -34,7 +40,8 @@ public class WaitUtil {
 			unit = DEFAULT_TIME_UNIT;
 		}
 		try {
-			latch.await(timeout, unit);
+			var rs = latch.await(timeout, unit);
+			log.debug("CountDownLatch await result: {}", rs);
 		}
 		catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
