@@ -36,17 +36,17 @@ public class ExceptionUtil {
 	 * @return 字符串
 	 */
 	public static String exceptionToString(Throwable e, int lines) {
-		e = getRootCause(e);
+		var ee = getRootCause(e);
 
 		lines = Math.max(1, lines);
 		StringBuilder sb = new StringBuilder(4096);
 
-		sb.append(e.getClass().getName())
+		sb.append(ee.getClass().getName())
 				.append(" -- ")
-				.append(e.getLocalizedMessage())
+				.append(ee.getLocalizedMessage())
 				.append("\n");
 
-		StackTraceElement[] elements = e.getStackTrace();
+		StackTraceElement[] elements = ee.getStackTrace();
 		int i = 1;
 		for (StackTraceElement element : elements) {
 			sb.append("  at ")

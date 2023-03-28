@@ -15,6 +15,9 @@ import java.util.zip.ZipOutputStream;
 @Slf4j
 class ZipFileUtil {
 
+	private ZipFileUtil() {
+	}
+
 	static void zip(ZipOutputStream out, Path srcPath, Path filePath,
 	                byte[] buf) throws IOException {
 		var entryName = srcPath.relativize(filePath).toString();

@@ -61,6 +61,7 @@ public class ZipPackService implements PackService {
 	}
 
 	@Override
+	@SuppressWarnings("java:S5042")
 	public void unpack(String packPath, String unpackPath) throws PackException {
 		AssertUtil.notEmpty(packPath, "Pack path");
 		AssertUtil.notEmpty(unpackPath, "Unpack path");
