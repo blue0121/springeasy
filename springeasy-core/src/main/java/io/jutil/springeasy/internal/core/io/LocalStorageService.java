@@ -18,7 +18,7 @@ import java.nio.file.StandardCopyOption;
  */
 @Slf4j
 public class LocalStorageService implements StorageService {
-	private final DeleteDirectory DELETE_DIR = new DeleteDirectory();
+	private static final DeleteDirectory DELETE_DIR = new DeleteDirectory();
 	private final String rootPath;
 
 	public LocalStorageService(String rootPath) {

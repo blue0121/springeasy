@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
  * @author Jin Zheng
  * @since 2023-01-28
  */
+@SuppressWarnings("java:S5976")
 class DictionaryConverterTest extends BaseTest {
     private Status status = Status.ACTIVE;
 

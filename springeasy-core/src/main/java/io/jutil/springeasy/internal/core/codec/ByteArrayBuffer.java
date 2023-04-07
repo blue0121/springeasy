@@ -17,8 +17,6 @@ public class ByteArrayBuffer {
 
 	private byte[] buffer;
 
-	public ByteArrayBuffer() {
-	}
 
 	public void writeByte(byte val) {
 		this.buffer[writeIndex++] = val;

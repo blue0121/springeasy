@@ -33,7 +33,7 @@ public class Singleton {
 
 	public static void remove(Object object) {
 		AssertUtil.notNull(object, "Object");
-		if (object instanceof Class clazz) {
+		if (object instanceof Class<?> clazz) {
 			POOL.remove(clazz);
 		}
 		else {

@@ -88,7 +88,7 @@ public class ByteArrayDecoder implements Decoder {
 	@Override
 	public boolean readBoolean() {
 		byte val = this.readByte();
-		return !(val == (byte) 0);
+		return val != (byte) 0;
 	}
 
 	@Override

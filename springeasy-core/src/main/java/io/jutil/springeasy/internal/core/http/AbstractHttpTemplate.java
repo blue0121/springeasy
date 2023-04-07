@@ -70,7 +70,10 @@ public abstract class AbstractHttpTemplate {
 
 	protected void handleException(Exception cause) {
 		log.error("Error, ", cause);
-		if (cause instanceof IOException ex) {
+		if (cause instanceof InterruptedException e) {
+			Thread.currentThread().interrupt();
+			log.warn("interrupt", e);
+		} else if (cause instanceof IOException ex) {
 			throw new UncheckedIOException(ex);
 		}
 	}
