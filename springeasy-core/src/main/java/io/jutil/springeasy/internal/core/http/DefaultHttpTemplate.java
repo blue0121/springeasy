@@ -27,6 +27,7 @@ public class DefaultHttpTemplate extends AbstractHttpTemplate implements HttpTem
 	}
 
 	@Override
+	@SuppressWarnings("java:S2142")
 	public StringResponse request(String uri, HttpMethod method, String body,
 	                                  Map<String, String> header) {
 		var publisher = this.publisher(body);
@@ -43,6 +44,7 @@ public class DefaultHttpTemplate extends AbstractHttpTemplate implements HttpTem
 	}
 
 	@Override
+	@SuppressWarnings("java:S2142")
 	public PathResponse download(String uri, HttpMethod method, String body,
 	                                 Path file, Map<String, String> header) {
 		var publisher = this.publisher(body);
@@ -58,6 +60,7 @@ public class DefaultHttpTemplate extends AbstractHttpTemplate implements HttpTem
 	}
 
 	@Override
+	@SuppressWarnings("java:S2142")
 	public StringResponse upload(String uri, HttpMethod method, Map<String, String> textParam,
 	                                 Map<String, Path> fileParam, Map<String, String> header) {
 		var publisher = new MultiPartBodyPublisher();
