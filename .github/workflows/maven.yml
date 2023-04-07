@@ -32,6 +32,8 @@ jobs:
       - name: Dependency check
         uses: dependency-check/Dependency-Check_Action@main
         id: Depcheck
+        env:
+          JAVA_HOME: /opt/jdk
         with:
           project: 'test'
           path: '.'
