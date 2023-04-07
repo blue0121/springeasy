@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Jin Zheng
@@ -52,12 +53,12 @@ public class HashMultiMap<K, V> extends AbstractMultiMap<K, V> {
 
 	@Override
 	public boolean remove(K key, V value) {
-		RemoveResult result = new RemoveResult();
+		var rs = new AtomicBoolean();
 		map.computeIfPresent(key, (k, set) -> {
-			result.result = set.remove(value);
+			rs.set(set.remove(value));
 			return set.isEmpty() ? null : set;
 		});
-		return result.result;
+		return rs.get();
 	}
 
 	@Override
@@ -65,7 +66,4 @@ public class HashMultiMap<K, V> extends AbstractMultiMap<K, V> {
 		return mapType;
 	}
 
-	private class RemoveResult {
-		public boolean result = false;
-	}
 }

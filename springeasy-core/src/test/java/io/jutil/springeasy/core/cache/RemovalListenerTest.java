@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0 2021-08-27
  */
 @Slf4j
-public class RemovalListenerTest implements RemovalListener<Integer, Integer> {
+class RemovalListenerTest implements RemovalListener<Integer, Integer> {
 	private Cache<Integer, Integer> cache;
 
 	private Integer key;
