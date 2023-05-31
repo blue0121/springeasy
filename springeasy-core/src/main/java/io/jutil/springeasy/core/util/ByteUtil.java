@@ -19,21 +19,6 @@ public class ByteUtil {
 		return key;
 	}
 
-	public static String toHexString(byte[] bytes) {
-		if (bytes == null || bytes.length == 0) {
-			return "";
-		}
-		StringBuilder sb = new StringBuilder(bytes.length * 2);
-		for (byte b : bytes) {
-			String hex = Integer.toHexString(b & 0xff);
-			if (hex.length() < 2) {
-				sb.append('0');
-			}
-			sb.append(hex);
-		}
-		return sb.toString();
-	}
-
 	public static byte[] concat(byte[]...buffers) {
 		if (buffers == null || buffers.length == 0) {
 			return new byte[0];

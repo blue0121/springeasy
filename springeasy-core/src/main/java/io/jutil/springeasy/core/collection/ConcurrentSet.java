@@ -10,6 +10,10 @@ import java.util.Set;
  * @since 2023-03-27
  */
 public interface ConcurrentSet<E> extends Set<E> {
+
+	static <E> ConcurrentSet<E> create() {
+		return new ConcurrentHashSet<>();
+	}
 	static <E> ConcurrentSet<E> create(Collection<E> c) {
 		if (c == null || c.isEmpty()) {
 			return new ConcurrentHashSet<>();
@@ -17,4 +21,5 @@ public interface ConcurrentSet<E> extends Set<E> {
 
 		return new ConcurrentHashSet<>(c);
 	}
+
 }

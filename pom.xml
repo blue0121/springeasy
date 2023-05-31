@@ -26,6 +26,7 @@
 
 		<!-- test -->
 		<junit.platform.version>1.9.2</junit.platform.version>
+		<commons-codec.version>1.15</commons-codec.version>
 
 		<!-- maven plugins -->
 		<compiler.version>3.9.0</compiler.version>
@@ -71,6 +72,13 @@
 				<artifactId>lombok</artifactId>
 				<version>${lombok.version}</version>
 				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>${commons-codec.version}</version>
+				<scope>test</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

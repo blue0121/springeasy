@@ -1,5 +1,6 @@
 package io.jutil.springeasy.core.util;
 
+import io.jutil.springeasy.core.codec.Hex;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ class ByteUtilTest {
 	void testRandom() {
 		var key = ByteUtil.random(32);
 		Assertions.assertEquals(32, key.length);
-		var hex = ByteUtil.toHexString(key);
+		var hex = Hex.encode(key);
 		System.out.println(hex);
 		Assertions.assertEquals(64, hex.length());
 	}

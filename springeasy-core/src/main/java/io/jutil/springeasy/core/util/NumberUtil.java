@@ -26,4 +26,14 @@ public class NumberUtil {
         return NUMERIC.matcher(str).matches();
     }
 
+    public static int maskForInt(int length) {
+        AssertUtil.isTrue(length >= 0 && length <= 31, "长度不能小于0或大于31");
+        return ~(-1 << length);
+    }
+
+    public static long maskForLong(int length) {
+        AssertUtil.isTrue(length >= 0 && length <= 63, "长度不能小于0或大于63");
+        return ~(-1L << length);
+    }
+
 }
