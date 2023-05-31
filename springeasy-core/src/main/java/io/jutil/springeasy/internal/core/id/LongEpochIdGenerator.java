@@ -23,7 +23,7 @@ public class LongEpochIdGenerator extends AbstractIdGenerator<Long> {
         this.options = options;
         this.sequenceShift = options.getIpBits();
         this.timestampShift = options.getIpBits() + options.getSequenceBits();
-        this.ip = ((long) NetworkUtil.getIpForInt()) & NumberUtil.maskForInt(options.getIpBits());
+        this.ip = NetworkUtil.getIpForInt() & NumberUtil.maskForInt(options.getIpBits());
 	}
 
     @Override
