@@ -12,21 +12,18 @@ import java.util.concurrent.Executors;
  * @author Jin Zheng
  * @since 2022-08-12
  */
-public abstract class IdGeneratorTest<T> {
+abstract class IdGeneratorTest<T> {
     protected IdGenerator<T> generator;
 
-	public IdGeneratorTest() {
-	}
-
     @Test
-    public void testId() {
+    void testId() {
         for (int i = 0; i < 5; i++) {
             System.out.printf("ID值: %s\n", this.toString(generator.generate()));
         }
     }
 
     @Test
-    public void testSingle() {
+    void testSingle() {
         int count = 1_000_000;
         ConcurrentSet<T> set = ConcurrentSet.create();
         var start = System.currentTimeMillis();
@@ -39,7 +36,7 @@ public abstract class IdGeneratorTest<T> {
     }
 
     @Test
-    public void testMulti() {
+    void testMulti() {
         int threads = 50;
         int count = 100_000;
         ConcurrentSet<T> set = ConcurrentSet.create();

@@ -12,7 +12,7 @@ public class String20IdGenerator extends AbstractIdGenerator<String> {
     private static final int SEQUENCE_BITS = 12;
 
     private final EpochOptions options;
-    private final long timestampShift;
+    private final int timestampShift;
     private final byte[] ip;
 
 	public String20IdGenerator(EpochOptions options) {

@@ -19,28 +19,29 @@ public class NetworkUtil {
 
     public static byte[] getIpForByteArray() {
         var list = getIpList();
-        if (list.isEmpty()) {
-            throw new IllegalArgumentException("无法获取IP");
-        }
+        checkIpList(list);
         return list.get(0).getAddress();
     }
 
     public static String getIpForString() {
         var list = getIpList();
-        if (list.isEmpty()) {
-            throw new IllegalArgumentException("无法获取IP");
-        }
+        checkIpList(list);
         return list.get(0).getHostAddress();
     }
 
     public static int getIpForInt() {
         var list = getIpList();
-        if (list.isEmpty()) {
-            throw new IllegalArgumentException("无法获取IP");
-        }
+        checkIpList(list);
         return list.get(0).hashCode();
     }
 
+    private static void checkIpList(List<Inet4Address> ipList) {
+        if (ipList.isEmpty()) {
+            throw new IllegalArgumentException("无法获取IP");
+        }
+    }
+
+    @SuppressWarnings("java:S135")
     public static List<Inet4Address> getIpList() {
         List<Inet4Address> list = new ArrayList<>();
         try {

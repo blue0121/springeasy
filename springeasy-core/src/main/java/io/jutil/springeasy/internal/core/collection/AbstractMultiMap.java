@@ -43,8 +43,7 @@ public abstract class AbstractMultiMap<K, V> implements MultiMap<K, V> {
 			return null;
 		}
 
-		V value = set.iterator().next();
-		return value;
+		return set.iterator().next();
 	}
 
 	@Override

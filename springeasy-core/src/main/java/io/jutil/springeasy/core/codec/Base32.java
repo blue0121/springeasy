@@ -26,6 +26,7 @@ public class Base32 {
 	private Base32() {
 	}
 
+	@SuppressWarnings("java:S3776")
 	public static String encode(byte[] bytes) {
 		int i = 0;
 		int index = 0;
@@ -62,6 +63,7 @@ public class Base32 {
 		return base32.toString();
 	}
 
+	@SuppressWarnings({"java:S3776", "java:S1659", "java:S135"})
 	public static byte[] decode(final String base32) {
 		int i, index, lookup, offset, digit;
 		byte[] bytes = new byte[base32.length() * 5 / 8];

@@ -29,7 +29,6 @@ public class String24IdGenerator extends AbstractIdGenerator<String> {
 	private synchronized void generateTimestamp(byte[] id) {
 		this.generateSequence();
 		this.writeTimestamp(id, lastTimestamp, 8);
-		//NumberUtil.writeLong(id, 0, lastTimestamp);
 		this.writeTimestamp(id, sequence, 3);
 	}
 

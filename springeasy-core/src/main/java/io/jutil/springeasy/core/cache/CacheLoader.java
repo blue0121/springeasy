@@ -15,5 +15,6 @@ public interface CacheLoader<K, V> {
 		return map.get(key);
 	}
 
+	@SuppressWarnings({"java:S1452", "java:S112"})
 	Map<? extends K, ? extends V> loadAll(Set<? extends K> keys) throws Exception;
 }

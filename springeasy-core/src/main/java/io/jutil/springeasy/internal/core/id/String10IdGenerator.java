@@ -11,7 +11,7 @@ public class String10IdGenerator extends AbstractIdGenerator<String> {
     private static final int SEQUENCE_BITS = 12;
 
     private final EpochOptions options;
-    private final long timestampShift;
+    private final int timestampShift;
 
 	public String10IdGenerator(EpochOptions options) {
         super(SEQUENCE_BITS);

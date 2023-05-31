@@ -10,12 +10,10 @@ import java.time.ZoneId;
  * @author Jin Zheng
  * @since 2022-08-12
  */
-public class EpochIdGeneratorTest {
-	public EpochIdGeneratorTest() {
-	}
+class EpochIdGeneratorTest {
 
     @Test
-    public void testEpoch() {
+    void testEpoch() {
         var now1 = LocalDateTime.now();
         var now2 = System.currentTimeMillis();
         var ts1 = now1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();

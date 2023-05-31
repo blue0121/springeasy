@@ -10,8 +10,8 @@ import io.jutil.springeasy.core.util.NumberUtil;
  */
 public class LongEpochIdGenerator extends AbstractIdGenerator<Long> {
     private final EpochOptions options;
-    private final long sequenceShift;
-    private final long timestampShift;
+    private final int sequenceShift;
+    private final int timestampShift;
     private final long ip;
 
     public LongEpochIdGenerator() {

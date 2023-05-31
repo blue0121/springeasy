@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentMap;
  * @author Jin Zheng
  * @since 2023-03-27
  */
+@SuppressWarnings("java:S2160")
 public class ConcurrentHashSet<E> extends AbstractSet<E> implements ConcurrentSet<E> {
 	private static final Object PRESENT = new Object();
 

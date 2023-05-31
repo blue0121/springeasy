@@ -20,7 +20,6 @@ public class DefaultDictionaryCache implements DictionaryCache {
     private Map<Class<? extends Dictionary>, Map<String, Dictionary>> nameMap = new HashMap<>();
 
 	private DefaultDictionaryCache() {
-
 	}
 
     public static DefaultDictionaryCache getInstance() {

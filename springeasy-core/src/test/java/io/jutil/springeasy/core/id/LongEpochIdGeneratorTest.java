@@ -6,8 +6,8 @@ import io.jutil.springeasy.internal.core.id.LongEpochIdGenerator;
  * @author Jin Zheng
  * @since 2022-08-12
  */
-public class LongEpochIdGeneratorTest extends IdGeneratorTest<Long> {
-	public LongEpochIdGeneratorTest() {
+class LongEpochIdGeneratorTest extends IdGeneratorTest<Long> {
+	LongEpochIdGeneratorTest() {
 		var options = new EpochOptions();
 		options.setIpBits(8);
 		options.setSequenceBits(12);
