@@ -17,9 +17,14 @@ abstract class IdGeneratorTest<T> {
 
     @Test
     void testId() {
-        for (int i = 0; i < 5; i++) {
-            System.out.printf("ID值: %s\n", this.toString(generator.generate()));
+        int count = 5;
+        ConcurrentSet<String> set = ConcurrentSet.create();
+        for (int i = 0; i < count; i++) {
+            var id = this.toString(generator.generate());
+            set.add(id);
+            System.out.printf("ID值: %s\n", id);
         }
+        Assertions.assertEquals(count, set.size());
     }
 
     @Test

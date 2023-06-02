@@ -1,6 +1,6 @@
 package io.jutil.springeasy.springmvc.config;
 
-import io.jutil.springeasy.core.dict.Status;
+import io.jutil.springeasy.core.dictionary.Status;
 import io.jutil.springeasy.springmvc.BaseTest;
 import io.jutil.springeasy.springmvc.controller.DictionaryResponse;
 import org.junit.jupiter.api.Assertions;

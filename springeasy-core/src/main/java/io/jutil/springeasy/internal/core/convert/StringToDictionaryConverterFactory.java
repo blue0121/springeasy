@@ -1,31 +1,27 @@
-package io.jutil.springeasy.spring.convert;
+package io.jutil.springeasy.internal.core.convert;
 
-import io.jutil.springeasy.core.dict.Dictionary;
-import io.jutil.springeasy.core.dict.DictionaryCache;
+import io.jutil.springeasy.core.dictionary.Dictionary;
+import io.jutil.springeasy.core.dictionary.DictionaryCache;
 import io.jutil.springeasy.core.util.NumberUtil;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 
 /**
  * @author Jin Zheng
- * @since 2023-01-28
+ * @since 2023-06-01
  */
 public class StringToDictionaryConverterFactory implements ConverterFactory<String, Dictionary> {
 
     @Override
     public <T extends Dictionary> Converter<String, T> getConverter(Class<T> targetType) {
-        if (!Dictionary.class.isAssignableFrom(targetType)) {
-            throw new IllegalArgumentException("目标类型不是字典类型：" + targetType.getName());
-        }
-
-        return new StringToDictionaryConverter<>(targetType);
+        return new StringToDictionary(targetType);
     }
 
-    private class StringToDictionaryConverter<T extends Dictionary> implements Converter<String, T> {
+    private class StringToDictionary<T extends Dictionary> implements Converter<String, T> {
+        private static final DictionaryCache CACHE = DictionaryCache.getInstance();
         private final Class<T> dictType;
-        private final DictionaryCache cache = DictionaryCache.getInstance();
 
-        public StringToDictionaryConverter(Class<T> dictType) {
+        public StringToDictionary(Class<T> dictType) {
             this.dictType = dictType;
         }
 
@@ -34,6 +30,7 @@ public class StringToDictionaryConverterFactory implements ConverterFactory<Stri
             if (source == null || source.isEmpty()) {
                 return null;
             }
+
             String str = source.trim();
             if (str.isEmpty()) {
                 return null;
@@ -41,10 +38,14 @@ public class StringToDictionaryConverterFactory implements ConverterFactory<Stri
 
             if (NumberUtil.isInteger(str)) {
                 Integer index = Integer.valueOf(str);
-                return cache.getFromIndex(dictType, index);
+                return CACHE.getFromIndex(dictType, index);
             }
             else {
-                return cache.getFromName(dictType, str);
+                var dict = CACHE.getFromName(dictType, str);
+                if (dict != null) {
+                    return dict;
+                }
+                return CACHE.getFromLabel(dictType, str);
             }
         }
     }

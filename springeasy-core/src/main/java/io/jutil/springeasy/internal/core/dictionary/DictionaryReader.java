@@ -31,7 +31,11 @@ public class DictionaryReader<T extends Dictionary> implements ObjectReader<T> {
 			if (NumberUtil.isInteger(val)) {
 				return (T) cache.getFromIndex(clazz, Integer.valueOf(val));
 			}
-			return (T) cache.getFromName(clazz, val);
+			var dict = cache.getFromName(clazz, val);
+			if (dict != null) {
+				return (T) dict;
+			}
+			return (T) cache.getFromLabel(clazz, val);
 		} else if (reader.isObject()) {
 			var map = reader.readObject();
 			var index = (Integer) map.get("index");

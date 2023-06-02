@@ -13,6 +13,7 @@ import java.util.Map;
  * @since 2023-05-28
  */
 @Slf4j
+@SuppressWarnings("java:S6548")
 public class DefaultDictionaryCache implements DictionaryCache {
 	private static DefaultDictionaryCache instance = new DefaultDictionaryCache();
 

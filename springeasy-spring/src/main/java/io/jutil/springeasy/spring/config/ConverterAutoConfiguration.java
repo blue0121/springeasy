@@ -1,9 +1,6 @@
 package io.jutil.springeasy.spring.config;
 
-import io.jutil.springeasy.spring.convert.DictionaryToNumberConverterFactory;
-import io.jutil.springeasy.spring.convert.DictionaryToStringConverter;
-import io.jutil.springeasy.spring.convert.NumberToDictionaryConverterFactory;
-import io.jutil.springeasy.spring.convert.StringToDictionaryConverterFactory;
+import io.jutil.springeasy.internal.core.convert.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +19,14 @@ public class ConverterAutoConfiguration implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
+		registry.addConverterFactory(new LocalDateToDateConverterFactory());
+		registry.addConverterFactory(new StringToDateConverterFactory());
+		registry.addConverterFactory(new StringToLocalDateConverterFactory());
+		registry.addConverterFactory(new DateToLocalDateConverterFactory());
+
 		registry.addConverter(new DictionaryToStringConverter());
-
 		registry.addConverterFactory(new StringToDictionaryConverterFactory());
-		registry.addConverterFactory(new DictionaryToNumberConverterFactory());
 		registry.addConverterFactory(new NumberToDictionaryConverterFactory());
-
-		log.info("Converter register: DictionaryConverter");
+		registry.addConverterFactory(new DictionaryToNumberConverterFactory());
 	}
 }

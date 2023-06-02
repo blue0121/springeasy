@@ -1,25 +1,25 @@
-package io.jutil.springeasy.spring.convert;
+package io.jutil.springeasy.internal.core.convert;
 
-import io.jutil.springeasy.core.dict.Dictionary;
+import io.jutil.springeasy.core.dictionary.Dictionary;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.util.NumberUtils;
 
 /**
  * @author Jin Zheng
- * @since 2023-01-28
+ * @since 2023-06-01
  */
 public class DictionaryToNumberConverterFactory implements ConverterFactory<Dictionary, Number> {
 
     @Override
     public <T extends Number> Converter<Dictionary, T> getConverter(Class<T> targetType) {
-        return new DictionaryToNumberConverter<>(targetType);
+        return new DictionaryToNumber<>(targetType);
     }
 
-    private class DictionaryToNumberConverter<T extends Number> implements Converter<Dictionary, T> {
+    private class DictionaryToNumber<T extends Number> implements Converter<Dictionary, T> {
         private final Class<T> numType;
 
-        private DictionaryToNumberConverter(Class<T> numType) {
+        private DictionaryToNumber(Class<T> numType) {
             this.numType = numType;
         }
 

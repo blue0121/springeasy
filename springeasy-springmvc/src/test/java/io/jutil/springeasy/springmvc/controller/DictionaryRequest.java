@@ -1,6 +1,6 @@
 package io.jutil.springeasy.springmvc.controller;
 
-import io.jutil.springeasy.core.dict.Status;
+import io.jutil.springeasy.core.dictionary.Status;
 import io.jutil.springeasy.core.validation.group.GetOperation;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;

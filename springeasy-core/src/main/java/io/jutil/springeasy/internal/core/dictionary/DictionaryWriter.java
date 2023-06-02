@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
  * @author Jin Zheng
  * @since 2023-05-28
  */
+@SuppressWarnings("java:S6548")
 public class DictionaryWriter implements ObjectWriter<Object> {
 	public static final DictionaryWriter INSTANCE = new DictionaryWriter();
 
