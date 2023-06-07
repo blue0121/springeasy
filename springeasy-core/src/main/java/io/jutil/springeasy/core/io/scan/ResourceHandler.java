@@ -6,5 +6,12 @@ package io.jutil.springeasy.core.io.scan;
  */
 public interface ResourceHandler {
 
-	void handle(ResourceInfo info);
+	boolean accepted(ResourceInfo info);
+
+	Result handle(ResourceInfo info);
+
+	enum Result {
+		CONTINUE,
+		TERMINATE,
+	}
 }

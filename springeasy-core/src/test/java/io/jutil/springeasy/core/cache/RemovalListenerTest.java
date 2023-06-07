@@ -24,7 +24,7 @@ class RemovalListenerTest implements RemovalListener<Integer, Integer> {
 	@BeforeEach
 	void beforeEach() {
 		cache = Cache.builder()
-				.expireAfterAccess(10, TimeUnit.MILLISECONDS)
+				.expireAfterAccess(100, TimeUnit.MILLISECONDS)
 				.removalListener(this)
 				.build();
 	}
@@ -33,7 +33,7 @@ class RemovalListenerTest implements RemovalListener<Integer, Integer> {
 	void test() {
 		cache.put(1, 1);
 		Assertions.assertEquals(1, cache.get(1).intValue());
-		WaitUtil.sleep(20);
+		WaitUtil.sleep(200);
 		Assertions.assertNull(cache.get(1));
 
 	}
