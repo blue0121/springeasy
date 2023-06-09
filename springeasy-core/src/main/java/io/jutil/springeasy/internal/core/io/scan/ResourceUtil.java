@@ -9,9 +9,21 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2023-06-05
  */
 @Slf4j
-class ResourceUtil {
+public class ResourceUtil {
 
-	static void handle(ResourceInfo info, ResourceHandler...handlers) {
+	public static String dotToSlash(String str) {
+		return str.replace('.', '/');
+	}
+
+	public static String pkgToClasspath(String str) {
+		return "classpath:" + dotToSlash(str);
+	}
+
+	public static String slashToDot(String str) {
+		return str.replace('/', '.');
+	}
+
+	public static void handle(ResourceInfo info, ResourceHandler...handlers) {
 		for (var handler : handlers) {
 			try {
 				if (!handler.accepted(info)) {

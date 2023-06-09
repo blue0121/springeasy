@@ -3,6 +3,7 @@ package io.jutil.springeasy.core.io.scan;
 import io.jutil.springeasy.core.util.AssertUtil;
 import io.jutil.springeasy.core.util.FileUtil;
 import io.jutil.springeasy.internal.core.io.scan.FileSystemResourceScanner;
+import io.jutil.springeasy.internal.core.io.scan.ResourceUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -26,8 +27,8 @@ public class ResourceScannerFacade {
 			return;
 		}
 
-		var pkg = base.replace('.', '/');
-		scanPath("classpath:" + pkg, handlers);
+		var path = ResourceUtil.pkgToClasspath(base);
+		scanPath(path, handlers);
 	}
 
 	public static void scanPath(String base, ResourceHandler...handlers) {
