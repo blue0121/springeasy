@@ -43,13 +43,12 @@ public class ResourceScannerFacade {
 			return;
 		}
 		var path = FileUtil.extractClassPath(base);
-		log.debug("Scan {}", path);
 		var loader = Thread.currentThread().getContextClassLoader();
 		try {
 			var urls = loader.getResources(path);
 			while (urls.hasMoreElements()) {
 				var url = urls.nextElement();
-				handleUrl(base, url, handlers);
+				handleUrl(path, url, handlers);
 			}
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);

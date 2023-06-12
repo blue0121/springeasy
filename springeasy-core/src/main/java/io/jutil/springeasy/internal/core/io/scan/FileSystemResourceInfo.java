@@ -1,6 +1,7 @@
 package io.jutil.springeasy.internal.core.io.scan;
 
 import io.jutil.springeasy.core.io.scan.ResourceInfo;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +13,7 @@ import java.nio.file.Path;
  * @author Jin Zheng
  * @since 2023-06-05
  */
+@Slf4j
 public class FileSystemResourceInfo implements ResourceInfo {
 	private final ClassLoader loader;
 	private final String dir;
@@ -56,6 +58,16 @@ public class FileSystemResourceInfo implements ResourceInfo {
 
 	@Override
 	public Class<?> resolveClass() {
-		return null;
+		var pkg = ResourceUtil.extractPackage(dir, path.toString());
+		if (pkg == null) {
+			return null;
+		}
+
+		try {
+			return loader.loadClass(pkg);
+		} catch (ClassNotFoundException e) {
+			log.warn("Resolve class error, ", e);
+			return null;
+		}
 	}
 }

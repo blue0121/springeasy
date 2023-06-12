@@ -32,15 +32,17 @@ class FileSystemResourceScannerTest {
 		var handler = new FileHandler();
 		ResourceScannerFacade.scanPackage("io.jutil.springeasy.core.io.scan", handler);
 
-		var nameList = handler.nameList;
-		Assertions.assertTrue(nameList.size() > 1);
-		Assertions.assertTrue(nameList.contains("FileSystemResourceScannerTest.class"));
+		Assertions.assertTrue(handler.nameList.size() > 1);
+		Assertions.assertTrue(handler.classList.size() > 1);
+		Assertions.assertTrue(handler.nameList.contains("FileSystemResourceScannerTest.class"));
+		Assertions.assertTrue(handler.classList.contains(FileSystemResourceScannerTest.class));
 	}
 
 	@Getter
 	private class FileHandler implements ResourceHandler {
 		private final List<ResourceInfo> infoList = new ArrayList<>();
 		private final List<String> nameList = new ArrayList<>();
+		private final List<Class<?>> classList = new ArrayList<>();
 
 		@Override
 		public boolean accepted(ResourceInfo info) {
@@ -49,9 +51,13 @@ class FileSystemResourceScannerTest {
 
 		@Override
 		public Result handle(ResourceInfo info) {
-			System.out.println(info.getFileName());
 			infoList.add(info);
 			nameList.add(info.getFileName());
+
+			var clazz = info.resolveClass();
+			if (clazz != null) {
+				classList.add(clazz);
+			}
 			return Result.CONTINUE;
 		}
 	}

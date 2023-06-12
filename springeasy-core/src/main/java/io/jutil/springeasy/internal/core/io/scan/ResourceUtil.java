@@ -10,9 +10,12 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class ResourceUtil {
+	static final char DOT = '.';
+	static final char SLASH = '/';
+	static final String CLASS_EXT = ".class";
 
 	public static String dotToSlash(String str) {
-		return str.replace('.', '/');
+		return str.replace(DOT, SLASH);
 	}
 
 	public static String pkgToClasspath(String str) {
@@ -20,7 +23,11 @@ public class ResourceUtil {
 	}
 
 	public static String slashToDot(String str) {
-		return str.replace('/', '.');
+		return str.replace(SLASH, DOT);
+	}
+
+	public static boolean isClass(String path) {
+		return path.endsWith(CLASS_EXT);
 	}
 
 	public static void handle(ResourceInfo info, ResourceHandler...handlers) {
@@ -37,6 +44,21 @@ public class ResourceUtil {
 				log.error("ResourceHandler error, ", e);
 			}
 		}
+	}
+
+	public static String extractPackage(String base, String path) {
+		var pos = path.indexOf(base);
+		if (pos == -1) {
+			return null;
+		}
+
+		var subPath = path.substring(pos);
+		if (!isClass(subPath)) {
+			return null;
+		}
+
+		var pkg = slashToDot(subPath);
+		return pkg.replace(CLASS_EXT, "");
 	}
 
 }

@@ -33,7 +33,7 @@ public class FileSystemResourceScanner implements ResourceScanner {
 		}
 	}
 
-	private class ScanFileVisitor extends SimpleFileVisitor<Path> {
+	private static class ScanFileVisitor extends SimpleFileVisitor<Path> {
 		private final ClassLoader loader;
 		private final String dir;
 		private final ResourceHandler[] handlers;
