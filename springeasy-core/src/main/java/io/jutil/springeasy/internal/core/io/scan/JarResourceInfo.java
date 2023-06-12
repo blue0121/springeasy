@@ -48,6 +48,7 @@ public class JarResourceInfo implements ResourceInfo {
 	}
 
 	@Override
+	@SuppressWarnings("java:S5042")
 	public long getSize() {
 		return entry.getSize();
 	}

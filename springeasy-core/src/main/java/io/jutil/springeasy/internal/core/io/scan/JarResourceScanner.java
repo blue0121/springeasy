@@ -16,6 +16,7 @@ public class JarResourceScanner implements ResourceScanner {
     public static final JarResourceScanner INSTANCE = new JarResourceScanner();
 
     @Override
+    @SuppressWarnings("java:S5042")
     public void scan(String base, String path, ResourceHandler... handlers) {
         var loader = Thread.currentThread().getContextClassLoader();
         var jarFile = ResourceUtil.extractJarFile(path);
