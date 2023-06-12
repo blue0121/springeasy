@@ -3,6 +3,7 @@ package io.jutil.springeasy.core.io.scan;
 import io.jutil.springeasy.core.util.AssertUtil;
 import io.jutil.springeasy.core.util.FileUtil;
 import io.jutil.springeasy.internal.core.io.scan.FileSystemResourceScanner;
+import io.jutil.springeasy.internal.core.io.scan.JarResourceScanner;
 import io.jutil.springeasy.internal.core.io.scan.ResourceUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -72,6 +73,7 @@ public class ResourceScannerFacade {
 
 	private static void handleJar(String base, String path, ResourceHandler...handlers) {
 		log.debug("Scan jar file, dir: {}, path: {}", base, path);
+		JarResourceScanner.INSTANCE.scan(base, path, handlers);
 	}
 
 }

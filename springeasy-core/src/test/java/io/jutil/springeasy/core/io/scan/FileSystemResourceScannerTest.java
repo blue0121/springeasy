@@ -1,11 +1,7 @@
 package io.jutil.springeasy.core.io.scan;
 
-import lombok.Getter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Jin Zheng
@@ -36,29 +32,5 @@ class FileSystemResourceScannerTest {
 		Assertions.assertTrue(handler.classList.size() > 1);
 		Assertions.assertTrue(handler.nameList.contains("FileSystemResourceScannerTest.class"));
 		Assertions.assertTrue(handler.classList.contains(FileSystemResourceScannerTest.class));
-	}
-
-	@Getter
-	private class FileHandler implements ResourceHandler {
-		private final List<ResourceInfo> infoList = new ArrayList<>();
-		private final List<String> nameList = new ArrayList<>();
-		private final List<Class<?>> classList = new ArrayList<>();
-
-		@Override
-		public boolean accepted(ResourceInfo info) {
-			return true;
-		}
-
-		@Override
-		public Result handle(ResourceInfo info) {
-			infoList.add(info);
-			nameList.add(info.getFileName());
-
-			var clazz = info.resolveClass();
-			if (clazz != null) {
-				classList.add(clazz);
-			}
-			return Result.CONTINUE;
-		}
 	}
 }

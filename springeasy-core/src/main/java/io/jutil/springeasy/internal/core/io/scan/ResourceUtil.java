@@ -13,6 +13,7 @@ public class ResourceUtil {
 	static final char DOT = '.';
 	static final char SLASH = '/';
 	static final String CLASS_EXT = ".class";
+	static final String FILE_PROTOCOL = "file:";
 
 	public static String dotToSlash(String str) {
 		return str.replace(DOT, SLASH);
@@ -28,6 +29,17 @@ public class ResourceUtil {
 
 	public static boolean isClass(String path) {
 		return path.endsWith(CLASS_EXT);
+	}
+
+	public static String extractJarFile(String path) {
+		if (!path.startsWith(FILE_PROTOCOL)) {
+			return null;
+		}
+		var pos = path.indexOf('!');
+		if (pos == -1) {
+			return path.substring(FILE_PROTOCOL.length());
+		}
+		return path.substring(FILE_PROTOCOL.length(), pos);
 	}
 
 	public static void handle(ResourceInfo info, ResourceHandler...handlers) {
@@ -61,4 +73,16 @@ public class ResourceUtil {
 		return pkg.replace(CLASS_EXT, "");
 	}
 
+	public static Class<?> loadClass(ClassLoader loader, String pkg) {
+		if (pkg == null) {
+			return null;
+		}
+
+		try {
+			return loader.loadClass(pkg);
+		} catch (ClassNotFoundException e) {
+			log.warn("Resolve class error, ", e);
+			return null;
+		}
+	}
 }

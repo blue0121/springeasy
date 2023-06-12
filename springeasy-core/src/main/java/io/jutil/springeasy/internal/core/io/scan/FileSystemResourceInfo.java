@@ -59,15 +59,6 @@ public class FileSystemResourceInfo implements ResourceInfo {
 	@Override
 	public Class<?> resolveClass() {
 		var pkg = ResourceUtil.extractPackage(dir, path.toString());
-		if (pkg == null) {
-			return null;
-		}
-
-		try {
-			return loader.loadClass(pkg);
-		} catch (ClassNotFoundException e) {
-			log.warn("Resolve class error, ", e);
-			return null;
-		}
+		return ResourceUtil.loadClass(loader, pkg);
 	}
 }
