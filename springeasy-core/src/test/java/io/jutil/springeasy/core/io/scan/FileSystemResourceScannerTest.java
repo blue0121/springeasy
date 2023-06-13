@@ -16,7 +16,12 @@ class FileSystemResourceScannerTest {
 
 		var infoList = handler.infoList;
 		Assertions.assertEquals(1, infoList.size());
-		Assertions.assertEquals("string.json", infoList.get(0).getFileName());
+		var info = infoList.get(0);
+		Assertions.assertEquals("string.json", info.getFileName());
+		Assertions.assertEquals("""
+				{
+				  "name": "blue"
+				}""", info.readString());
 
 		var nameList = handler.nameList;
 		Assertions.assertEquals(1, nameList.size());
