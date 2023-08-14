@@ -1,6 +1,6 @@
-package io.jutil.springeasy.springmvc.config;
+package io.jutil.springeasy.spring.config.web;
 
-import io.jutil.springeasy.springmvc.exception.ErrorCodeExceptionHandler;
+import io.jutil.springeasy.spring.exception.ErrorCodeExceptionHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

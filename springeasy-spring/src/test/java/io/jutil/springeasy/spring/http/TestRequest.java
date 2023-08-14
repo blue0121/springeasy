@@ -1,5 +1,7 @@
 package io.jutil.springeasy.spring.http;
 
+import io.jutil.springeasy.core.validation.group.GetOperation;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TestRequest {
+	@NotEmpty(groups = {GetOperation.class}, message = "名称不能为空")
 	private String name;
 
 }

@@ -1,4 +1,4 @@
-package io.jutil.springeasy.springmvc.exception;
+package io.jutil.springeasy.spring.exception;
 
 import com.alibaba.fastjson2.JSONObject;
 

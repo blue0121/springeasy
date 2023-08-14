@@ -1,4 +1,4 @@
-package io.jutil.springeasy.springmvc.exception;
+package io.jutil.springeasy.spring.exception;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

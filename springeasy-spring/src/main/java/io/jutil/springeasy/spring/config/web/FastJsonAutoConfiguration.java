@@ -1,4 +1,4 @@
-package io.jutil.springeasy.springmvc.config;
+package io.jutil.springeasy.spring.config.web;
 
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.support.config.FastJsonConfig;

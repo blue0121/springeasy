@@ -1,3 +1,5 @@
 io.jutil.springeasy.spring.config.http.HttpTemplateAutoConfiguration
-io.jutil.springeasy.spring.config.web.ConverterAutoConfiguration
 io.jutil.springeasy.spring.config.schedule.ExecutorAutoConfiguration
+io.jutil.springeasy.spring.config.web.ConverterAutoConfiguration
+io.jutil.springeasy.spring.config.web.FastJsonAutoConfiguration
+io.jutil.springeasy.spring.config.web.ErrorCodeAutoConfiguration

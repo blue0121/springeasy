@@ -1,9 +1,9 @@
-package io.jutil.springeasy.springmvc.config;
+package io.jutil.springeasy.spring.config;
 
 import io.jutil.springeasy.core.util.JsonUtil;
-import io.jutil.springeasy.springmvc.BaseTest;
-import io.jutil.springeasy.springmvc.controller.ErrorCode;
-import io.jutil.springeasy.springmvc.controller.TestRequest;
+import io.jutil.springeasy.spring.BaseTest;
+import io.jutil.springeasy.spring.http.ErrorCode;
+import io.jutil.springeasy.spring.http.TestRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

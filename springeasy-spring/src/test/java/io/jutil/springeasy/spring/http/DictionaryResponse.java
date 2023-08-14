@@ -1,4 +1,4 @@
-package io.jutil.springeasy.springmvc.controller;
+package io.jutil.springeasy.spring.http;
 
 import io.jutil.springeasy.core.dictionary.Status;
 import lombok.Getter;

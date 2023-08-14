@@ -1,4 +1,4 @@
-package io.jutil.springeasy.springmvc;
+package io.jutil.springeasy.spring;
 
 import io.jutil.springeasy.core.http.HttpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

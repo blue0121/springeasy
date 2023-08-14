@@ -1,4 +1,4 @@
-package io.jutil.springeasy.springmvc.exception;
+package io.jutil.springeasy.spring.exception;
 
 import io.jutil.springeasy.core.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;

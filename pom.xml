@@ -8,10 +8,10 @@
 	<artifactId>springeasy</artifactId>
 	<version>${revision}</version>
 	<packaging>pom</packaging>
+
 	<modules>
 		<module>springeasy-core</module>
 		<module>springeasy-spring</module>
-		<module>springeasy-springmvc</module>
 	</modules>
 
 	<properties>
