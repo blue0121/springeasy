@@ -1,2 +1,3 @@
-io.jutil.springeasy.spring.config.HttpTemplateAutoConfiguration
-io.jutil.springeasy.spring.config.ConverterAutoConfiguration
+io.jutil.springeasy.spring.config.http.HttpTemplateAutoConfiguration
+io.jutil.springeasy.spring.config.web.ConverterAutoConfiguration
+io.jutil.springeasy.spring.config.schedule.ExecutorAutoConfiguration

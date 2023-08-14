@@ -1,4 +1,4 @@
-package io.jutil.springeasy.spring.config;
+package io.jutil.springeasy.spring.config.http;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

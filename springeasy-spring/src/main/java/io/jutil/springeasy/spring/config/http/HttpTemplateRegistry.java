@@ -1,6 +1,7 @@
-package io.jutil.springeasy.spring.bean;
+package io.jutil.springeasy.spring.config.http;
 
-import io.jutil.springeasy.spring.config.HttpProperties;
+import io.jutil.springeasy.spring.http.AsyncHttpTemplateFactoryBean;
+import io.jutil.springeasy.spring.http.HttpTemplateFactoryBean;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;

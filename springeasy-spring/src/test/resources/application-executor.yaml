@@ -1,0 +1,15 @@
+springeasy:
+  executor:
+    enabled: true
+    configs:
+      - id: executor1
+        enabled: true
+        core-size: 1
+        queueCapacity: 0
+        max-size: 10
+      - id: executor2
+        enabled: true
+        core-size: 1
+        queueCapacity: 10
+        max-size: 10
+

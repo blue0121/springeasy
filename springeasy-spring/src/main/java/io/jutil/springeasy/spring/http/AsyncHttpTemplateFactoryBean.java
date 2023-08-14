@@ -1,4 +1,4 @@
-package io.jutil.springeasy.spring.bean;
+package io.jutil.springeasy.spring.http;
 
 import io.jutil.springeasy.core.http.AsyncHttpTemplate;
 import io.jutil.springeasy.core.http.HttpTemplateBuilder;

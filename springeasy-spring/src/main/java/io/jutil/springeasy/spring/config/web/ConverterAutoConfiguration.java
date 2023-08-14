@@ -1,4 +1,4 @@
-package io.jutil.springeasy.spring.config;
+package io.jutil.springeasy.spring.config.web;
 
 import io.jutil.springeasy.internal.core.convert.*;
 import lombok.extern.slf4j.Slf4j;
