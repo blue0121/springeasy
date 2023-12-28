@@ -45,4 +45,14 @@ public class ByteUtil {
 		}
 		return data;
 	}
+
+	public static byte[] mask(byte[] src) {
+		if (src == null || src.length == 0) {
+			return src;
+		}
+		for (int i = 0; i < src.length; i++) {
+			src[i] = (byte)((src[i] + i + 1) & 0xff);
+		}
+		return src;
+	}
 }

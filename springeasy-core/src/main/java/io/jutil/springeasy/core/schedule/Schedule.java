@@ -1,7 +1,5 @@
 package io.jutil.springeasy.core.schedule;
 
-import io.jutil.springeasy.internal.core.schedule.CronSchedule;
-
 import java.util.concurrent.ExecutorService;
 
 /**

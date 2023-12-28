@@ -1,7 +1,5 @@
 package io.jutil.springeasy.core.http;
 
-import io.jutil.springeasy.internal.core.http.HttpConst;
-
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;

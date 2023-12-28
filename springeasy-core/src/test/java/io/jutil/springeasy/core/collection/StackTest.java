@@ -11,7 +11,7 @@ class StackTest {
 
 	@Test
 	void testEmpty() {
-		Stack<Integer> stack = Stack.create();
+		Stack<Integer> stack = new Stack<>();
 		Assertions.assertNull(stack.peek());
 		Assertions.assertEquals(0, stack.size());
 		Assertions.assertTrue(stack.isEmpty());
@@ -22,7 +22,7 @@ class StackTest {
 
 	@Test
 	void testPush() {
-		Stack<Integer> stack = Stack.create();
+		Stack<Integer> stack = new Stack<>();
 		stack.push(1);
 		Assertions.assertFalse(stack.isEmpty());
 		Assertions.assertEquals(1, stack.size());

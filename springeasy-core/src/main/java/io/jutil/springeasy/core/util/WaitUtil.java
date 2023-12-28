@@ -12,9 +12,6 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class WaitUtil {
 
-	public static final long DEFAULT_TIMEOUT = 5;
-	public static final TimeUnit DEFAULT_TIME_UNIT = TimeUnit.SECONDS;
-
 	private WaitUtil() {
 	}
 
@@ -28,25 +25,16 @@ public class WaitUtil {
 		}
 	}
 
-	public static void await(CountDownLatch latch, long timeout, TimeUnit unit) {
-		if (latch == null) {
-			return;
-		}
-
-		if (timeout <= 0) {
-			timeout = DEFAULT_TIMEOUT;
-		}
-		if (unit == null) {
-			unit = DEFAULT_TIME_UNIT;
-		}
+	public static boolean await(CountDownLatch latch, long timeout, TimeUnit unit) {
+		boolean rs = false;
 		try {
-			var rs = latch.await(timeout, unit);
+			rs = latch.await(timeout, unit);
 			log.debug("CountDownLatch await result: {}", rs);
-		}
-		catch (InterruptedException e) {
+		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			log.warn("CountDownLatch await timeout");
 		}
+		return rs;
 	}
 
 	public static void sleep(long millis) {

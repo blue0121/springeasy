@@ -2,7 +2,7 @@ package io.jutil.springeasy.spring.exception;
 
 /**
  * @author Jin Zheng
- * @since 2023-01-02-16:34
+ * @since 2023-10-05
  */
 public class ErrorCodeException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
@@ -22,11 +22,11 @@ public class ErrorCodeException extends RuntimeException {
 	}
 
 	public int getCode() {
-		return errorCode.getCode();
+		return errorCode.code();
 	}
 
 	public int getHttpStatus() {
-		return errorCode.getHttpStatus();
+		return errorCode.httpStatus();
 	}
 
 	public String toJsonString() {

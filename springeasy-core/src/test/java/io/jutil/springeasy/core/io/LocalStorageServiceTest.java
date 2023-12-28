@@ -1,6 +1,6 @@
 package io.jutil.springeasy.core.io;
 
-import io.jutil.springeasy.internal.core.io.LocalStorageService;
+import io.jutil.springeasy.core.io.impl.LocalStorageService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +21,7 @@ class LocalStorageServiceTest {
 	private final String dir;
 	private final String filename;
 	private final String rootPath = "/tmp";
-	private final String source = "/log4j2.xml";
+	private final String source = "/logback.xml";
 
 	LocalStorageServiceTest() {
 		storageService = new LocalStorageService(rootPath);

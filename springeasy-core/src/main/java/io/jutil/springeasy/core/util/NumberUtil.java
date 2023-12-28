@@ -7,10 +7,10 @@ import java.util.regex.Pattern;
  * @since 2023-01-28
  */
 public class NumberUtil {
-    public static final Pattern NUMERIC = Pattern.compile("^[-+]?[\\d]*$");
+    public static final Pattern INTEGER = Pattern.compile("^[-+]?[\\d]*$");
 
-	private NumberUtil() {
-	}
+    private NumberUtil() {
+    }
 
     /**
      * 判断是否为整型数字字符串
@@ -23,7 +23,7 @@ public class NumberUtil {
             return false;
         }
 
-        return NUMERIC.matcher(str).matches();
+        return INTEGER.matcher(str).matches();
     }
 
     public static int maskForInt(int length) {
@@ -34,6 +34,33 @@ public class NumberUtil {
     public static long maskForLong(int length) {
         AssertUtil.isTrue(length >= 0 && length <= 63, "长度不能小于0或大于63");
         return ~(-1L << length);
+    }
+
+    public static String byteFormat(long size) {
+        String[] a = {"B", "KB", "MB", "GB", "TB", "PB", "EB"};
+        double val = size;
+        int pos = 0;
+        while (val >= 1024.0d && pos < a.length) {
+            val /= 1024;
+            pos++;
+        }
+        return String.format("%.2f%s", val, a[pos]);
+    }
+
+    public static int zigZagEncode(int i) {
+        return (i >> 31) ^ (i << 1);
+    }
+
+    public static long zigZagEncode(long l) {
+        return (l >> 63) ^ (l << 1);
+    }
+
+    public static int zigZagDecode(int i) {
+        return ((i >>> 1) ^ -(i & 1));
+    }
+
+    public static long zigZagDecode(long l) {
+        return ((l >>> 1) ^ -(l & 1));
     }
 
 }

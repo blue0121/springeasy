@@ -7,44 +7,60 @@ import java.time.ZoneId;
  * @author Jin Zheng
  * @since 2023-05-30
  */
-public class EpochOptions {
+class EpochOptions {
     private LocalDate epoch;
-    private int ipBits;
+    private int machineId;
+    private int machineIdBits;
     private int sequenceBits;
 
-    public EpochOptions() {
-        this.epoch = LocalDate.of(2023, 1, 1);
-        this.ipBits = 16;
-        this.sequenceBits = 8;
+    EpochOptions() {
+        this(0);
     }
 
-    public long getEpochMillis() {
+    EpochOptions(int machineId) {
+        this.epoch = LocalDate.of(2023, 1, 1);
+        this.machineId = machineId;
+        this.machineIdBits = 8;
+        this.sequenceBits = 10;
+    }
+
+
+    long getEpochMillis() {
         return epoch.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
-    public LocalDate getEpoch() {
+    LocalDate getEpoch() {
         return epoch;
     }
 
-    public EpochOptions setEpoch(LocalDate epoch) {
+    EpochOptions setEpoch(LocalDate epoch) {
         this.epoch = epoch;
         return this;
     }
 
-    public int getIpBits() {
-        return ipBits;
+    int getMachineId() {
+        return machineId;
     }
 
-    public EpochOptions setIpBits(int ipBits) {
-        this.ipBits = ipBits;
+    EpochOptions setMachineId(int machineId) {
+        this.machineId = machineId;
         return this;
     }
 
-    public int getSequenceBits() {
+    int getMachineIdBits() {
+        return machineIdBits;
+    }
+
+    EpochOptions setMachineIdBits(int machineIdBits) {
+        this.machineIdBits = machineIdBits;
+        return this;
+    }
+
+    int getSequenceBits() {
         return sequenceBits;
     }
 
-    public EpochOptions setSequenceBits(int sequenceBits) {
+    EpochOptions setSequenceBits(int sequenceBits) {
         this.sequenceBits = sequenceBits;
         return this;
     }

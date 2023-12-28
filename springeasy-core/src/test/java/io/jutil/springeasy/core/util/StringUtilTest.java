@@ -5,50 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 class StringUtilTest {
-
-	@Test
-	void testTemplate1() {
-		String tpl = "{{first.DATA}}车牌：{{keyword1.DATA}}投保公司：{{keyword2.DATA}}车主：{{keyword3.DATA}}报价金额：{{keyword4.DATA}}时间：{{keyword5.DATA}}{{remark.DATA}}";
-		String result = "你好车牌：粤A12345投保公司：中国平安车主：羊驼报价金额：￥1000元时间：2016-02-14通知";
-		Map<String, String> param = new HashMap<>();
-		param.put("first", "你好");
-		param.put("keyword1", "粤A12345");
-		param.put("keyword2", "中国平安");
-		param.put("keyword3", "羊驼");
-		param.put("keyword4", "￥1000元");
-		param.put("keyword5", "2016-02-14");
-		param.put("remark", "通知");
-		String content = StringUtil.template(tpl, param, "{{", ".DATA}}", null);
-		System.out.println(content);
-		Assertions.assertEquals(result, content, "模板消息错误");
-	}
-
-	@Test
-	void testTemplate2() {
-		String tpl = "{one}-{two}={one}";
-		String result = "2-1=2";
-		Map<String, String> param = new HashMap<>();
-		param.put("one", "2");
-		param.put("two", "1");
-		String content = StringUtil.template(tpl, param, "{", "}", null);
-		System.out.println(content);
-		Assertions.assertEquals(result, content, "模板消息错误");
-	}
-
-	@Test
-	void testTemplate3() {
-		String tpl = "${p1:v}-${p2:c}=${p3}";
-		Map<String, String> param = Map.of("p1", "a");
-		String result = "a-c=";
-		String content = StringUtil.template(tpl, param);
-		System.out.println(content);
-		Assertions.assertEquals(result, content, "模板消息错误");
-	}
 
 	@Test
 	void testSplit() {
@@ -96,6 +55,13 @@ class StringUtilTest {
 
 		String repeat3 = StringUtil.repeat("?", 1, null);
 		Assertions.assertEquals("?", repeat3);
+	}
+
+	@Test
+	void testSqlPlaceHolder() {
+		Assertions.assertEquals("?", StringUtil.sqlPlaceHolder(1));
+		Assertions.assertEquals("?,?", StringUtil.sqlPlaceHolder(2));
+		Assertions.assertEquals("?,?,?,?,?", StringUtil.sqlPlaceHolder(5));
 	}
 
 }

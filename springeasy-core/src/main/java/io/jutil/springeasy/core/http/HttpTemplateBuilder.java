@@ -1,7 +1,5 @@
 package io.jutil.springeasy.core.http;
 
-import io.jutil.springeasy.internal.core.http.DefaultHttpTemplateBuilder;
-
 import java.net.http.HttpClient;
 import java.util.Map;
 

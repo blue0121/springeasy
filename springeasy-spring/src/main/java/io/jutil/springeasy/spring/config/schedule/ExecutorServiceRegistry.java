@@ -1,6 +1,5 @@
 package io.jutil.springeasy.spring.config.schedule;
 
-import io.jutil.springeasy.spring.schedule.ExecutorServiceFactoryBean;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;

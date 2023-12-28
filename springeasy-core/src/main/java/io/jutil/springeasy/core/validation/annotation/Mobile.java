@@ -1,6 +1,6 @@
 package io.jutil.springeasy.core.validation.annotation;
 
-import io.jutil.springeasy.internal.core.validator.MobileValidator;
+import io.jutil.springeasy.core.validation.validator.MobileValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 
 /**
  * @author Jin Zheng
- * @since 2023-01-03
+ * @since 2023-10-04
  */
 @Documented
 @Target({ElementType.FIELD})

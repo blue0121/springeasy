@@ -1,7 +1,7 @@
 package io.jutil.springeasy.core.io;
 
-import io.jutil.springeasy.internal.core.io.LocalStorageService;
-import io.jutil.springeasy.internal.core.io.ZipPackService;
+import io.jutil.springeasy.core.io.impl.LocalStorageService;
+import io.jutil.springeasy.core.io.impl.ZipPackService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

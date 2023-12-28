@@ -1,6 +1,8 @@
 package io.jutil.springeasy.core.util;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.filter.Filter;
@@ -14,11 +16,13 @@ import java.nio.charset.StandardCharsets;
 public class JsonUtil {
 	private static JSONWriter.Feature[] writer = new JSONWriter.Feature[] {
 			JSONWriter.Feature.WriteClassName,
-			JSONWriter.Feature.WriteEnumUsingToString
+			JSONWriter.Feature.WriteEnumUsingOrdinal,
+			JSONWriter.Feature.WriteLongAsString
 	};
 
 	private static JSONWriter.Feature[] output = new JSONWriter.Feature[] {
-			JSONWriter.Feature.WriteEnumUsingToString
+			JSONWriter.Feature.WriteEnumUsingOrdinal,
+			JSONWriter.Feature.WriteLongAsString
 	};
 
 	public static Filter AUTO_TYPE_FILTER = JSONReader.autoTypeFilter("io.jutil.springeasy");
@@ -122,4 +126,34 @@ public class JsonUtil {
 		return JSON.parseObject(json, clazz, AUTO_TYPE_FILTER);
 	}
 
+	public static void removeType(Object object) {
+		if (object instanceof JSONObject obj) {
+			obj.remove("@type");
+			for (var attr : obj.entrySet()) {
+				removeType(attr.getValue());
+			}
+		} else if (object instanceof JSONArray array) {
+			for (int i = 0; i < array.size(); i++) {
+				removeType(array.getJSONObject(i));
+			}
+		}
+	}
+
+	public static String toLog(String text) {
+		if (text == null || text.isEmpty()) {
+			return text;
+		}
+		if (!text.contains("\n")) {
+			return text;
+		}
+
+		if (JSON.isValidObject(text)) {
+			return JSON.parseObject(text).toString();
+		}
+		if (JSON.isValidArray(text)) {
+			return JSON.parseArray(text).toString();
+		}
+
+		return text;
+	}
 }

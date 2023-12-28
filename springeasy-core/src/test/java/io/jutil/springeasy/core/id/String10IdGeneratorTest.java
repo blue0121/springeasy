@@ -1,7 +1,5 @@
 package io.jutil.springeasy.core.id;
 
-import io.jutil.springeasy.internal.core.id.String10IdGenerator;
-
 /**
  * @author Jin Zheng
  * @since 2022-08-16

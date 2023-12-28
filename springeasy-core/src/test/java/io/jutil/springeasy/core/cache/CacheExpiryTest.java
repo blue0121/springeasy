@@ -18,12 +18,12 @@ class CacheExpiryTest {
 
             @Override
             public long expireAfterCreate(Integer key, Integer value, long currentTimeMillis) {
-                return 20;
+                return 200;
             }
 
             @Override
             public long expireAfterUpdate(Integer key, Integer value, long currentTimeMillis, long currentDurationMillis) {
-                return 20;
+                return 200;
             }
 
             @Override
@@ -37,13 +37,13 @@ class CacheExpiryTest {
     void testExpiry() {
 	    cache.put(1, 1);
         Assertions.assertEquals(1, cache.get(1));
-        WaitUtil.sleep(50);
+        WaitUtil.sleep(500);
         Assertions.assertNull(cache.get(1));
         cache.put(1, 10);
         Assertions.assertEquals(10, cache.get(1));
-        WaitUtil.sleep(10);
+        WaitUtil.sleep(100);
         Assertions.assertEquals(10, cache.get(1));
-        WaitUtil.sleep(20);
+        WaitUtil.sleep(200);
         Assertions.assertNull(cache.get(1));
     }
 

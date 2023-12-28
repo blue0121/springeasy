@@ -1,7 +1,5 @@
 package io.jutil.springeasy.core.cache;
 
-import io.jutil.springeasy.internal.core.cache.CaffeineCacheBuilder;
-
 import java.util.Collection;
 import java.util.Map;
 

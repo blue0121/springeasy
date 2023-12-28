@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.Date;
@@ -15,6 +17,9 @@ import java.util.Date;
  */
 @Slf4j
 public class DateUtil {
+	public static final DateTimeFormatter DATE_TIME_FORMATTER =
+			DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
 	private DateUtil() {
 	}
 
@@ -32,6 +37,17 @@ public class DateUtil {
 		return now.truncatedTo(unit);
 	}
 
+	public static boolean equal(LocalDateTime time1, LocalDateTime time2) {
+		return equal(time1, time2, ChronoUnit.SECONDS);
+	}
+
+	public static boolean equal(LocalDateTime time1, LocalDateTime time2, TemporalUnit unit) {
+		var ts1 = time1.toInstant(ZoneOffset.UTC).toEpochMilli();
+		var ts2 = time2.toInstant(ZoneOffset.UTC).toEpochMilli();
+		var in = unit.getDuration().toMillis();
+		return Math.abs(ts1 - ts2) < in;
+	}
+
 	public static Date parse(String text, String pattern) {
 		if (text == null || text.isEmpty()) {
 			return null;
@@ -46,6 +62,10 @@ public class DateUtil {
 			log.warn("Unknown date pattern: {} - {}", pattern, text);
 			return null;
 		}
+	}
+
+	public static String format(LocalDateTime dateTime) {
+		return dateTime.format(DATE_TIME_FORMATTER);
 	}
 
 	public static String format(Date date, String pattern) {

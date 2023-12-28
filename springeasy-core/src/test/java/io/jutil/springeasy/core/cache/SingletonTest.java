@@ -41,7 +41,7 @@ class SingletonTest {
 		Group group1 = new Group();
 		Singleton.put(group1);
 		Assertions.assertEquals(1, Singleton.size());
-		Singleton.remove(group1);
+		Singleton.remove(group1.getClass());
 		Assertions.assertEquals(0, Singleton.size());
 		Singleton.put(group1);
 		Assertions.assertEquals(1, Singleton.size());

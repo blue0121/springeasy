@@ -1,23 +1,46 @@
 package io.jutil.springeasy.core.collection;
 
-import io.jutil.springeasy.internal.core.collection.ArrayStack;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Jin Zheng
  * @since 2023-03-27
  */
-public interface Stack<E> {
-	static <T> Stack<T> create() {
-		return new ArrayStack<>();
+public class Stack<E> {
+	private final List<E> array;
+
+	public Stack() {
+		this(10);
 	}
 
-	E pop();
+	public Stack(int capacity) {
+		this.array = new ArrayList<>(capacity);
+	}
 
-	void push(E o);
+	public E pop() {
+		if (array.isEmpty()) {
+			return null;
+		}
+		return array.remove(array.size() - 1);
+	}
 
-	E peek();
+	public void push(E o) {
+		array.add(o);
+	}
 
-	int size();
+	public E peek() {
+		if (array.isEmpty()) {
+			return null;
+		}
+		return array.get(array.size() - 1);
+	}
 
-	boolean isEmpty();
+	public int size() {
+		return array.size();
+	}
+
+	public boolean isEmpty() {
+		return array.isEmpty();
+	}
 }

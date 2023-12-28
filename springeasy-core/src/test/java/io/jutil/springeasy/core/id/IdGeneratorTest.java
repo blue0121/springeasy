@@ -1,10 +1,11 @@
 package io.jutil.springeasy.core.id;
 
-import io.jutil.springeasy.core.collection.ConcurrentSet;
+import io.jutil.springeasy.core.collection.ConcurrentHashSet;
 import io.jutil.springeasy.core.util.WaitUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 
@@ -18,7 +19,7 @@ abstract class IdGeneratorTest<T> {
     @Test
     void testId() {
         int count = 5;
-        ConcurrentSet<String> set = ConcurrentSet.create();
+        Set<String> set = new ConcurrentHashSet<>();
         for (int i = 0; i < count; i++) {
             var id = this.toString(generator.generate());
             set.add(id);
@@ -30,7 +31,7 @@ abstract class IdGeneratorTest<T> {
     @Test
     void testSingle() {
         int count = 1_000_000;
-        ConcurrentSet<T> set = ConcurrentSet.create();
+        Set<T> set = new ConcurrentHashSet<>();
         var start = System.currentTimeMillis();
         for (int j = 0; j < count; j++) {
             this.addId(set);
@@ -44,7 +45,7 @@ abstract class IdGeneratorTest<T> {
     void testMulti() {
         int threads = 50;
         int count = 100_000;
-        ConcurrentSet<T> set = ConcurrentSet.create();
+        Set<T> set = new ConcurrentHashSet<>();
         var executor = Executors.newFixedThreadPool(threads);
         var latch = new CountDownLatch(threads);
         var start = System.currentTimeMillis();
@@ -65,7 +66,7 @@ abstract class IdGeneratorTest<T> {
         Assertions.assertEquals(threads * count, set.size(), "多线程下ID有重复");
     }
 
-    protected void addId(ConcurrentSet<T> set) {
+    protected void addId(Set<T> set) {
         var id = generator.generate();
         if (!set.add(id)) {
             System.out.printf("重复ID: %s\n", this.toString(id));

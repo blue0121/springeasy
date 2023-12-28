@@ -30,7 +30,7 @@ class Base32Test {
 
 	@Test
 	void test2() {
-		var ip = NetworkUtil.getIpForByteArray();
+		var ip = NetworkUtil.getIpv4ForByteArray();
 		System.out.println(Hex.encode(ip));
 		var base32 = Base32.encode(ip);
 		System.out.println(base32);

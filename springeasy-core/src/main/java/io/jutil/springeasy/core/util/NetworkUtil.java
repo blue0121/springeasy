@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.net.Inet4Address;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Jin Zheng
@@ -17,33 +15,26 @@ public class NetworkUtil {
     private NetworkUtil() {
     }
 
-    public static byte[] getIpForByteArray() {
-        var list = getIpList();
-        checkIpList(list);
-        return list.get(0).getAddress();
+    public static byte[] getIpv4ForByteArray() {
+        var ipv4 = getIpv4Address();
+        AssertUtil.notNull(ipv4, "IPv4");
+        return ipv4.getAddress();
     }
 
-    public static String getIpForString() {
-        var list = getIpList();
-        checkIpList(list);
-        return list.get(0).getHostAddress();
+    public static String getIpv4ForString() {
+        var ipv4 = getIpv4Address();
+        AssertUtil.notNull(ipv4, "IPv4");
+        return ipv4.getHostAddress();
     }
 
-    public static int getIpForInt() {
-        var list = getIpList();
-        checkIpList(list);
-        return list.get(0).hashCode();
-    }
-
-    private static void checkIpList(List<Inet4Address> ipList) {
-        if (ipList.isEmpty()) {
-            throw new IllegalArgumentException("无法获取IP");
-        }
+    public static int getIpv4ForInt() {
+        var ipv4 = getIpv4Address();
+        AssertUtil.notNull(ipv4, "IPv4");
+        return ipv4.hashCode();
     }
 
     @SuppressWarnings("java:S135")
-    public static List<Inet4Address> getIpList() {
-        List<Inet4Address> list = new ArrayList<>();
+    public static Inet4Address getIpv4Address() {
         try {
             var networkInterfaces = NetworkInterface.getNetworkInterfaces();
             while (networkInterfaces.hasMoreElements()) {
@@ -51,22 +42,45 @@ public class NetworkUtil {
                 var inetAddresses = networkInterface.getInetAddresses();
                 while (inetAddresses.hasMoreElements()) {
                     var inetAddress = inetAddresses.nextElement();
-                    if (!(inetAddress instanceof Inet4Address)) {
+                    if (!(inetAddress instanceof Inet4Address ipv4)) {
+                        continue;
+                    }
+                    if (ipv4.isLoopbackAddress() || ipv4.isLinkLocalAddress()) {
                         continue;
                     }
 
-                    if (inetAddress.isLoopbackAddress() || inetAddress.isLinkLocalAddress()) {
-                        continue;
-                    }
-
-                    var inet4Address = (Inet4Address) inetAddress;
-                    list.add(inet4Address);
+                    return ipv4;
                 }
             }
         }
         catch (SocketException e) {
             log.error("Error,", e);
         }
-        return list;
+        return null;
+    }
+
+    public static byte[] getHardwareAddress() {
+        try {
+            var networkInterfaces = NetworkInterface.getNetworkInterfaces();
+            while (networkInterfaces.hasMoreElements()) {
+                var networkInterface = networkInterfaces.nextElement();
+                var inetAddresses = networkInterface.getInetAddresses();
+                while (inetAddresses.hasMoreElements()) {
+                    var inetAddress = inetAddresses.nextElement();
+                    if (!(inetAddress instanceof Inet4Address ipv4)) {
+                        continue;
+                    }
+                    if (ipv4.isLoopbackAddress() || ipv4.isLinkLocalAddress()) {
+                        continue;
+                    }
+
+                    return networkInterface.getHardwareAddress();
+                }
+            }
+        }
+        catch (SocketException e) {
+            log.error("Error,", e);
+        }
+        return null;
     }
 }

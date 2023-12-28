@@ -10,9 +10,6 @@ import org.junit.jupiter.params.provider.CsvSource;
  * @since 2023-01-28
  */
 class NumberUtilTest {
-	public NumberUtilTest() {
-	}
-
     @Test
     void testIsInteger() {
         Assertions.assertTrue(NumberUtil.isInteger("-1"));
@@ -56,6 +53,36 @@ class NumberUtilTest {
             Assertions.assertEquals(0, (mask >>> i) & 1, "第 " + i + " 位不为0");
             i++;
         }
+    }
+
+    @CsvSource({"1024,1.00KB", "1048576,1.00MB", "1073741824,1.00GB"})
+    @ParameterizedTest
+    void testByteFormat(long size, String sizeName) {
+        Assertions.assertEquals(sizeName, NumberUtil.byteFormat(size));
+    }
+
+    @CsvSource({"1,2", "0,0", "-1,1"})
+    @ParameterizedTest
+    void testZigZagEncode(int src, int dst) {
+        Assertions.assertEquals(dst, NumberUtil.zigZagEncode(src));
+    }
+
+    @CsvSource({"2,1", "0,0", "1,-1"})
+    @ParameterizedTest
+    void testZigZagDecode(int src, int dst) {
+        Assertions.assertEquals(dst, NumberUtil.zigZagDecode(src));
+    }
+
+    @CsvSource({"1,2", "0,0", "-1,1"})
+    @ParameterizedTest
+    void testZigZagEncode(long src, long dst) {
+        Assertions.assertEquals(dst, NumberUtil.zigZagEncode(src));
+    }
+
+    @CsvSource({"2,1", "0,0", "1,-1"})
+    @ParameterizedTest
+    void testZigZagDecode(long src, long dst) {
+        Assertions.assertEquals(dst, NumberUtil.zigZagDecode(src));
     }
 
 }

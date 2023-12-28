@@ -3,7 +3,6 @@ package io.jutil.springeasy.core.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 字符串工具类
@@ -81,68 +80,6 @@ public class StringUtil {
 			seq.append(suffix);
 		}
 		return list;
-	}
-
-	/**
-	 * 根据模板生成字符串
-	 *
-	 * @param template 模板
-	 * @param param    参数
-	 * @return 生成的字符串
-	 */
-	public static String template(String template, Map<String, String> param) {
-		return template(template, param, "${", "}", ":");
-	}
-
-	/**
-	 * 根据模板生成字符串
-	 *
-	 * @param template 模板
-	 * @param param    参数
-	 * @param prefix   变量前缀
-	 * @param suffix   变量后缀
-	 * @param split  变量分栏符
-	 * @return 生成的字符串
-	 */
-	public static String template(String template, Map<String, String> param,
-	                              String prefix, String suffix, String split) {
-		AssertUtil.notEmpty(template, "模板");
-		AssertUtil.notEmpty(param, "参数");
-		AssertUtil.notEmpty(prefix, "前缀");
-		AssertUtil.notEmpty(suffix, "后缀");
-
-		StringBuilder content = new StringBuilder(template.length() * 2);
-		int startPos = template.indexOf(prefix);
-		int endPos = template.indexOf(suffix, startPos);
-		while (startPos != -1 && endPos > startPos + prefix.length()) {
-			content.append(template.substring(0, startPos));
-			String placeholder = template.substring(startPos + prefix.length(), endPos);
-			String defaultValue = "";
-
-			if (split != null && !split.isEmpty()) {
-				int defaultValuePos = placeholder.indexOf(split);
-				if (defaultValuePos != -1) {
-					defaultValue = placeholder.substring(defaultValuePos + split.length());
-					placeholder = placeholder.substring(0, defaultValuePos);
-				}
-			}
-
-			String paramValue = param.get(placeholder);
-			if (paramValue == null || paramValue.isEmpty()) {
-				paramValue = defaultValue;
-			}
-			content.append(paramValue);
-
-			template = template.substring(endPos + suffix.length());
-			startPos = template.indexOf(prefix);
-			endPos = template.indexOf(suffix, startPos);
-		}
-		if (endPos == -1 || endPos < startPos + prefix.length()) {
-			content.append(template);
-		} else {
-			content.append(template.substring(endPos + suffix.length()));
-		}
-		return content.toString();
 	}
 
 	/**
@@ -255,4 +192,7 @@ public class StringUtil {
 		return concat.toString();
 	}
 
+	public static String sqlPlaceHolder(int count) {
+		return repeat("?", count, ",");
+	}
 }

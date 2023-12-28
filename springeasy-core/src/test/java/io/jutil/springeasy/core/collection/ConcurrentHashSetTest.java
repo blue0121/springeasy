@@ -1,6 +1,5 @@
 package io.jutil.springeasy.core.collection;
 
-import io.jutil.springeasy.internal.core.collection.ConcurrentHashSet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

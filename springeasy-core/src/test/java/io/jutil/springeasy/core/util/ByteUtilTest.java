@@ -60,4 +60,11 @@ class ByteUtilTest {
 		var data5 = ByteUtil.concat(null, new byte[0]);
 		Assertions.assertEquals(0, data5.length);
 	}
+
+	@Test
+	void testMask() {
+		var src1 = new byte[] {1,2,3};
+		var dst1 = new byte[] {2,4,6};
+		Assertions.assertArrayEquals(dst1, ByteUtil.mask(src1));
+	}
 }

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
  * @since 2023-08-13
  */
 class MemoryMutexTest {
-	MutexFactory factory = MutexFactory.createForMemory();
+	MutexFactory factory = new MemoryMutexFactory();
 
 	final String id = "id";
 
