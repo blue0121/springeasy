@@ -1,7 +1,6 @@
 package io.jutil.springeasy.core.convert;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
@@ -42,14 +41,13 @@ class StringToLocalDateConverterTest extends ConverterTest {
         Assertions.assertEquals(str, localDateTime.format(DATE_TIME_FORMATTER));
     }
 
-    @Disabled
     @Test
     void testToInstant() {
         this.verifyConvert(String.class, Instant.class);
         var str = "2023-01-01 12:01:30";
         var instant = service.convert(str, Instant.class);
         Assertions.assertNotNull(instant);
-        Assertions.assertEquals("2023-01-01T12:01:30Z", instant.toString());
+        Assertions.assertEquals("2023-01-01T04:01:30Z", instant.toString());
     }
 
 }

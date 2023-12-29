@@ -1,6 +1,7 @@
 package io.jutil.springeasy.jpa.entity;
 
 import io.jutil.springeasy.core.util.DateUtil;
+import io.jutil.springeasy.jpa.id.String20IdGenerator;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -26,7 +27,7 @@ import java.util.Objects;
 public abstract class BaseString20IdEntity {
 	@Id
 	@GeneratedValue(generator = Generator.STRING_20_ID_NAME)
-	@GenericGenerator(name = Generator.STRING_20_ID_NAME, strategy = Generator.STRING_20_ID_GENERATOR)
+	@GenericGenerator(name = Generator.STRING_20_ID_NAME, type = String20IdGenerator.class)
 	@Column(name = "id", columnDefinition = "char(20)", nullable = false)
 	protected String id;
 
@@ -56,7 +57,7 @@ public abstract class BaseString20IdEntity {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		var that = (BaseLongIdEntity) o;
+		var that = (BaseString20IdEntity) o;
 		return id.equals(that.id);
 	}
 

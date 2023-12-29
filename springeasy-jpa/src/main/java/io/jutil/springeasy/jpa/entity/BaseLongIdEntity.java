@@ -1,6 +1,7 @@
 package io.jutil.springeasy.jpa.entity;
 
 import io.jutil.springeasy.core.util.DateUtil;
+import io.jutil.springeasy.jpa.id.LongIdGenerator;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -26,7 +27,7 @@ import java.util.Objects;
 public abstract class BaseLongIdEntity {
 	@Id
 	@GeneratedValue(generator = Generator.LONG_ID_NAME)
-	@GenericGenerator(name = Generator.LONG_ID_NAME, strategy = Generator.LONG_ID_GENERATOR)
+	@GenericGenerator(name = Generator.LONG_ID_NAME, type = LongIdGenerator.class)
 	@Column(name = "id", columnDefinition = "int8", nullable = false)
 	protected Long id;
 

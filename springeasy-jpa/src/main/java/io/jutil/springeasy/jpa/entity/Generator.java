@@ -7,10 +7,7 @@ package io.jutil.springeasy.jpa.entity;
 class Generator {
 
 	static final String LONG_ID_NAME = "longIdGenerator";
-	static final String LONG_ID_GENERATOR = "io.jutil.springeasy.jpa.id.LongIdGenerator";
-
 	static final String STRING_20_ID_NAME = "string20IdGenerator";
-	static final String STRING_20_ID_GENERATOR = "io.jutil.springeasy.jpa.id.String20IdGenerator";
 
 
 	private Generator() {

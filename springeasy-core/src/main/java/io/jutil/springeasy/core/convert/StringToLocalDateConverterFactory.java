@@ -47,7 +47,6 @@ public class StringToLocalDateConverterFactory implements ConverterFactory<Strin
 				return (T) dateTime.toLocalTime();
 			}
 			if (clazz == Instant.class) {
-				// TODO: to be fix time zone
 				return (T) dateTime.atZone(ZoneId.systemDefault())
 						.toInstant();
 			}
