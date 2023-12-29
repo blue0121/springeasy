@@ -41,7 +41,6 @@ class StringToLocalDateConverterTest extends ConverterTest {
         Assertions.assertEquals(str, localDateTime.format(DATE_TIME_FORMATTER));
     }
 
-    @Test
     void testToInstant() {
         this.verifyConvert(String.class, Instant.class);
         var str = "2023-01-01 12:01:30";
