@@ -1,6 +1,9 @@
 package io.jutil.springeasy.spring.config.web;
 
-import io.jutil.springeasy.internal.core.convert.*;
+import io.jutil.springeasy.core.convert.DateToLocalDateConverterFactory;
+import io.jutil.springeasy.core.convert.LocalDateToDateConverterFactory;
+import io.jutil.springeasy.core.convert.StringToDateConverterFactory;
+import io.jutil.springeasy.core.convert.StringToLocalDateConverterFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +21,10 @@ public class ConverterAutoConfiguration implements InitializingBean {
 	private ConverterRegistry registry;
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		registry.addConverterFactory(new LocalDateToDateConverterFactory());
 		registry.addConverterFactory(new StringToDateConverterFactory());
 		registry.addConverterFactory(new StringToLocalDateConverterFactory());
 		registry.addConverterFactory(new DateToLocalDateConverterFactory());
-
-		registry.addConverter(new DictionaryToStringConverter());
-		registry.addConverterFactory(new StringToDictionaryConverterFactory());
-		registry.addConverterFactory(new NumberToDictionaryConverterFactory());
-		registry.addConverterFactory(new DictionaryToNumberConverterFactory());
 	}
 }

@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: root
+    password: ""
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+      type:
+        json_format_mapper: io.jutil.springeasy.jpa.config.FastjsonFormatMapper
+  flyway:
+    enabled: false
+
