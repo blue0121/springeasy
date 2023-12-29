@@ -65,7 +65,7 @@ public class Sort {
 		}
 	}
 
-	public static enum Direction {
+	public enum Direction {
 		ASC,
 		DESC,
 		;

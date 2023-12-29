@@ -15,6 +15,7 @@ public class StringInValidator implements ConstraintValidator<StringIn, String> 
     private final Set<String> strSet = new HashSet<>();
 
     @Override
+    @SuppressWarnings("java:S3012")
     public void initialize(StringIn annotation) {
         for (var str : annotation.value()) {
             strSet.add(str);

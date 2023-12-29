@@ -13,6 +13,9 @@ public class ResourceUtil {
 	static final String CLASS_EXT = ".class";
 	static final String FILE_PROTOCOL = "file:";
 
+	private ResourceUtil() {
+	}
+
 	public static String dotToSlash(String str) {
 		return str.replace(DOT, SLASH);
 	}

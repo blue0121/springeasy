@@ -49,7 +49,10 @@ class RsaCipherTest {
 	void testNotRsa() {
 		KeyPair key = SecurityFactory.generateKeyPair(KeyPairMode.DSA_512);
 		RsaCipher cipher = SecurityFactory.createRsaCipher();
-		Assertions.assertThrows(SecurityException.class, () -> cipher.encrypt(key.getPublic(), data.getBytes()));
-		Assertions.assertThrows(SecurityException.class, () -> cipher.decrypt(key.getPrivate(), data.getBytes()));
+		var pubKey = key.getPublic();
+		var priKey = key.getPrivate();
+		var bytes = data.getBytes();
+		Assertions.assertThrows(SecurityException.class, () -> cipher.encrypt(pubKey, bytes));
+		Assertions.assertThrows(SecurityException.class, () -> cipher.decrypt(priKey, bytes));
 	}
 }

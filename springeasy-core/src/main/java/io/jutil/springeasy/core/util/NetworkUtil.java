@@ -59,6 +59,7 @@ public class NetworkUtil {
         return null;
     }
 
+    @SuppressWarnings("java:S1168")
     public static byte[] getHardwareAddress() {
         try {
             var networkInterfaces = NetworkInterface.getNetworkInterfaces();

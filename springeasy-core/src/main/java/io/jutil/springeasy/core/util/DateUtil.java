@@ -37,10 +37,13 @@ public class DateUtil {
 		return now.truncatedTo(unit);
 	}
 
+	@SuppressWarnings("java:S1221")
 	public static boolean equal(LocalDateTime time1, LocalDateTime time2) {
 		return equal(time1, time2, ChronoUnit.SECONDS);
 	}
 
+
+	@SuppressWarnings("java:S1221")
 	public static boolean equal(LocalDateTime time1, LocalDateTime time2, TemporalUnit unit) {
 		var ts1 = time1.toInstant(ZoneOffset.UTC).toEpochMilli();
 		var ts2 = time2.toInstant(ZoneOffset.UTC).toEpochMilli();

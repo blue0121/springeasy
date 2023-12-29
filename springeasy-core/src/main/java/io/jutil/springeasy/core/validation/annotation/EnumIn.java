@@ -18,6 +18,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = EnumInValidator.class)
+@SuppressWarnings("java:S1452")
 public @interface EnumIn {
     Class<? extends Enum<?>> value();
 

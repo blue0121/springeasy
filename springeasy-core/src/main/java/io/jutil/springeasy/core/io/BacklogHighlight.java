@@ -12,14 +12,11 @@ import ch.qos.logback.core.pattern.color.ForegroundCompositeConverterBase;
 public class BacklogHighlight extends ForegroundCompositeConverterBase<ILoggingEvent> {
 	@Override
 	protected String getForegroundColorCode(ILoggingEvent event) {
-		switch (event.getLevel().toInt()) {
-			case Level.INFO_INT:
-				return ANSIConstants.BOLD + ANSIConstants.CYAN_FG;
-			case Level.WARN_INT:
-				return ANSIConstants.BOLD + ANSIConstants.MAGENTA_FG;
-			case Level.ERROR_INT:
-				return ANSIConstants.BOLD + ANSIConstants.RED_FG;
-		}
-		return ANSIConstants.DEFAULT_FG;
+		return switch (event.getLevel().toInt()) {
+			case Level.INFO_INT -> ANSIConstants.BOLD + ANSIConstants.CYAN_FG;
+			case Level.WARN_INT -> ANSIConstants.BOLD + ANSIConstants.MAGENTA_FG;
+			case Level.ERROR_INT -> ANSIConstants.BOLD + ANSIConstants.RED_FG;
+			default -> ANSIConstants.DEFAULT_FG;
+		};
 	}
 }

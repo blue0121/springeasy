@@ -21,6 +21,7 @@ class TokenUtilTest {
 		Assertions.assertArrayEquals(data, view);
 
 		var token2 = token + "1";
-		Assertions.assertThrows(TokenException.class, () -> TokenUtil.verify(keyPair.getPublic(), token2));
+		var pubKey = keyPair.getPublic();
+		Assertions.assertThrows(TokenException.class, () -> TokenUtil.verify(pubKey, token2));
 	}
 }

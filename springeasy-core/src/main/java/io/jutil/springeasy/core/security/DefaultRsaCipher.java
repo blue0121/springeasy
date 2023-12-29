@@ -18,6 +18,7 @@ import java.util.Base64;
 class DefaultRsaCipher implements RsaCipher {
 	private static final String ALGORITHM = "RSA";
 
+	@SuppressWarnings({"java:S5542", "java:S112"})
 	private Cipher initCipher(Key key, int mode) throws Exception {
 		AssertUtil.notNull(key, "Key");
 		if (!(key instanceof RSAPrivateKey) && !(key instanceof RSAPublicKey)) {

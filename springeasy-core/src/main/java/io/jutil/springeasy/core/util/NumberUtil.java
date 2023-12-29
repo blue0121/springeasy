@@ -26,11 +26,13 @@ public class NumberUtil {
         return INTEGER.matcher(str).matches();
     }
 
+    @SuppressWarnings("javabugs:S6416")
     public static int maskForInt(int length) {
         AssertUtil.isTrue(length >= 0 && length <= 31, "长度不能小于0或大于31");
         return ~(-1 << length);
     }
 
+    @SuppressWarnings("javabugs:S6416")
     public static long maskForLong(int length) {
         AssertUtil.isTrue(length >= 0 && length <= 63, "长度不能小于0或大于63");
         return ~(-1L << length);

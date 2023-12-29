@@ -8,6 +8,9 @@ import io.jutil.springeasy.core.cache.Singleton;
  */
 public class IdGeneratorFactory {
 
+	private IdGeneratorFactory() {
+	}
+
 	public static String string20() {
 		var id = Singleton.get(String20IdGenerator.class, k -> {
 			var options = new EpochOptions();

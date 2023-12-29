@@ -6,4 +6,7 @@ package io.jutil.springeasy.core.security;
  */
 class SecurityConstant {
     static final int BUF_SIZE = 4096;
+
+    private SecurityConstant() {
+    }
 }
