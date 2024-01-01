@@ -30,6 +30,10 @@ class CodecFactoryTest {
 		obj1.setValDouble(100.001);
 		obj1.setValBool(true);
 		obj1.setValChar('z');
+		obj1.setUInt(127);
+		obj1.setULong(127);
+		obj1.setSInt(-127);
+		obj1.setSLong(-127);
 
 		var base64 = CodecFactory.encodeBase64(obj1);
 		log.info("Byte, len: {}, text: {}", base64.length(), base64);
@@ -46,6 +50,10 @@ class CodecFactoryTest {
 		Assertions.assertEquals(obj1.getValDouble(), obj2.getValDouble());
 		Assertions.assertEquals(obj1.isValBool(), obj2.isValBool());
 		Assertions.assertEquals(obj1.getValChar(), obj2.getValChar());
+		Assertions.assertEquals(obj1.getUInt(), obj2.getUInt());
+		Assertions.assertEquals(obj1.getSInt(), obj2.getSInt());
+		Assertions.assertEquals(obj1.getSInt(), obj2.getSInt());
+		Assertions.assertEquals(obj1.getSLong(), obj2.getSLong());
 	}
 
 	@ParameterizedTest

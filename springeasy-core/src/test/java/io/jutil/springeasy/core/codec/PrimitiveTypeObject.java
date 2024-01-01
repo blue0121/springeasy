@@ -21,6 +21,11 @@ public class PrimitiveTypeObject implements ExternalSerializable {
 	private boolean valBool;
 	private char valChar;
 
+	private int uInt;
+	private long uLong;
+	private int sInt;
+	private long sLong;
+
 	@Override
 	public void encode(Encoder encoder) {
 		encoder.writeByte(valByte);
@@ -31,6 +36,11 @@ public class PrimitiveTypeObject implements ExternalSerializable {
 		encoder.writeDouble(valDouble);
 		encoder.writeBoolean(valBool);
 		encoder.writeChar(valChar);
+
+		encoder.writeUInt(uInt);
+		encoder.writeULong(uLong);
+		encoder.writeSInt(sInt);
+		encoder.writeSLong(sLong);
 	}
 
 	@Override
@@ -43,5 +53,10 @@ public class PrimitiveTypeObject implements ExternalSerializable {
 		this.valDouble = decoder.readDouble();
 		this.valBool = decoder.readBoolean();
 		this.valChar = decoder.readChar();
+
+		this.uInt = decoder.readUInt();
+		this.uLong = decoder.readULong();
+		this.sInt = decoder.readSInt();
+		this.sLong = decoder.readSLong();
 	}
 }

@@ -18,15 +18,26 @@ public interface Encoder {
 
 	void skipWriteIndex(int offset);
 
+	void writeUInt(int val);
+
+	void writeULong(long val);
+
+	void writeSInt(int val);
+
+	void writeSLong(long val);
+
+	void writeInt(int val);
+
+	void writeLong(long val);
+
+
 	void writeByte(byte val);
 
 	void writeBytes(byte[] val);
 
 	void writeShort(short val);
 
-	void writeInt(int val);
 
-	void writeLong(long val);
 
 	void writeFloat(float val);
 

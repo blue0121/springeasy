@@ -1,6 +1,5 @@
 package io.jutil.springeasy.core.codec;
 
-import io.jutil.springeasy.internal.core.codec.ByteArrayBuffer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +18,7 @@ class ByteArrayBufferTest {
 		byte b1 = 1;
 		byte b2 = 2;
 		byte b3 = 3;
-		buffer.addCapacity(3);
+		buffer.ensureCapacity(3);
 		buffer.writeByte(b1);
 		buffer.writeByte(b2);
 		buffer.writeByte(b3);
@@ -39,7 +38,7 @@ class ByteArrayBufferTest {
 		Arrays.fill(b1, (byte) 10);
 		Arrays.fill(b2, (byte) 1);
 
-		buffer.addCapacity(b1.length);
+		buffer.ensureCapacity(b1.length);
 		buffer.writeBytes(b1);
 
 		Assertions.assertEquals(125, buffer.getRemain());
@@ -62,7 +61,7 @@ class ByteArrayBufferTest {
 		Arrays.fill(b1, (byte) 10);
 		Arrays.fill(b2, (byte) 1);
 
-		buffer.addCapacity(b2.length);
+		buffer.ensureCapacity(b2.length);
 		buffer.writeBytes(b2);
 
 		Assertions.assertEquals(127, buffer.getRemain());
@@ -73,5 +72,18 @@ class ByteArrayBufferTest {
 		byte[] b3 = new byte[3];
 		Arrays.fill(b3, (byte)1);
 		Assertions.assertArrayEquals(b3, b1);
+	}
+
+	@Test
+	void testUint() {
+		var encoder = new ByteArrayEncoder(buffer);
+		encoder.writeUInt(0x7f);
+		encoder.writeUInt(0x80);
+		var bytes = new byte[] {0x7f, -0x80, 0x01};
+		Assertions.assertArrayEquals(bytes, encoder.getByteArray());
+
+		var decoder = new ByteArrayDecoder(bytes);
+		Assertions.assertEquals(0x7f, decoder.readUInt());
+		Assertions.assertEquals(0x80, decoder.readUInt());
 	}
 }

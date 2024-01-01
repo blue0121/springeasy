@@ -1,10 +1,10 @@
-package io.jutil.springeasy.internal.core.codec;
+package io.jutil.springeasy.core.codec;
 
 /**
  * @author Jin Zheng
  * @since 2023-04-07
  */
-class CodecConstant {
+class Const {
 	static final int INC_LEFT_SHIFT = 7;
 	static final int INC_CAP = 1 << INC_LEFT_SHIFT;
 	static final int BYTE_LEN = 1;
@@ -14,6 +14,9 @@ class CodecConstant {
 	static final int ZERO_IDX = 0;
 	static final int LEN_EMPTY = 0;
 
-	private CodecConstant() {
+	static final int MAX_VAR_INT_LEN = 5;
+	static final int MAX_VAR_LONG_LEN = 10;
+
+	private Const() {
 	}
 }

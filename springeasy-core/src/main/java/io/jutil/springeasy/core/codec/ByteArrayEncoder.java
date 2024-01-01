@@ -1,8 +1,7 @@
-package io.jutil.springeasy.internal.core.codec;
+package io.jutil.springeasy.core.codec;
 
-import io.jutil.springeasy.core.codec.Encoder;
 import io.jutil.springeasy.core.util.AssertUtil;
-import lombok.NoArgsConstructor;
+import io.jutil.springeasy.core.util.NumberUtil;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
@@ -14,10 +13,12 @@ import java.util.Date;
  * @author Jin Zheng
  * @since 2023-04-07
  */
-@NoArgsConstructor
 public class ByteArrayEncoder implements Encoder {
-	private final ByteArrayBuffer buffer = new ByteArrayBuffer();
+	private final ByteArrayBuffer buffer;
 
+	public ByteArrayEncoder(ByteArrayBuffer buffer) {
+		this.buffer = buffer;
+	}
 
 	@Override
 	public void resetWriteIndex(int offset) {
@@ -30,45 +31,80 @@ public class ByteArrayEncoder implements Encoder {
 	}
 
 	@Override
+	public void writeUInt(int val) {
+		buffer.ensureCapacity(Const.MAX_VAR_INT_LEN);
+		var x = val;
+		while (x >= 0x80) {
+			buffer.writeByte((byte) (x | 0x80));
+			x >>>= 7;
+		}
+		buffer.writeByte((byte) x);
+	}
+
+	@Override
+	public void writeULong(long val) {
+		buffer.ensureCapacity(Const.MAX_VAR_LONG_LEN);
+		var x = val;
+		while (x >= 0x80) {
+			buffer.writeByte((byte) (x | 0x80));
+			x >>>= 7;
+		}
+		buffer.writeByte((byte) x);
+	}
+
+	@Override
+	public void writeSInt(int val) {
+		var x = NumberUtil.zigZagEncode(val);
+		this.writeUInt(x);
+	}
+
+	@Override
+	public void writeSLong(long val) {
+		var x = NumberUtil.zigZagEncode(val);
+		this.writeULong(x);
+	}
+
+	@Override
 	public void writeByte(byte val) {
-		buffer.addCapacity(CodecConstant.BYTE_LEN);
+		buffer.ensureCapacity(Const.BYTE_LEN);
 		buffer.writeByte(val);
 	}
 
 	@Override
 	public void writeBytes(byte[] val) {
 		AssertUtil.notEmpty(val, "Value");
-		buffer.addCapacity(val.length);
+		buffer.ensureCapacity(val.length);
 		buffer.writeBytes(val);
 	}
 
 	@Override
 	public void writeShort(short val) {
-		buffer.addCapacity(CodecConstant.SHORT_LEN);
-		buffer.writeByte((byte) ((val >> 8) & 0xff));
-		buffer.writeByte((byte) (val & 0xff));
+		buffer.ensureCapacity(Const.SHORT_LEN);
+		var x = val;
+		for (int i = 0; i < Const.SHORT_LEN; i++) {
+			buffer.writeByte((byte) (x & 0xff));
+			x >>>= 8;
+		}
 	}
 
 	@Override
 	public void writeInt(int val) {
-		buffer.addCapacity(CodecConstant.INT_LEN);
-		buffer.writeByte((byte) ((val >> 24) & 0xff));
-		buffer.writeByte((byte) ((val >> 16) & 0xff));
-		buffer.writeByte((byte) ((val >> 8) & 0xff));
-		buffer.writeByte((byte) (val & 0xff));
+		buffer.ensureCapacity(Const.INT_LEN);
+		var x = val;
+		for (int i = 0; i < Const.INT_LEN; i++) {
+			buffer.writeByte((byte) (x & 0xff));
+			x >>>= 8;
+		}
 	}
 
 	@Override
 	public void writeLong(long val) {
-		buffer.addCapacity(CodecConstant.LONG_LEN);
-		buffer.writeByte((byte) ((val >> 56) & 0xff));
-		buffer.writeByte((byte) ((val >> 48) & 0xff));
-		buffer.writeByte((byte) ((val >> 40) & 0xff));
-		buffer.writeByte((byte) ((val >> 32) & 0xff));
-		buffer.writeByte((byte) ((val >> 24) & 0xff));
-		buffer.writeByte((byte) ((val >> 16) & 0xff));
-		buffer.writeByte((byte) ((val >> 8) & 0xff));
-		buffer.writeByte((byte) (val & 0xff));
+		buffer.ensureCapacity(Const.LONG_LEN);
+		var x = val;
+		for (int i = 0; i < Const.LONG_LEN; i++) {
+			buffer.writeByte((byte) (x & 0xff));
+			x >>>= 8;
+		}
 	}
 
 	@Override
@@ -83,33 +119,36 @@ public class ByteArrayEncoder implements Encoder {
 
 	@Override
 	public void writeBoolean(boolean val) {
-		buffer.addCapacity(CodecConstant.BYTE_LEN);
+		buffer.ensureCapacity(Const.BYTE_LEN);
 		buffer.writeByte(val ? (byte) 1 : (byte) 0);
 	}
 
 	@Override
 	public void writeChar(char val) {
-		buffer.addCapacity(CodecConstant.SHORT_LEN);
-		buffer.writeByte((byte) ((val >> 8) & 0xff));
-		buffer.writeByte((byte) (val & 0xff));
+		buffer.ensureCapacity(Const.SHORT_LEN);
+		var x = val;
+		for (int i = 0; i < Const.SHORT_LEN; i++) {
+			buffer.writeByte((byte) (x & 0xff));
+			x >>= 8;
+		}
 	}
 
 	@Override
 	public void writeString(String val) {
 		if (val == null || val.isEmpty()) {
-			this.writeInt(CodecConstant.LEN_EMPTY);
+			this.writeUInt(Const.LEN_EMPTY);
 			return;
 		}
 		byte[] bytes = val.getBytes(StandardCharsets.UTF_8);
-		buffer.addCapacity(CodecConstant.INT_LEN + bytes.length);
-		this.writeInt(bytes.length);
+		buffer.ensureCapacity(Const.INT_LEN + bytes.length);
+		this.writeUInt(bytes.length);
 		this.writeBytes(bytes);
 	}
 
 	@Override
 	public void writeDate(Date val) {
 		if (val == null) {
-			this.writeLong(CodecConstant.LEN_EMPTY);
+			this.writeLong(Const.LEN_EMPTY);
 			return;
 		}
 
@@ -119,7 +158,7 @@ public class ByteArrayEncoder implements Encoder {
 	@Override
 	public void writeLocalDateTime(LocalDateTime val) {
 		if (val == null) {
-			this.writeLong(CodecConstant.LEN_EMPTY);
+			this.writeLong(Const.LEN_EMPTY);
 			return;
 		}
 		var instant = val.atZone(ZoneId.systemDefault()).toInstant();
@@ -129,7 +168,7 @@ public class ByteArrayEncoder implements Encoder {
 	@Override
 	public void writeInstant(Instant val) {
 		if (val == null) {
-			this.writeLong(CodecConstant.LEN_EMPTY);
+			this.writeLong(Const.LEN_EMPTY);
 			return;
 		}
 		this.writeLong(val.toEpochMilli());
@@ -146,14 +185,7 @@ public class ByteArrayEncoder implements Encoder {
 	}
 
 	public byte[] getByteArray() {
-		var array = buffer.getByteArray();
-		if (array == null || array.length == 0) {
-			return new byte[CodecConstant.ZERO_IDX];
-		}
-
-		byte[] newBuf = new byte[buffer.getSize()];
-		System.arraycopy(array, CodecConstant.ZERO_IDX, newBuf, CodecConstant.ZERO_IDX, buffer.getSize());
-		return newBuf;
+		return buffer.toByteArray();
 	}
 
 }

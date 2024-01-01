@@ -18,15 +18,24 @@ public interface Decoder {
 
 	void skipReadIndex(int offset);
 
+	int readUInt();
+
+	long readULong();
+
+	int readSInt();
+
+	long readSLong();
+
+	int readInt();
+
+	long readLong();
+
+
 	byte readByte();
 
 	int readBytes(byte[] buf);
 
 	short readShort();
-
-	int readInt();
-
-	long readLong();
 
 	float readFloat();
 

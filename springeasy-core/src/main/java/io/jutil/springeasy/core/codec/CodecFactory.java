@@ -1,8 +1,6 @@
 package io.jutil.springeasy.core.codec;
 
 import io.jutil.springeasy.core.util.AssertUtil;
-import io.jutil.springeasy.internal.core.codec.ByteArrayDecoder;
-import io.jutil.springeasy.internal.core.codec.ByteArrayEncoder;
 
 import java.util.Base64;
 
@@ -15,15 +13,24 @@ public class CodecFactory {
 	}
 
 	public static byte[] encode(ExternalSerializable target) {
+		return encode(target, Const.INC_CAP);
+	}
+
+	public static byte[] encode(ExternalSerializable target, int capacity) {
 		AssertUtil.notNull(target, "Serializable");
 
-		var encoder = new ByteArrayEncoder();
+		var buffer = new ByteArrayBuffer(capacity);
+		var encoder = new ByteArrayEncoder(buffer);
 		target.encode(encoder);
 		return encoder.getByteArray();
 	}
 
 	public static String encodeBase64(ExternalSerializable target) {
-		var data = encode(target);
+		return encodeBase64(target, Const.INC_CAP);
+	}
+
+	public static String encodeBase64(ExternalSerializable target, int capacity) {
+		var data = encode(target, capacity);
 		if (data == null || data.length == 0) {
 			return null;
 		}
