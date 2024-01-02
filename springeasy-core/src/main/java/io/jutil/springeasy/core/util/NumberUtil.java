@@ -65,4 +65,16 @@ public class NumberUtil {
         return ((l >>> 1) ^ -(l & 1));
     }
 
+    public static int fromIpv4(String ip) {
+        AssertUtil.notEmpty(ip, "IP");
+        var ips = ip.split("\\.");
+        if (ips.length != 4) {
+            throw new IllegalArgumentException("IPv4地址无效");
+        }
+        return (Integer.parseInt(ips[0]) << 24)
+                | (Integer.parseInt(ips[1]) << 16)
+                | (Integer.parseInt(ips[2]) << 8)
+                | Integer.parseInt(ips[3]);
+    }
+
 }

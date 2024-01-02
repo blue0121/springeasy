@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class StringUtil {
 	public static final String STR_SPLIT = "[\\s,;\\|]";
+	public static final char IP_SEP = '.';
 
 	private StringUtil() {
 	}
@@ -194,5 +195,14 @@ public class StringUtil {
 
 	public static String sqlPlaceHolder(int count) {
 		return repeat("?", count, ",");
+	}
+
+	public static String toIpv4(int ip) {
+		var str = new StringBuilder();
+		str.append((ip >>> 24) & 0xff).append(IP_SEP);
+		str.append((ip >>> 16) & 0xff).append(IP_SEP);
+		str.append((ip >>> 8) & 0xff).append(IP_SEP);
+		str.append(ip & 0xff);
+		return str.toString();
 	}
 }

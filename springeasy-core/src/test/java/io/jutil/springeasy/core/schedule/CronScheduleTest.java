@@ -22,7 +22,7 @@ class CronScheduleTest {
 	@Test
 	void testSchedule() {
 		var facade = Mockito.mock(TestFacade.class);
-		var schedule = Schedule.create(executor);
+		var schedule = new CronSchedule(executor);
 		var job = new TestJob(facade);
 		schedule.add(jobId, jobCron, job);
 		WaitUtil.sleep(1500);

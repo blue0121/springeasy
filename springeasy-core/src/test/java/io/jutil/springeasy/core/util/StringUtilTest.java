@@ -64,4 +64,10 @@ class StringUtilTest {
 		Assertions.assertEquals("?,?,?,?,?", StringUtil.sqlPlaceHolder(5));
 	}
 
+	@Test
+	void testToIpv4() {
+		Assertions.assertEquals("127.0.0.1", StringUtil.toIpv4(2130706433));
+		Assertions.assertEquals("0.0.0.0", StringUtil.toIpv4(0));
+		Assertions.assertEquals("192.168.1.1", StringUtil.toIpv4(-1062731519));
+	}
 }

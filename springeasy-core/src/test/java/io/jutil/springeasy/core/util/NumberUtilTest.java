@@ -85,4 +85,13 @@ class NumberUtilTest {
         Assertions.assertEquals(dst, NumberUtil.zigZagDecode(src));
     }
 
+    @CsvSource({"127.0.0.1,2130706433", "0.0.0.0,0", "192.168.1.1,-1062731519", "0,"})
+    @ParameterizedTest
+    void testFromIpv4(String ip, Integer i) {
+        if (i != null) {
+            Assertions.assertEquals(i, NumberUtil.fromIpv4(ip));
+        } else {
+            Assertions.assertThrows(IllegalArgumentException.class, () -> NumberUtil.fromIpv4(ip));
+        }
+    }
 }
