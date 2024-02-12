@@ -14,7 +14,6 @@ import java.util.Map;
 @Slf4j
 class DefaultHttpTemplate extends AbstractHttpTemplate implements HttpTemplate {
 
-
 	DefaultHttpTemplate(DefaultHttpTemplateBuilder builder) {
 		this.id = builder.getId();
 		this.baseUrl = builder.getBaseUrl();
