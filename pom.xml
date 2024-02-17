@@ -13,6 +13,7 @@
 		<module>springeasy-core</module>
 		<module>springeasy-spring</module>
 		<module>springeasy-jpa</module>
+		<module>springeasy-jdo</module>
 	</modules>
 
 	<properties>
