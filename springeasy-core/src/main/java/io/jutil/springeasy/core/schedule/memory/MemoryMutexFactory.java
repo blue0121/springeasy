@@ -1,4 +1,7 @@
-package io.jutil.springeasy.core.schedule;
+package io.jutil.springeasy.core.schedule.memory;
+
+import io.jutil.springeasy.core.schedule.Mutex;
+import io.jutil.springeasy.core.schedule.MutexFactory;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

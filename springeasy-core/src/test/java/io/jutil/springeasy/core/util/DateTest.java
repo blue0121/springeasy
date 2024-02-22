@@ -22,7 +22,7 @@ class DateTest {
 		Assertions.assertTrue(now.toInstant(ZoneOffset.UTC).toEpochMilli() > 0);
 	}
 
-	@CsvSource({"1,true", "999,true", "1000,false", "1001,false"})
+	@CsvSource({"1,true", "999,true", "1000,true", "1001,false"})
 	@ParameterizedTest
 	void testEqual(int offset, boolean equal) {
 		var now = DateUtil.now();

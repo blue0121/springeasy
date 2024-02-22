@@ -1,5 +1,6 @@
-package io.jutil.springeasy.core.schedule;
+package io.jutil.springeasy.core.schedule.memory;
 
+import io.jutil.springeasy.core.schedule.MutexFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

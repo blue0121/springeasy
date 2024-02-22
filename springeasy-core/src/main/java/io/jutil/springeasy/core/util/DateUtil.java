@@ -48,7 +48,7 @@ public class DateUtil {
 		var ts1 = time1.toInstant(ZoneOffset.UTC).toEpochMilli();
 		var ts2 = time2.toInstant(ZoneOffset.UTC).toEpochMilli();
 		var in = unit.getDuration().toMillis();
-		return Math.abs(ts1 - ts2) < in;
+		return Math.abs(ts1 - ts2) <= in;
 	}
 
 	public static Date parse(String text, String pattern) {
