@@ -1,5 +1,6 @@
 package io.jutil.springeasy.core.schedule.db;
 
+import io.jutil.springeasy.core.util.AssertUtil;
 import io.jutil.springeasy.core.util.DateUtil;
 import io.jutil.springeasy.core.util.JdbcUtil;
 import io.jutil.springeasy.core.util.StringUtil;
@@ -31,6 +32,8 @@ class SqlExecutor {
 	private final String table;
 
 	SqlExecutor(DataSource dataSource, String table) {
+		AssertUtil.notNull(dataSource, "DataSource");
+		AssertUtil.notEmpty(table, "Table");
 		this.dataSource = dataSource;
 		this.table = table;
 	}

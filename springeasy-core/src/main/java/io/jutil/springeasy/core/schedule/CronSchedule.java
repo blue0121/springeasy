@@ -2,29 +2,19 @@ package io.jutil.springeasy.core.schedule;
 
 import io.jutil.springeasy.core.util.AssertUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.TaskScheduler;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ScheduledFuture;
 
 /**
  * @author Jin Zheng
  * @since 2023-08-13
  */
 @Slf4j
-public class CronSchedule implements Schedule {
-	private final ExecutorService executorService;
-	private final TaskScheduler scheduler;
-	private final ConcurrentMap<String, ScheduledFuture<?>> futureMap = new ConcurrentHashMap<>();
+public class CronSchedule extends AbstractCron implements Schedule {
 
 	public CronSchedule(ExecutorService executorService) {
-		AssertUtil.notNull(executorService, "ExecutorService");
-		this.executorService = executorService;
-		this.scheduler = this.getTaskScheduler();
+		super(executorService);
 	}
 
 	@Override
@@ -41,30 +31,17 @@ public class CronSchedule implements Schedule {
 		var trigger = new CronTrigger(cron);
 		var future = scheduler.schedule(() -> newExecutor.submit(job), trigger);
 		futureMap.put(id, future);
+		log.info("Add schedule, id: {}, cron: {}", id, cron);
 	}
 
-	@Override
-	public void remove(String id) {
-		var future = futureMap.remove(id);
-		if (future != null && !future.isCancelled()) {
-			future.cancel(false);
-		}
+	private void run(ScheduleJob job, ScheduleContext ctx) {
+		ctx.getExecutor().execute(() -> {
+			try {
+				job.run(ctx);
+			} catch (Exception e) {
+				log.error("ScheduleJob id: {} error,", ctx.getId(), e);
+			}
+		});
 	}
 
-	private ExecutorService getExecutor(ExecutorService executor) {
-		if (executor == null) {
-			return this.executorService;
-		}
-		return executor;
-	}
-
-	private ThreadPoolTaskScheduler getTaskScheduler() {
-		var taskScheduler = new ThreadPoolTaskScheduler();
-		taskScheduler.setPoolSize(1);
-		taskScheduler.setRemoveOnCancelPolicy(true);
-		taskScheduler.setWaitForTasksToCompleteOnShutdown(true);
-		taskScheduler.setAwaitTerminationSeconds(10);
-		taskScheduler.initialize();
-		return taskScheduler;
-	}
 }

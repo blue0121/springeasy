@@ -1,4 +1,4 @@
-package io.jutil.springeasy.spring.config.schedule;
+package io.jutil.springeasy.spring.schedule;
 
 import io.jutil.springeasy.core.schedule.ExecutorThreadFactory;
 import org.springframework.beans.factory.FactoryBean;

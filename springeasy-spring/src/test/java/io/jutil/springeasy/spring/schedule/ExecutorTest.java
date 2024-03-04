@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author Jin Zheng
  * @since 2023-08-12
  */
-@ActiveProfiles("executor")
+@ActiveProfiles("schedule")
 @SpringBootTest(classes = Application.class)
 class ExecutorTest {
 	@Autowired

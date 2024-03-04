@@ -12,4 +12,14 @@ springeasy:
         core-size: 1
         queueCapacity: 10
         max-size: 10
-
+  schedule:
+    enabled: true
+    mutex: memory
+    mutex-key: schedule_lock
+    keep-alive-sec: 60
+    executor: executor2
+    configs:
+      - id: job
+        enabled: true
+        cron: 0/1 * * * * *
+        executor: executor2
