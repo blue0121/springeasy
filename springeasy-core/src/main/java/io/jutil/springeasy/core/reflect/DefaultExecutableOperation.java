@@ -12,7 +12,7 @@ import java.util.Map;
  * @author Jin Zheng
  * @since 2024-02-16
  */
-abstract public class DefaultExecutableOperation extends DefaultAnnotationOperation
+abstract class DefaultExecutableOperation extends DefaultAnnotationOperation
 		implements ExecutableOperation {
 	private final Executable executable;
 	private final List<Class<?>> superClassList;

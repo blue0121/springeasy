@@ -13,9 +13,9 @@ import java.util.List;
  */
 @Slf4j
 abstract class DefaultMethodOperation extends DefaultExecutableOperation implements MethodOperation {
-	private final static String SET_PREFIX = "set";
-	private final static String GET_PREFIX = "get";
-	private final static String IS_PREFIX = "is";
+	private static final String SET_PREFIX = "set";
+	private static final String GET_PREFIX = "get";
+	private static final String IS_PREFIX = "is";
 
 	protected final Method method;
 	private final MethodSignature methodSignature;

@@ -30,6 +30,7 @@ public class ByteArrayDecoder implements Decoder {
 	}
 
 	@Override
+	@SuppressWarnings("java:S1905")
 	public int readUInt() {
 		int x = 0;
 		int s = 0;

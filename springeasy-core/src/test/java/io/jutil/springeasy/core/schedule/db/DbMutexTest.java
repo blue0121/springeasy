@@ -39,7 +39,7 @@ class DbMutexTest {
 	void testGetter() {
 		Assertions.assertNotNull(mutex.getSqlExecutor());
 		Assertions.assertNotNull(mutex.getRenewSchedule());
-		Assertions.assertNotNull(mutex.getExpireSec());
+		Assertions.assertTrue(mutex.getExpireSec() > 0);
 		Assertions.assertNotNull(mutex.getJobId());
 		Assertions.assertNotNull(mutex.getInstanceId());
 		Assertions.assertNotNull(mutex.getJobIdSet());

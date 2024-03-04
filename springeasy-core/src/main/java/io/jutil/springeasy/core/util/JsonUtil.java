@@ -8,12 +8,16 @@ import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.filter.Filter;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Jin Zheng
  * @since 1.0 2019-07-26
  */
 public class JsonUtil {
+	private static final String BASE_FILTER = "io.jutil.springeasy";
+
 	private static JSONWriter.Feature[] writer = new JSONWriter.Feature[] {
 			JSONWriter.Feature.WriteClassName,
 			JSONWriter.Feature.WriteEnumUsingOrdinal,
@@ -25,9 +29,18 @@ public class JsonUtil {
 			JSONWriter.Feature.WriteLongAsString
 	};
 
-	public static Filter AUTO_TYPE_FILTER = JSONReader.autoTypeFilter("io.jutil.springeasy");
+	public static Filter autoedTypeFilter = JSONReader.autoTypeFilter(BASE_FILTER);
 
 	private JsonUtil() {
+	}
+
+	public static void registerAutoType(String...names) {
+		List<String> nameList = new ArrayList<>();
+		nameList.add(BASE_FILTER);
+		for (var name : names) {
+			nameList.add(name);
+		}
+		autoedTypeFilter = JSONReader.autoTypeFilter(nameList.toArray(new String[0]));
 	}
 
 	public static byte[] toBytes(Object object) {
@@ -52,7 +65,7 @@ public class JsonUtil {
 			return null;
 		}
 
-		return (T) JSON.parseObject(bytes, Object.class, AUTO_TYPE_FILTER);
+		return (T) JSON.parseObject(bytes, Object.class, autoedTypeFilter);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -69,7 +82,7 @@ public class JsonUtil {
 			return (T) new String(bytes, StandardCharsets.UTF_8);
 		}
 
-		return JSON.parseObject(bytes, clazz, AUTO_TYPE_FILTER);
+		return JSON.parseObject(bytes, clazz, autoedTypeFilter);
 	}
 
 	public static String output(Object object) {
@@ -110,7 +123,7 @@ public class JsonUtil {
 			return null;
 		}
 
-		return (T) JSON.parseObject(json, Object.class, AUTO_TYPE_FILTER);
+		return (T) JSON.parseObject(json, Object.class, autoedTypeFilter);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -123,7 +136,7 @@ public class JsonUtil {
 			return (T) json;
 		}
 
-		return JSON.parseObject(json, clazz, AUTO_TYPE_FILTER);
+		return JSON.parseObject(json, clazz, autoedTypeFilter);
 	}
 
 	public static void removeType(Object object) {

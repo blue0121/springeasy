@@ -25,6 +25,7 @@ import java.util.Set;
 @Configuration
 @EnableConfigurationProperties(ScheduleProperties.class)
 @ConditionalOnProperty(prefix = "springeasy.schedule", name = "enabled", havingValue = "true")
+@SuppressWarnings("java:S6813")
 public class ScheduleAutoConfiguration {
 	@Autowired(required = false)
 	DataSource dataSource;

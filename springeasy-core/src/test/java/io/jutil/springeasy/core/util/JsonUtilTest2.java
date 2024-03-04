@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
  * @author Jin Zheng
  * @since 2023-12-19
  */
+@SuppressWarnings("java:S3577")
 class JsonUtilTest2 {
 
 	@Test

@@ -30,7 +30,7 @@ public class CronScheduleJob extends AbstractCron {
 	}
 
 	public void add(String id, CronTrigger trigger, ScheduleJob job) {
-		this.add(id, trigger, job);
+		this.add(id, trigger, job, null);
 	}
 
 	public void add(String id, CronTrigger trigger, ScheduleJob job, ExecutorService executor) {

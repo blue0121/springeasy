@@ -60,6 +60,7 @@ class JsonUtilTest {
 		var json1 = "{\"@type\":\"io.jutil.springeasy.core.util.JsonUtilTest$User\",\"createTime\":\"2022-12-20 14:50:53\",\"id\":1,\"name\":\"blue\"}";
 		var json2 = "{\"createTime\":\"2022-12-20 14:50:54\",\"id\":1,\"name\":\"blue\"}";
 
+		JsonUtil.registerAutoType("io.jutil.springeasy.core");
 		User user1 = JsonUtil.fromString(json1);
 		Assertions.assertEquals(1, user1.getId());
 		Assertions.assertEquals("blue", user1.getName());

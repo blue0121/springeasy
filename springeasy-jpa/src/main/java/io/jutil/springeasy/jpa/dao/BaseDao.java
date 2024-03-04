@@ -22,6 +22,7 @@ import java.util.function.Consumer;
  * @since 2023-11-02
  */
 @Slf4j
+@SuppressWarnings("java:S119")
 public abstract class BaseDao<T, ID extends Serializable> extends QueryDao {
 	protected final Class<T> entityClazz;
 

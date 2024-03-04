@@ -34,14 +34,4 @@ public class CronSchedule extends AbstractCron implements Schedule {
 		log.info("Add schedule, id: {}, cron: {}", id, cron);
 	}
 
-	private void run(ScheduleJob job, ScheduleContext ctx) {
-		ctx.getExecutor().execute(() -> {
-			try {
-				job.run(ctx);
-			} catch (Exception e) {
-				log.error("ScheduleJob id: {} error,", ctx.getId(), e);
-			}
-		});
-	}
-
 }

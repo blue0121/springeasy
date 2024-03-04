@@ -69,7 +69,7 @@ class ClassOperationTest {
 	}
 
 	@Test
-	public void testCache() {
+	void testCache() {
 		var class1 = ReflectFactory.getClassOperation(CommonClass.class);
 		var class2 = ReflectFactory.getClassOperation(CommonClass.class);
 		Assertions.assertSame(class1, class2);

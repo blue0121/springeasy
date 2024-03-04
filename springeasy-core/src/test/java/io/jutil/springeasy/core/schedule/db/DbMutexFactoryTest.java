@@ -44,8 +44,8 @@ class DbMutexFactoryTest {
 
 	@Test
 	void testGetter() {
-		Assertions.assertNotNull(factory.getKeepAliveSec());
-		Assertions.assertNotNull(factory.getExpireSec());
+		Assertions.assertTrue(factory.getKeepAliveSec() > 0);
+		Assertions.assertTrue(factory.getExpireSec() > 0);
 		Assertions.assertNotNull(factory.getJobIdList());
 		Assertions.assertNotNull(factory.getSqlExecutor());
 		Assertions.assertNotNull(factory.getSchedule());

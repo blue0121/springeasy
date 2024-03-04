@@ -15,7 +15,7 @@ public class StringToDateConverterFactory implements ConverterFactory<String, Da
 	@Override
 	public <T extends Date> Converter<String, T> getConverter(Class<T> targetType) {
 		if (DateTimeConst.DATE_SET.contains(targetType)) {
-			return new StringToDate(targetType);
+			return new StringToDate<>(targetType);
 		}
 
 		return null;

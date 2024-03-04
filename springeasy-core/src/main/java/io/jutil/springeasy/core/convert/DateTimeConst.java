@@ -35,6 +35,8 @@ class DateTimeConst {
     static final Set<Class<?>> DATE_SET = Set.of(Date.class, java.sql.Date.class,
             Time.class, Timestamp.class);
 
+    private DateTimeConst() {
+    }
 
     @SuppressWarnings("unchecked")
     static <T extends Date> T toDate(Date date, Class<T> clazz) {

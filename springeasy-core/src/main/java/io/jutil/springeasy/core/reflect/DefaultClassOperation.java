@@ -38,7 +38,7 @@ class DefaultClassOperation extends DefaultAnnotationOperation implements ClassO
 
 	private Map<String, ClassFieldOperation> fieldMap;
 
-	public DefaultClassOperation(Class<?> targetClass) {
+	DefaultClassOperation(Class<?> targetClass) {
 		super(targetClass);
 		this.targetClass = targetClass;
 		this.parseClass();

@@ -16,6 +16,8 @@ import org.springframework.core.convert.converter.ConverterRegistry;
  */
 @Slf4j
 @Configuration
+
+@SuppressWarnings("java:S6813")
 public class ConverterAutoConfiguration implements InitializingBean {
 	@Autowired
 	private ConverterRegistry registry;
