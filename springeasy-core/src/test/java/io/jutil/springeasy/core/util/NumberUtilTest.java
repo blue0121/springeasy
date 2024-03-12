@@ -94,4 +94,10 @@ class NumberUtilTest {
             Assertions.assertThrows(IllegalArgumentException.class, () -> NumberUtil.fromIpv4(ip));
         }
     }
+
+    @CsvSource({"java.lang.Integer,true", "int,true", "java.lang.Long,true", "long,true"})
+    @ParameterizedTest
+    void testIsNumber(Class<?> clazz, boolean valid) {
+        Assertions.assertEquals(valid, NumberUtil.isNumber(clazz));
+    }
 }

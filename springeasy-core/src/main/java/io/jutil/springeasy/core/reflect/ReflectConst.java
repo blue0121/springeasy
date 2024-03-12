@@ -12,4 +12,8 @@ class ReflectConst {
 
 	private ReflectConst() {
 	}
+
+	public static boolean isIgnore(String method) {
+		return IGNORE_METHOD_SET.contains(method);
+	}
 }

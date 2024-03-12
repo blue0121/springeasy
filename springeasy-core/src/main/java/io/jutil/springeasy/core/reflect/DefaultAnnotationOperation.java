@@ -1,7 +1,8 @@
 package io.jutil.springeasy.core.reflect;
 
+import lombok.NoArgsConstructor;
+
 import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 import java.util.Map;
 
@@ -9,14 +10,11 @@ import java.util.Map;
  * @author Jin Zheng
  * @since 2024-2-7 0007
  */
+@NoArgsConstructor
 class DefaultAnnotationOperation implements AnnotationOperation {
-	private final AnnotatedElement annotatedElement;
 	private Map<Class<?>, Annotation> annotationMap;
 	private List<Annotation> annotationList;
 
-	DefaultAnnotationOperation(AnnotatedElement annotatedElement) {
-		this.annotatedElement = annotatedElement;
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override

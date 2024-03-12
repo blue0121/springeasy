@@ -39,7 +39,6 @@ class DefaultClassOperation extends DefaultAnnotationOperation implements ClassO
 	private Map<String, ClassFieldOperation> fieldMap;
 
 	DefaultClassOperation(Class<?> targetClass) {
-		super(targetClass);
 		this.targetClass = targetClass;
 		this.parseClass();
 		if (log.isDebugEnabled()) {
@@ -183,7 +182,7 @@ class DefaultClassOperation extends DefaultAnnotationOperation implements ClassO
 		Method[] methods = targetClass.getMethods();
 		for (var method : methods) {
 			int mod = method.getModifiers();
-			if (Modifier.isStatic(mod) || ReflectConst.IGNORE_METHOD_SET.contains(method.getName())) {
+			if (Modifier.isStatic(mod) || ReflectConst.isIgnore(method.getName())) {
 				continue;
 			}
 
@@ -260,7 +259,7 @@ class DefaultClassOperation extends DefaultAnnotationOperation implements ClassO
 				continue;
 			}
 
-			if (returnType == setter.getParameterTypeList().get(0)) {
+			if (returnType == setter.getParameterTypeList().getFirst()) {
 				return setter;
 			}
 		}

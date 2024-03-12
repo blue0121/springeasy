@@ -18,7 +18,6 @@ class DefaultParameterOperation extends DefaultAnnotationOperation implements Pa
 	private final List<Parameter> parameterList;
 
 	DefaultParameterOperation(List<Parameter> parameterList) {
-		super(parameterList.getFirst());
 		this.parameter = parameterList.getFirst();
 		this.parameterList = parameterList;
 		this.parseAnnotation();

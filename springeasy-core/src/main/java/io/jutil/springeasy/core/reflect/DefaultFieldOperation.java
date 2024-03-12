@@ -26,7 +26,6 @@ abstract class DefaultFieldOperation extends DefaultAnnotationOperation implemen
 
 	DefaultFieldOperation(String fieldName, Field field,
 	                      MethodOperation getterMethod, MethodOperation setterMethod) {
-		super(field);
 		this.fieldName = fieldName;
 		this.field = field;
 		this.getterMethod = getterMethod;

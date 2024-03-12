@@ -23,7 +23,6 @@ abstract class DefaultExecutableOperation extends DefaultAnnotationOperation
 	protected List<ParameterOperation> parameterList;
 
 	DefaultExecutableOperation(Executable executable, List<Class<?>> superClassList, List<Class<?>> interfaceList) {
-		super(executable);
 		this.executable = executable;
 		this.superClassList = superClassList;
 		this.interfaceList = interfaceList;

@@ -77,4 +77,10 @@ public class NumberUtil {
                 | Integer.parseInt(ips[3]);
     }
 
+    public static boolean isNumber(Class<?> clazz) {
+        return clazz == byte.class || clazz == short.class || clazz == int.class || clazz == long.class || clazz == Byte.class
+                || clazz == Short.class || clazz == Integer.class || clazz == Long.class || clazz == float.class || clazz == double.class
+                || clazz == Float.class || clazz == Double.class;
+    }
+
 }
