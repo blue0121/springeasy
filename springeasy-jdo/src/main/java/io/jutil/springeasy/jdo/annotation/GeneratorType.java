@@ -6,6 +6,8 @@ package io.jutil.springeasy.jdo.annotation;
  */
 public enum GeneratorType {
 
+	AUTO,
+
 	UUID,
 
 	SNOWFLAKE,

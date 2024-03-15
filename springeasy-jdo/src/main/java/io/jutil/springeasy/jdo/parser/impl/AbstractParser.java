@@ -16,7 +16,7 @@ import java.lang.reflect.Modifier;
 public abstract class AbstractParser implements Parser {
 	protected final Dialect dialect;
 
-	public AbstractParser(Dialect dialect) {
+	protected AbstractParser(Dialect dialect) {
 		this.dialect = dialect;
 	}
 

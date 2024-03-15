@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Id {
 
-	GeneratorType generator();
+	GeneratorType generator() default GeneratorType.AUTO;
 
 	String name() default "";
 

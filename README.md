@@ -30,20 +30,20 @@ mvn clean install
 ### 在`Maven`中添加依赖:
 ```xml
 <dependencies>
-    <!-- 先导入 -->
-    <dependency>
-        <groupId>io.jutil.springeasy</groupId>
-        <artifactId>springeasy</artifactId>
-        <version>0.1.0</version>
-        <type>pom</type>
-        <scope>import</scope>
-    </dependency>
+	<!-- 先导入 -->
+	<dependency>
+		<groupId>io.jutil.springeasy</groupId>
+		<artifactId>springeasy</artifactId>
+		<version>0.1.0</version>
+		<type>pom</type>
+		<scope>import</scope>
+	</dependency>
     
-    <!-- 再按模块引用 -->
-    <dependency>
-        <groupId>io.jutil.springeasy</groupId>
-        <artifactId>springeasy-core</artifactId>
-    </dependency>
+	<!-- 再按模块引用 -->
+	<dependency>
+		<groupId>io.jutil.springeasy</groupId>
+		<artifactId>springeasy-core</artifactId>
+	</dependency>
 	<dependency>
 		<groupId>io.jutil.springeasy</groupId>
 		<artifactId>springeasy-spring</artifactId>

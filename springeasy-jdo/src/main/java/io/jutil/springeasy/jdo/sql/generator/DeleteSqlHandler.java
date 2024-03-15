@@ -23,7 +23,7 @@ public class DeleteSqlHandler extends AbstractSqlHandler {
 		var args = request.getArgs();
 		AssertUtil.notEmpty(args, "参数");
 
-		var id = IdUtil.checkSingleId(config);
+		IdUtil.checkSingleId(config);
 		if (args.size() == 1) {
 			var sqlItem = config.getSqlMetadata().getDeleteById();
 			response.setSql(sqlItem.getSql());

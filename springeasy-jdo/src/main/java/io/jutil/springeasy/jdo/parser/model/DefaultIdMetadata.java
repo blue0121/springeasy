@@ -19,6 +19,7 @@ public class DefaultIdMetadata extends DefaultFieldMetadata implements IdMetadat
 	private IdType idType;
 	private GeneratorType generatorType;
 
+	@Override
 	public void check() {
 		super.check();
 		AssertUtil.notNull(idType, "主键类型");

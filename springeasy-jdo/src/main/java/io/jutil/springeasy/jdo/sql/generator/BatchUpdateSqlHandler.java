@@ -25,7 +25,7 @@ public class BatchUpdateSqlHandler extends AbstractSqlHandler {
 	public void handle(SqlRequest request, SqlResponse response) {
 		var config = request.getMetadata();
 		var objectList = request.getArgs();
-		var id = IdUtil.checkSingleId(config);
+		IdUtil.checkSingleId(config);
 		var isForceVersion = VersionUtil.isForce(config);
 		var sqlItem = isForceVersion ? config.getSqlMetadata().getUpdateByIdAndVersion() : config.getSqlMetadata().getUpdateById();
 		response.setSql(sqlItem.getSql());

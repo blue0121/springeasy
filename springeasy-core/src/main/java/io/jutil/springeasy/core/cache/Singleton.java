@@ -11,6 +11,9 @@ import java.util.function.Function;
  * @since 2023-03-26
  */
 public class Singleton {
+	private static final String STR_PARAMETER = "Parameter";
+	private static final String STR_OBJECT = "Object";
+
 	private static final ConcurrentMap<Object, Object> POOL = new ConcurrentHashMap<>();
 
 	private Singleton() {
@@ -18,25 +21,25 @@ public class Singleton {
 
 	@SuppressWarnings("unchecked")
 	public static <T> T get(Object param) {
-		AssertUtil.notNull(param, "Parameter");
+		AssertUtil.notNull(param, STR_PARAMETER);
 		return (T) POOL.get(param);
 	}
 
 	@SuppressWarnings("unchecked")
 	public static <T> T get(Object param, Function<Object, T> f) {
-		AssertUtil.notNull(param, "Parameter");
+		AssertUtil.notNull(param, STR_PARAMETER);
 		AssertUtil.notNull(f, "Function");
 		return (T) POOL.computeIfAbsent(param, k -> f.apply(param));
 	}
 
 	public static void put(Object object) {
-		AssertUtil.notNull(object, "Object");
+		AssertUtil.notNull(object, STR_OBJECT);
 		put(object.getClass(), object);
 	}
 
 	public static void put(Object param, Object object) {
-		AssertUtil.notNull(param, "Parameter");
-		AssertUtil.notNull(object, "Object");
+		AssertUtil.notNull(param, STR_PARAMETER);
+		AssertUtil.notNull(object, STR_OBJECT);
 		Object old = POOL.putIfAbsent(param, object);
 		if (old != null && old != object) {
 			throw new IllegalArgumentException(param + " exist");
@@ -44,7 +47,7 @@ public class Singleton {
 	}
 
 	public static void remove(Object param) {
-		AssertUtil.notNull(param, "Parameter");
+		AssertUtil.notNull(param, STR_PARAMETER);
 		POOL.remove(param);
 	}
 

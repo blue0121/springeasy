@@ -24,7 +24,8 @@ public class IdGeneratorFactory {
 	}
 
 	public static Long longId(int machineId) {
-		var id = Singleton.get(machineId, k -> {
+		var param = LongEpochIdGenerator.class.getName() + machineId;
+		var id = Singleton.get(param, k -> {
 			var options = new EpochOptions(machineId);
 			return new LongEpochIdGenerator(options);
 		});
