@@ -34,7 +34,8 @@ import java.util.Set;
  */
 @Slf4j
 public class EntityParser extends AbstractParser {
-	private static final Set<Class<?>> INT_TYPE_SET = Set.of(int.class, long.class, Integer.class, Long.class);
+	private static final Set<Class<?>> INT_TYPE_SET = Set.of(int.class, long.class,
+			Integer.class, Long.class);
 
 	public EntityParser(Dialect dialect) {
 		super(dialect);
@@ -96,7 +97,6 @@ public class EntityParser extends AbstractParser {
 		var type = field.getType();
 		var idType = switch (type.getSimpleName()) {
 			case "String" -> IdType.STRING;
-			//case "int", "Integer" -> IdType.INT;
 			case "long", "Long" -> IdType.LONG;
 			default -> throw new UnsupportedOperationException("不支持主键类型: " + type.getSimpleName());
 		};
@@ -115,20 +115,18 @@ public class EntityParser extends AbstractParser {
 
 	private GeneratorType getAndCheckGeneratorType(Id annotation, IdType type) {
 		var generatorType = annotation.generator();
-		/*if (generatorType == GeneratorType.AUTO) {
+		if (generatorType == GeneratorType.AUTO) {
 			generatorType = switch (type) {
 				case STRING -> GeneratorType.UUID;
-				default -> GeneratorType.INCREMENT;
+				case LONG -> GeneratorType.SNOWFLAKE;
 			};
 		}
-		if (type == IdType.STRING && generatorType == GeneratorType.INCREMENT) {
-			throw new IllegalArgumentException("主键类型 " + type + " 不支持 " + generatorType);
+		if (type == IdType.STRING && generatorType == GeneratorType.SNOWFLAKE) {
+			throw new IllegalArgumentException("主键类型 String 不支持 " + generatorType);
 		}
-		if (type == IdType.INT || type == IdType.LONG) {
-			if (generatorType == GeneratorType.UUID) {
-				throw new IllegalArgumentException("主键类型 " + type + " 不支持 " + generatorType);
-			}
-		}*/
+		if (type == IdType.LONG && generatorType == GeneratorType.UUID) {
+			throw new IllegalArgumentException("主键类型 Long 不支持 " + generatorType);
+		}
 
 		return generatorType;
 	}
