@@ -1,5 +1,6 @@
 package io.jutil.springeasy.jdo.parser;
 
+import io.jutil.springeasy.jdo.annotation.Column;
 import io.jutil.springeasy.jdo.annotation.Entity;
 import io.jutil.springeasy.jdo.annotation.GeneratorType;
 import io.jutil.springeasy.jdo.annotation.Id;
@@ -23,12 +24,12 @@ import java.util.List;
 class EntityParserTest extends ParserTest {
 
 	@ParameterizedTest
-	@CsvSource({"io.jutil.springeasy.jdo.parser.EntityParserTest$CommonClass",
-			"io.jutil.springeasy.jdo.parser.EntityParserTest$CommonClass2"})
+	@CsvSource({"io.jutil.springeasy.jdo.parser.EntityParserTest$LongClass",
+			"io.jutil.springeasy.jdo.parser.EntityParserTest$LongClass2"})
 	void testParse(Class<?> clazz) {
 		var facade = new ParserFacade(new MySQLDialect());
 		var metadata = (EntityMetadata) facade.parse(clazz);
-		this.checkTable(metadata, "c_common_class");
+		this.checkTable(metadata, "c_long_class");
 
 		var idMap = metadata.getIdMap();
 		var columnMap = metadata.getColumnMap();
@@ -45,45 +46,49 @@ class EntityParserTest extends ParserTest {
 				"id", "id");
 		this.checkVersion(metadata.getVersionMetadata(), true, 1,
 				"version", "version");
-		this.checkColumn(columnMap.get("groupId"), false, false,
-				"groupId", "group_id");
-		this.checkColumn(columnMap.get("username"), false, false,
-				"username", "username");
+		this.checkColumn(columnMap.get("groupId"), false, false, false,
+				"groupId", "group_id", "varchar(50)");
+		this.checkColumn(columnMap.get("username"), false, false, true,
+				"username", "username", "varchar(50)");
 		this.checkField(transientMap.get("groupName"), "groupName", "group_name");
 
 		var sql = metadata.getSqlMetadata();
-		this.checkSql(sql.getSelectById(), "select * from c_common_class where id=?", List.of("id"));
-		this.checkSql(sql.getSelectByIdList(), "select * from c_common_class where id in (%s)", List.of("id"));
-		this.checkSql(sql.getInsert(), "insert into c_common_class (id,version,group_id,username) values (?,?,?,?)", List.of("id","version","groupId","username"));
-		this.checkSql(sql.getUpdateById(), "update c_common_class set group_id=?,username=? where id=?", List.of("groupId","username","id"));
-		this.checkSql(sql.getUpdateByIdAndVersion(), "update c_common_class set group_id=?,username=?,version=version+1 where id=? and version=?", List.of("groupId","username","id","version"));
-		this.checkSql(sql.getDeleteById(), "delete from c_common_class where id=?", List.of("id"));
-		this.checkSql(sql.getDeleteByIdList(), "delete from c_common_class where id in (%s)", List.of("id"));
+		this.checkSql(sql.getSelectById(), "select * from c_long_class where id=?", List.of("id"));
+		this.checkSql(sql.getSelectByIdList(), "select * from c_long_class where id in (%s)", List.of("id"));
+		this.checkSql(sql.getInsert(), "insert into c_long_class (id,version,group_id,username) values (?,?,?,?)", List.of("id","version","groupId","username"));
+		this.checkSql(sql.getUpdateById(), "update c_long_class set group_id=?,username=? where id=?", List.of("groupId","username","id"));
+		this.checkSql(sql.getUpdateByIdAndVersion(), "update c_long_class set group_id=?,username=?,version=version+1 where id=? and version=?", List.of("groupId","username","id","version"));
+		this.checkSql(sql.getDeleteById(), "delete from c_long_class where id=?", List.of("id"));
+		this.checkSql(sql.getDeleteByIdList(), "delete from c_long_class where id in (%s)", List.of("id"));
 	}
 
 	@Getter
 	@Setter
 	@NoArgsConstructor
-	@Entity(table = "c_common_class")
-	class CommonClass {
-		@Id(generator = GeneratorType.SNOWFLAKE)
+	@Entity(table = "c_long_class")
+	class LongClass {
+		@Id
 		private Long id;
 		@Version
 		private Integer version;
+		@Column(name = "group_id", definition = "varchar(50)", nullable = false)
 		private Integer groupId;
+		@Column(name = "username", definition = "varchar(50)")
 		private String username;
 		@Transient
 		private String groupName;
 	}
 
 	@NoArgsConstructor
-	@Entity(table = "c_common_class")
-	class CommonClass2 {
+	@Entity(table = "c_long_class")
+	class LongClass2 {
 		@Id(generator = GeneratorType.SNOWFLAKE)
 		public Long id;
 		@Version
 		public Integer version;
+		@Column(name = "group_id", definition = "varchar(50)", nullable = false)
 		public Integer groupId;
+		@Column(name = "username", definition = "varchar(50)")
 		public String username;
 		@Transient
 		public String groupName;

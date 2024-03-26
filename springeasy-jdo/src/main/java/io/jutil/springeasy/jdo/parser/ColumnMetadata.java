@@ -7,6 +7,12 @@ package io.jutil.springeasy.jdo.parser;
 public interface ColumnMetadata extends FieldMetadata {
 
 	/**
+	 * 是否可空
+	 * @return
+	 */
+	boolean isNullable();
+
+	/**
 	 * 是否强制插入空值
 	 *
 	 * @return

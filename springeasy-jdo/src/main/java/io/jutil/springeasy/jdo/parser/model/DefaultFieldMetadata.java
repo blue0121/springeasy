@@ -29,6 +29,10 @@ public abstract class DefaultFieldMetadata implements FieldMetadata {
 		this.columnName = columnName;
 	}
 
+	public void setDefinition(String definition) {
+		this.definition = definition;
+	}
+
 	public void setBeanField(ClassFieldOperation fieldOperation) {
 		AssertUtil.notNull(fieldOperation, "字段");
 		this.fieldName = fieldOperation.getFieldName();

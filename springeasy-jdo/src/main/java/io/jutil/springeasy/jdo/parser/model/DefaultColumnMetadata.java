@@ -13,6 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DefaultColumnMetadata extends DefaultFieldMetadata implements ColumnMetadata {
+	private boolean nullable;
 	private boolean mustInsert;
 	private boolean mustUpdate;
 

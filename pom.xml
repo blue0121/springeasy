@@ -21,26 +21,26 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<revision>0.1.0</revision>
-		<spring.boot.version>3.2.2</spring.boot.version>
-		<fastjson2.version>2.0.46</fastjson2.version>
+		<spring.boot.version>3.2.4</spring.boot.version>
+		<fastjson2.version>2.0.48</fastjson2.version>
 		<redisson.version>3.19.0</redisson.version>
 
 		<!-- provided -->
-		<lombok.version>1.18.30</lombok.version>
+		<lombok.version>1.18.32</lombok.version>
 
 		<!-- test -->
 		<commons-codec.version>1.15</commons-codec.version>
 		<wiremock.version>2.35.0</wiremock.version>
 
 		<!-- maven plugins -->
-		<compiler.version>3.11.0</compiler.version>
+		<compiler.version>3.13.0</compiler.version>
 		<source.version>3.3.0</source.version>
 		<jar.version>3.3.0</jar.version>
-		<assembly.version>3.6.0</assembly.version>
-		<surefire.version>3.2.2</surefire.version>
+		<assembly.version>3.7.1</assembly.version>
+		<surefire.version>3.2.5</surefire.version>
 		<jacoco.version>0.8.11</jacoco.version>
-		<flatten.version>1.5.0</flatten.version>
-		<sonar.version>3.10.0.2594</sonar.version>
+		<flatten.version>1.6.0</flatten.version>
+		<sonar.version>3.11.0.3922</sonar.version>
 	</properties>
 
 	<dependencyManagement>

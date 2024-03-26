@@ -23,10 +23,12 @@ abstract class ParserTest {
 	}
 
 	protected void checkColumn(ColumnMetadata metadata, boolean mustInsert, boolean mustUpdate,
-	                           String field, String column) {
+							   boolean nullable, String field, String column, String definition) {
 		this.checkField(metadata, field, column);
 		Assertions.assertEquals(mustInsert, metadata.isMustInsert());
 		Assertions.assertEquals(mustUpdate, metadata.isMustUpdate());
+		Assertions.assertEquals(nullable, metadata.isNullable());
+		Assertions.assertEquals(definition, metadata.getDefinition());
 	}
 
 	protected void checkVersion(VersionMetadata metadata, boolean force, int defaultValue,

@@ -2,6 +2,7 @@ package io.jutil.springeasy.jdo.parser.impl;
 
 import io.jutil.springeasy.core.reflect.ClassFieldOperation;
 import io.jutil.springeasy.core.reflect.ReflectFactory;
+import io.jutil.springeasy.jdo.annotation.Column;
 import io.jutil.springeasy.jdo.annotation.Entity;
 import io.jutil.springeasy.jdo.annotation.GeneratorType;
 import io.jutil.springeasy.jdo.annotation.Id;
@@ -122,10 +123,10 @@ public class EntityParser extends AbstractParser {
 			};
 		}
 		if (type == IdType.STRING && generatorType == GeneratorType.SNOWFLAKE) {
-			throw new IllegalArgumentException("主键类型 String 不支持 " + generatorType);
+			throw new JdoException("主键类型 String 不支持 " + generatorType);
 		}
 		if (type == IdType.LONG && generatorType == GeneratorType.UUID) {
-			throw new IllegalArgumentException("主键类型 Long 不支持 " + generatorType);
+			throw new JdoException("主键类型 Long 不支持 " + generatorType);
 		}
 
 		return generatorType;
@@ -173,10 +174,16 @@ public class EntityParser extends AbstractParser {
 		var metadata = new DefaultColumnMetadata();
 		this.setFieldMetadata(field, metadata);
 
-		Must annotation = field.getAnnotation(Must.class);
-		if (annotation != null) {
-			metadata.setMustInsert(annotation.insert());
-			metadata.setMustInsert(annotation.update());
+		Column annotationColumn = field.getAnnotation(Column.class);
+		if (annotationColumn != null) {
+			metadata.setDefinition(annotationColumn.definition());
+			metadata.setNullable(annotationColumn.nullable());
+		}
+
+		Must annotationMust = field.getAnnotation(Must.class);
+		if (annotationMust != null) {
+			metadata.setMustInsert(annotationMust.insert());
+			metadata.setMustInsert(annotationMust.update());
 		}
 
 		columnMap.put(metadata.getFieldName(), metadata);
