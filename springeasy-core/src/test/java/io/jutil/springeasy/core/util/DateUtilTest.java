@@ -10,9 +10,9 @@ import java.time.temporal.ChronoUnit;
 
 /**
  * @author Jin Zheng
- * @since 2023-01-10
+ * @since 2023-12-03
  */
-class DateTest {
+class DateUtilTest {
 
 	@Test
 	void testNow() {

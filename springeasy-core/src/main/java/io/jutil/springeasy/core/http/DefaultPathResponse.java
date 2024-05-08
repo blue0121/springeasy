@@ -11,12 +11,12 @@ import java.nio.file.Path;
  */
 @Slf4j
 class DefaultPathResponse extends AbstractResponse<Path> implements PathResponse {
-	public DefaultPathResponse(HttpResponse<Path> response) {
+	DefaultPathResponse(HttpResponse<Path> response) {
 		super(response);
 
 		if (log.isDebugEnabled()) {
-			log.info("Http Response, code: {}, headers: {}, path: {}",
-					this.getStatusCode(), this.getHeaders(), this.getBody());
+			log.debug("Http Response, code: {}, headers: {}, path: {}",
+					this.getStatusCode(), this.getHeaders().map(), this.getBody());
 		} else {
 			log.info("Http Response, code: {}, path: {}", this.getStatusCode(), this.getBody());
 		}

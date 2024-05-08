@@ -1,7 +1,6 @@
 package io.jutil.springeasy.core.http;
 
-import java.util.List;
-import java.util.Map;
+import java.net.http.HttpHeaders;
 
 /**
  * @author Jin Zheng
@@ -29,14 +28,7 @@ public interface Response<T> {
 	 *
 	 * @return
 	 */
-	Map<String, String> getHeaders();
-
-	/**
-	 * Http header map
-	 *
-	 * @return
-	 */
-	Map<String, List<String>> getMap();
+	HttpHeaders getHeaders();
 
 	/**
 	 * Http body

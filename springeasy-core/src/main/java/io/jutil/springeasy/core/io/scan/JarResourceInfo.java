@@ -13,14 +13,14 @@ import java.util.jar.JarFile;
  * @since 2023-06-12
  */
 @Slf4j
-public class JarResourceInfo implements ResourceInfo {
+class JarResourceInfo implements ResourceInfo {
 	private final ClassLoader loader;
 	private final String dir;
 	private final String path;
 	private final JarEntry entry;
 	private final JarFile jarFile;
 
-	public JarResourceInfo(ClassLoader loader, String dir, String path,
+	JarResourceInfo(ClassLoader loader, String dir, String path,
 	                       JarEntry entry, JarFile jarFile) {
 		this.loader = loader;
 		this.dir = dir;

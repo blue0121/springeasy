@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Jin Zheng
+ * @since 2023-10-04
+ */
 class StringUtilTest {
 
 	@Test

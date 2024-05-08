@@ -11,12 +11,12 @@ import java.net.http.HttpResponse;
  */
 @Slf4j
 class DefaultStringResponse extends AbstractResponse<String> implements StringResponse {
-	public DefaultStringResponse(HttpResponse<String> response) {
+	DefaultStringResponse(HttpResponse<String> response) {
 		super(response);
 
 		if (log.isDebugEnabled()) {
-			log.info("Http Response, code: {}, headers: {}, body: {}",
-					this.getStatusCode(), this.getHeaders(), this.getBody());
+			log.debug("Http Response, code: {}, headers: {}, body: {}",
+					this.getStatusCode(), this.getHeaders().map(), this.getBody());
 		} else {
 			log.info("Http Response, code: {}", this.getStatusCode());
 		}

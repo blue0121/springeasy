@@ -13,13 +13,13 @@ import java.nio.file.Path;
  * @since 2023-06-05
  */
 @Slf4j
-public class FileSystemResourceInfo implements ResourceInfo {
+class FileSystemResourceInfo implements ResourceInfo {
 	private final ClassLoader loader;
 	private final String dir;
 	private final Path path;
 	private final long size;
 
-	public FileSystemResourceInfo(ClassLoader loader, String dir, Path path) {
+	FileSystemResourceInfo(ClassLoader loader, String dir, Path path) {
 		this.loader = loader;
 		this.dir = dir;
 		this.path = path;

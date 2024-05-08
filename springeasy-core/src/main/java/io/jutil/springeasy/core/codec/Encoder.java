@@ -30,14 +30,11 @@ public interface Encoder {
 
 	void writeLong(long val);
 
-
 	void writeByte(byte val);
 
 	void writeBytes(byte[] val);
 
 	void writeShort(short val);
-
-
 
 	void writeFloat(float val);
 

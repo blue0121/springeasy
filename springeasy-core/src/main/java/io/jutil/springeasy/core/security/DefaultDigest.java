@@ -25,7 +25,7 @@ class DefaultDigest implements Digest {
         try {
             return MessageDigest.getInstance(type.getKey());
         } catch (NoSuchAlgorithmException e) {
-            throw new java.lang.SecurityException(e);
+            throw new SecurityException(e);
         }
     }
 

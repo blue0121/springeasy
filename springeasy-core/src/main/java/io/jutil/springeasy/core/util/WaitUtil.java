@@ -11,15 +11,13 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 public class WaitUtil {
-
 	private WaitUtil() {
 	}
 
 	public static void await(CountDownLatch latch) {
 		try {
 			latch.await();
-		}
-		catch (InterruptedException e) {
+		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			log.warn("CountDownLatch await timeout");
 		}
@@ -40,8 +38,7 @@ public class WaitUtil {
 	public static void sleep(long millis) {
 		try {
 			Thread.sleep(millis);
-		}
-		catch (InterruptedException e) {
+		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			log.warn("Interrupted");
 		}

@@ -44,7 +44,7 @@ class MultiPartBodyPublisher {
 		}
 	}
 
-	public HttpRequest.BodyPublisher build() {
+	HttpRequest.BodyPublisher build() {
 		if (itemList.isEmpty()) {
 			throw new IllegalArgumentException("Empty MultiPart");
 		}
@@ -54,19 +54,19 @@ class MultiPartBodyPublisher {
 		return HttpRequest.BodyPublishers.ofByteArrays(new MultiPartIterable(iterator));
 	}
 
-	public MultiPartBodyPublisher addPart(String name, String value) {
+	MultiPartBodyPublisher addPart(String name, String value) {
 		MultiPartItem item = new MultiPartItem(name, value);
 		itemList.add(item);
 		return this;
 	}
 
-	public MultiPartBodyPublisher addPart(String name, Path file) {
+	MultiPartBodyPublisher addPart(String name, Path file) {
 		MultiPartItem item = new MultiPartItem(name, file);
 		itemList.add(item);
 		return this;
 	}
 
-	public MultiPartBodyPublisher addPart(String name, Supplier<InputStream> stream, String filename, String contentType) {
+	MultiPartBodyPublisher addPart(String name, Supplier<InputStream> stream, String filename, String contentType) {
 		MultiPartItem item = new MultiPartItem(name, stream, filename, contentType);
 		itemList.add(item);
 		return this;
@@ -90,7 +90,7 @@ class MultiPartBodyPublisher {
 		return buffer.toString();
 	}
 
-	public String getBoundary() {
+	String getBoundary() {
 		return boundary;
 	}
 }

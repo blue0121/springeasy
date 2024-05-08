@@ -11,12 +11,12 @@ import java.util.zip.ZipOutputStream;
  * @author Jin Zheng
  * @since 2023-03-27
  */
-public class ZipDirectory implements FileVisitor<Path> {
+class ZipDirectory implements FileVisitor<Path> {
 	private final ZipOutputStream out;
 	private final Path srcPath;
 	private final byte[] buf;
 
-	public ZipDirectory(ZipOutputStream out, Path srcPath, byte[] buf) {
+	ZipDirectory(ZipOutputStream out, Path srcPath, byte[] buf) {
 		this.out = out;
 		this.srcPath = srcPath;
 		this.buf = buf;

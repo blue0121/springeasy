@@ -13,7 +13,7 @@ import java.nio.file.Path;
  * @since 2023-03-27
  */
 @Getter
-public class LocalFileInfo implements FileInfo {
+class LocalFileInfo implements FileInfo {
 	private final String filename;
 	private final long size;
 

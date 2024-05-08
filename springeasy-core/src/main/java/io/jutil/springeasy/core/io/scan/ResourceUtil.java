@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2023-06-05
  */
 @Slf4j
-public class ResourceUtil {
+class ResourceUtil {
 	static final char DOT = '.';
 	static final char SLASH = '/';
 	static final String CLASS_EXT = ".class";

@@ -23,14 +23,14 @@ public class DateUtil {
 	private DateUtil() {
 	}
 
-    /**
-     * 当前时间，精确到秒
-     *
-     * @return
-     */
-    public static LocalDateTime now() {
-        return now(ChronoUnit.SECONDS);
-    }
+	/**
+	 * 当前时间，精确到秒
+	 *
+	 * @return
+	 */
+	public static LocalDateTime now() {
+		return now(ChronoUnit.SECONDS);
+	}
 
 	public static LocalDateTime now(TemporalUnit unit) {
 		var now = LocalDateTime.now();

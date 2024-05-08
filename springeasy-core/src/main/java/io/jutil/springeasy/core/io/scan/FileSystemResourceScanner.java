@@ -16,8 +16,8 @@ import java.nio.file.attribute.BasicFileAttributes;
  * @since 2023-06-05
  */
 @Slf4j
-public class FileSystemResourceScanner implements ResourceScanner {
-	public static final FileSystemResourceScanner INSTANCE = new FileSystemResourceScanner();
+class FileSystemResourceScanner implements ResourceScanner {
+	static final FileSystemResourceScanner INSTANCE = new FileSystemResourceScanner();
 
 	@Override
 	public void scan(String base, String path, ResourceHandler... handlers) {

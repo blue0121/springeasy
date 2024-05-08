@@ -11,8 +11,8 @@ import java.util.jar.JarFile;
  * @since 2023-06-12
  */
 @Slf4j
-public class JarResourceScanner implements ResourceScanner {
-    public static final JarResourceScanner INSTANCE = new JarResourceScanner();
+class JarResourceScanner implements ResourceScanner {
+    static final JarResourceScanner INSTANCE = new JarResourceScanner();
 
     @Override
     @SuppressWarnings("java:S5042")

@@ -14,7 +14,7 @@ import java.nio.file.attribute.BasicFileAttributes;
  * @since 2023-03-27
  */
 @Slf4j
-public class DeleteDirectory implements FileVisitor<Path> {
+class DeleteDirectory implements FileVisitor<Path> {
 
 	@Override
 	public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {

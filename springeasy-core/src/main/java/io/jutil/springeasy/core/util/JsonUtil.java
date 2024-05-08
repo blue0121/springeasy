@@ -6,6 +6,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.filter.Filter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -15,16 +16,17 @@ import java.util.List;
  * @author Jin Zheng
  * @since 1.0 2019-07-26
  */
+@Slf4j
 public class JsonUtil {
 	private static final String BASE_FILTER = "io.jutil.springeasy";
 
-	private static JSONWriter.Feature[] writer = new JSONWriter.Feature[] {
+	private static JSONWriter.Feature[] WRITER = new JSONWriter.Feature[] {
 			JSONWriter.Feature.WriteClassName,
 			JSONWriter.Feature.WriteEnumUsingOrdinal,
 			JSONWriter.Feature.WriteLongAsString
 	};
 
-	private static JSONWriter.Feature[] output = new JSONWriter.Feature[] {
+	private static final JSONWriter.Feature[] OUTPUT = new JSONWriter.Feature[] {
 			JSONWriter.Feature.WriteEnumUsingOrdinal,
 			JSONWriter.Feature.WriteLongAsString
 	};
@@ -56,7 +58,7 @@ public class JsonUtil {
 			return str.toString().getBytes(StandardCharsets.UTF_8);
 		}
 
-		return JSON.toJSONBytes(object, writer);
+		return JSON.toJSONBytes(object, WRITER);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -94,11 +96,11 @@ public class JsonUtil {
 			return String.format("{%d byte array}", bytes.length);
 		}
 
-		if (object instanceof CharSequence) {
-			return object.toString();
+		if (object instanceof CharSequence str) {
+			return str.toString();
 		}
 
-		return JSON.toJSONString(object, output);
+		return JSON.toJSONString(object, OUTPUT);
 	}
 
 	public static String toString(Object object) {
@@ -107,14 +109,14 @@ public class JsonUtil {
 		}
 
 		if (object instanceof byte[] bytes) {
-			return String.format("{%d byte array}", bytes.length);
+			return new String(bytes, StandardCharsets.UTF_8);
 		}
 
-		if (object instanceof CharSequence) {
-			return object.toString();
+		if (object instanceof CharSequence str) {
+			return str.toString();
 		}
 
-		return JSON.toJSONString(object, writer);
+		return JSON.toJSONString(object, WRITER);
 	}
 
 	@SuppressWarnings("unchecked")

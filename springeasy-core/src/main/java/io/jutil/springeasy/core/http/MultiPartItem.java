@@ -9,11 +9,11 @@ import java.util.function.Supplier;
  * @since 1.0 2020-04-30
  */
 class MultiPartItem {
-	public static final String BOUNDARY = "--";
-	public static final int BUFFER_SIZE = 8192;
-	public static final int HEADER_SIZE = 512;
-	public static final String NEW_LINE = "\r\n";
-	public static final String CONTENT_TYPE = "application/octet-stream";
+	static final String BOUNDARY = "--";
+	static final int BUFFER_SIZE = 8192;
+	static final int HEADER_SIZE = 512;
+	static final String NEW_LINE = "\r\n";
+	static final String CONTENT_TYPE = "application/octet-stream";
 
 	private MultiPartType type;
 	private String name;
@@ -46,59 +46,59 @@ class MultiPartItem {
 		this.contentType = contentType;
 	}
 
-	public MultiPartType getType() {
+	MultiPartType getType() {
 		return type;
 	}
 
-	public void setType(MultiPartType type) {
+	void setType(MultiPartType type) {
 		this.type = type;
 	}
 
-	public String getName() {
+	String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	void setName(String name) {
 		this.name = name;
 	}
 
-	public String getValue() {
+	String getValue() {
 		return value;
 	}
 
-	public void setValue(String value) {
+	void setValue(String value) {
 		this.value = value;
 	}
 
-	public Path getPath() {
+	Path getPath() {
 		return path;
 	}
 
-	public void setPath(Path path) {
+	void setPath(Path path) {
 		this.path = path;
 	}
 
-	public Supplier<InputStream> getStream() {
+	Supplier<InputStream> getStream() {
 		return stream;
 	}
 
-	public void setStream(Supplier<InputStream> stream) {
+	void setStream(Supplier<InputStream> stream) {
 		this.stream = stream;
 	}
 
-	public String getFilename() {
+	String getFilename() {
 		return filename;
 	}
 
-	public void setFilename(String filename) {
+	void setFilename(String filename) {
 		this.filename = filename;
 	}
 
-	public String getContentType() {
+	String getContentType() {
 		return contentType;
 	}
 
-	public void setContentType(String contentType) {
+	void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
 }

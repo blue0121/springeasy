@@ -12,6 +12,10 @@ class LongEpochIdGenerator extends AbstractIdGenerator<Long> {
     private final int timestampShift;
     private final long ip;
 
+    LongEpochIdGenerator() {
+        this(new EpochOptions());
+    }
+
 	LongEpochIdGenerator(EpochOptions options) {
         super(options.getSequenceBits());
         this.options = options;

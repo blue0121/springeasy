@@ -7,7 +7,7 @@ import java.util.List;
  * @author Jin Zheng
  * @since 2023-06-12
  */
-public class FileHandler implements ResourceHandler {
+class FileHandler implements ResourceHandler {
     final List<ResourceInfo> infoList = new ArrayList<>();
     final List<String> nameList = new ArrayList<>();
     final List<Class<?>> classList = new ArrayList<>();

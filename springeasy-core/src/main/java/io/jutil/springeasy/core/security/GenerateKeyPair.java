@@ -20,7 +20,7 @@ class GenerateKeyPair extends AbstractKeyPair {
 		try {
 			generator = KeyPairGenerator.getInstance(mode.getKey());
 		} catch (NoSuchAlgorithmException e) {
-			throw new java.lang.SecurityException(e);
+			throw new SecurityException(e);
 		}
 		if (mode.getSize() > 0) {
 			generator.initialize(mode.getSize());

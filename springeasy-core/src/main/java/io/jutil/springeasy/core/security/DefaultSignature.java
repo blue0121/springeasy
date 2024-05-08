@@ -33,7 +33,7 @@ class DefaultSignature implements Signature {
 			signature.update(data);
 			return signature.sign();
 		} catch (Exception e) {
-			throw new java.lang.SecurityException(e);
+			throw new SecurityException(e);
 		}
 	}
 
@@ -59,7 +59,7 @@ class DefaultSignature implements Signature {
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
 		} catch (Exception e) {
-			throw new java.lang.SecurityException(e);
+			throw new SecurityException(e);
 		}
 	}
 
@@ -74,7 +74,7 @@ class DefaultSignature implements Signature {
 			signature.update(data);
 			return signature.verify(sign);
 		} catch (Exception e) {
-			throw new java.lang.SecurityException(e);
+			throw new SecurityException(e);
 		}
 	}
 
@@ -101,7 +101,7 @@ class DefaultSignature implements Signature {
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
 		} catch (Exception e) {
-			throw new java.lang.SecurityException(e);
+			throw new SecurityException(e);
 		}
 	}
 }

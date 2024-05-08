@@ -4,7 +4,7 @@ package io.jutil.springeasy.core.http;
  * @author Jin Zheng
  * @since 1.0 2020-04-30
  */
-public enum MultiPartType {
+enum MultiPartType {
 	STRING,
 
 	FILE,

@@ -43,6 +43,16 @@ class FileUtilTest {
 	}
 
 	@Test
+	void testGetRelativeDir() {
+		Assertions.assertEquals("/", FileUtil.getRelativeDir("/a", ""));
+		Assertions.assertEquals("/a", FileUtil.getRelativeDir("/a/b", ""));
+		Assertions.assertEquals("/b", FileUtil.getRelativeDir("/a/b/c", "/a"));
+		Assertions.assertEquals("/b/c", FileUtil.getRelativeDir("/a/b/c/d", "/a"));
+		Assertions.assertEquals("/c/d", FileUtil.getRelativeDir("/a/b/c/d/e", "/a/b"));
+		Assertions.assertEquals("/b", FileUtil.getRelativeDir("/a/b/c", "/a/x"));
+	}
+
+	@Test
 	void testConcat() {
 		Assertions.assertEquals("/", FileUtil.concat());
 		Assertions.assertEquals("/a", FileUtil.concat("/", "/a"));
