@@ -1,6 +1,7 @@
 package io.jutil.springeasy.spring.schedule;
 
 import io.jutil.springeasy.core.schedule.ExecutorThreadFactory;
+import io.jutil.springeasy.spring.config.schedule.ExecutorProperties;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ExecutorServiceFactoryBean implements FactoryBean<ExecutorService>, InitializingBean {
 	private String id;
+	private ExecutorProperties.Type type;
 	private int queueCapacity;
 	private int coreSize;
 	private int maxSize;
@@ -45,6 +47,10 @@ public class ExecutorServiceFactoryBean implements FactoryBean<ExecutorService>,
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public void setType(ExecutorProperties.Type type) {
+		this.type = type;
 	}
 
 	public void setQueueCapacity(int queueCapacity) {

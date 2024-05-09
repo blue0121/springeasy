@@ -12,6 +12,7 @@ import java.util.jar.JarFile;
  */
 @Slf4j
 class JarResourceScanner implements ResourceScanner {
+    @SuppressWarnings("java:S6548")
     static final JarResourceScanner INSTANCE = new JarResourceScanner();
 
     @Override

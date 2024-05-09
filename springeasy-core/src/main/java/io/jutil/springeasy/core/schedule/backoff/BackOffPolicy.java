@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * @since 2024-04-28
  */
 public interface BackOffPolicy {
-	int BASE = 2;
+	long BASE = 2L;
 
 	Type getType();
 

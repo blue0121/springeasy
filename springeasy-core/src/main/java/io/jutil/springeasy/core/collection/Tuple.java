@@ -1,5 +1,7 @@
 package io.jutil.springeasy.core.collection;
 
+import java.util.Arrays;
+
 /**
  * @author Jin Zheng
  * @since 2023-06-04
@@ -8,10 +10,7 @@ public class Tuple {
 	private final Object[] cacheObjects;
 
 	public Tuple(Object...objects) {
-		this.cacheObjects = new Object[objects.length];
-		for (int i = 0; i < objects.length; i++) {
-			this.cacheObjects[i] = objects[i];
-		}
+		this.cacheObjects = Arrays.copyOf(objects, objects.length);
 	}
 
 	public int getSize() {

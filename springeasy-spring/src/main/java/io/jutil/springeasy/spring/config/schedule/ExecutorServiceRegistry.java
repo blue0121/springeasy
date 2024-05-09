@@ -21,6 +21,7 @@ public class ExecutorServiceRegistry implements BeanDefinitionRegistryPostProces
 		var definition = new RootBeanDefinition(ExecutorServiceFactoryBean.class);
 		var propertyValues = definition.getPropertyValues();
 		propertyValues.addPropertyValue("id", config.getId());
+		propertyValues.addPropertyValue("type", config.getType());
 		propertyValues.addPropertyValue("queueCapacity", config.getQueueCapacity());
 		propertyValues.addPropertyValue("coreSize", config.getCoreSize());
 		propertyValues.addPropertyValue("maxSize", config.getMaxSize());

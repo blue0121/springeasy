@@ -4,11 +4,13 @@ springeasy:
     configs:
       - id: executor1
         enabled: true
+        type: PLATFORM
         core-size: 1
         queueCapacity: 0
         max-size: 10
       - id: executor2
         enabled: true
+        type: PLATFORM
         core-size: 1
         queueCapacity: 10
         max-size: 10

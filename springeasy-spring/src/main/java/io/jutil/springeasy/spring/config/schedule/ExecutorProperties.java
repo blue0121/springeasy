@@ -33,6 +33,7 @@ public class ExecutorProperties implements PropertiesChecker {
 	public static class ExecutorConfigProperties implements PropertiesChecker {
 		private String id;
 		private boolean enabled;
+		private Type type = Type.PLATFORM;
 		private int queueCapacity;
 		private int coreSize;
 		private int maxSize;
@@ -42,10 +43,16 @@ public class ExecutorProperties implements PropertiesChecker {
 			if (!enabled) {
 				return;
 			}
-			AssertUtil.notEmpty(id, "Id");
+			AssertUtil.notEmpty(id, "id");
+			AssertUtil.notNull(type, "type");
 			AssertUtil.nonNegative(queueCapacity, "queueCapacity");
 			AssertUtil.positive(coreSize, "coreSize");
 			AssertUtil.positive(maxSize, "maxSize");
 		}
+	}
+
+	public static enum Type {
+		PLATFORM,
+		VIRTUAL,
 	}
 }

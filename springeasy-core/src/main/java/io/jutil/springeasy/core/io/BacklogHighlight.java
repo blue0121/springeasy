@@ -9,6 +9,7 @@ import ch.qos.logback.core.pattern.color.ForegroundCompositeConverterBase;
  * @author Jin Zheng
  * @since 2023-12-03
  */
+@SuppressWarnings("java:S110")
 public class BacklogHighlight extends ForegroundCompositeConverterBase<ILoggingEvent> {
 	@Override
 	protected String getForegroundColorCode(ILoggingEvent event) {

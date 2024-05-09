@@ -9,8 +9,6 @@ import com.alibaba.fastjson2.filter.Filter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Jin Zheng
@@ -20,7 +18,7 @@ import java.util.List;
 public class JsonUtil {
 	private static final String BASE_FILTER = "io.jutil.springeasy";
 
-	private static JSONWriter.Feature[] WRITER = new JSONWriter.Feature[] {
+	private static final JSONWriter.Feature[] WRITER = new JSONWriter.Feature[] {
 			JSONWriter.Feature.WriteClassName,
 			JSONWriter.Feature.WriteEnumUsingOrdinal,
 			JSONWriter.Feature.WriteLongAsString
@@ -31,18 +29,20 @@ public class JsonUtil {
 			JSONWriter.Feature.WriteLongAsString
 	};
 
-	public static Filter autoedTypeFilter = JSONReader.autoTypeFilter(BASE_FILTER);
+	private static Filter autoedTypeFilter = JSONReader.autoTypeFilter(BASE_FILTER);
 
 	private JsonUtil() {
 	}
 
 	public static void registerAutoType(String...names) {
-		List<String> nameList = new ArrayList<>();
-		nameList.add(BASE_FILTER);
-		for (var name : names) {
-			nameList.add(name);
+		if (names == null || names.length == 0) {
+			return;
 		}
-		autoedTypeFilter = JSONReader.autoTypeFilter(nameList.toArray(new String[0]));
+
+		String[] newNames = new String[names.length + 1];
+		names[0] = BASE_FILTER;
+		System.arraycopy(names, 0, newNames, 1, names.length);
+		autoedTypeFilter = JSONReader.autoTypeFilter(newNames);
 	}
 
 	public static byte[] toBytes(Object object) {

@@ -43,6 +43,7 @@ class ResourceUtil {
 		return path.substring(FILE_PROTOCOL.length(), pos);
 	}
 
+	@SuppressWarnings("java:S135")
 	public static void handle(ResourceInfo info, ResourceHandler...handlers) {
 		for (var handler : handlers) {
 			try {
