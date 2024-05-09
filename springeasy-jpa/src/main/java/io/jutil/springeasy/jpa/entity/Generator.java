@@ -8,6 +8,7 @@ class Generator {
 
 	static final String LONG_ID_NAME = "longIdGenerator";
 	static final String STRING_20_ID_NAME = "string20IdGenerator";
+	static final String UUID_NAME = "uuidGenerator";
 
 
 	private Generator() {

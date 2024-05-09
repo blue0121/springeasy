@@ -51,7 +51,7 @@ public class ExecutorProperties implements PropertiesChecker {
 		}
 	}
 
-	public static enum Type {
+	public enum Type {
 		PLATFORM,
 		VIRTUAL,
 	}

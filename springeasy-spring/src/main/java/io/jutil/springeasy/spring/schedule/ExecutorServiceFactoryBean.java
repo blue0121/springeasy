@@ -6,6 +6,7 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -36,13 +37,24 @@ public class ExecutorServiceFactoryBean implements FactoryBean<ExecutorService>,
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
+		this.executor = switch (type) {
+			case PLATFORM -> this.createPlatform();
+			case VIRTUAL -> this.createVirtual();
+		};
+	}
+
+	private ExecutorService createPlatform() {
 		var queue = switch (this.queueCapacity) {
 			case 0 -> new SynchronousQueue<Runnable>();
 			default -> new LinkedBlockingQueue<Runnable>(this.queueCapacity);
 		};
 		var threadFactory = new ExecutorThreadFactory(this.id);
-		this.executor = new ThreadPoolExecutor(this.coreSize, this.maxSize,
+		return new ThreadPoolExecutor(this.coreSize, this.maxSize,
 				1, TimeUnit.MINUTES, queue, threadFactory);
+	}
+
+	private ExecutorService createVirtual() {
+		return Executors.newVirtualThreadPerTaskExecutor();
 	}
 
 	public void setId(String id) {

@@ -31,4 +31,9 @@ public class IdGeneratorFactory {
 		});
 		return id.generate();
 	}
+
+	public static String uuid() {
+		var id = Singleton.get(UuidGenerator.class, k -> new UuidGenerator());
+		return id.generate();
+	}
 }

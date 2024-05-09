@@ -16,8 +16,8 @@ import java.nio.file.attribute.BasicFileAttributes;
  * @since 2023-06-05
  */
 @Slf4j
+@SuppressWarnings("java:S6548")
 class FileSystemResourceScanner implements ResourceScanner {
-	@SuppressWarnings("java:S6548")
 	static final FileSystemResourceScanner INSTANCE = new FileSystemResourceScanner();
 
 	@Override
