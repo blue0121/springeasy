@@ -18,10 +18,14 @@ public class Hex {
         }
         var builder = new StringBuilder(bytes.length << 1);
         for (var b : bytes) {
-            builder.append(Character.forDigit((b >>> HEX_TO_BIT) & 0xf, RADIX));
-            builder.append(Character.forDigit(b & 0xf, RADIX));
+            encode(builder, b);
         }
         return builder.toString();
+    }
+
+    public static void encode(StringBuilder builder, byte b) {
+        builder.append(Character.forDigit((b >>> HEX_TO_BIT) & 0xf, RADIX));
+        builder.append(Character.forDigit(b & 0xf, RADIX));
     }
 
     public static byte[] decode(String hex) {
@@ -32,12 +36,15 @@ public class Hex {
 
         var bytes = new byte[len >>> 1];
         for (int i = 0, j = 0; i < len; i += 2, j++) {
-            var high = Character.digit(hex.charAt(i), RADIX);
-            var low = Character.digit(hex.charAt(i + 1), RADIX);
-            var b = (byte) (((high << HEX_TO_BIT) | low) & BYTE_MASK);
-            bytes[j] = b;
+            bytes[j] = decode(hex.charAt(i), hex.charAt(i + 1));
         }
         return bytes;
+    }
+
+    public static byte decode(char highCh, char lowCh) {
+        var high = Character.digit(highCh, RADIX);
+        var low = Character.digit(lowCh, RADIX);
+        return (byte) (((high << HEX_TO_BIT) | low) & BYTE_MASK);
     }
 
 }

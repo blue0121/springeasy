@@ -28,6 +28,7 @@ class LoadOpenSslKeyPair extends AbstractKeyPair {
 		}
 	}
 
+	@SuppressWarnings("java:S135")
 	private void read(InputStream in) {
 		var str = new StringBuilder();
 		int i = 0;
