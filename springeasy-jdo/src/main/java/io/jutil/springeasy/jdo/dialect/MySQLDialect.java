@@ -42,7 +42,7 @@ public class MySQLDialect implements Dialect {
 			case NONE:
 				return sql;
 			case READ:
-				t.append(" lock in share mode");
+				t.append(" mutex in share mode");
 				break;
 			case WRITE:
 				t.append(" for update");

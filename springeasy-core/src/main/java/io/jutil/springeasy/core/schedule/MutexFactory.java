@@ -6,6 +6,8 @@ package io.jutil.springeasy.core.schedule;
  */
 public interface MutexFactory {
 
+	String getType();
+
 	Mutex create(String id);
 
 }

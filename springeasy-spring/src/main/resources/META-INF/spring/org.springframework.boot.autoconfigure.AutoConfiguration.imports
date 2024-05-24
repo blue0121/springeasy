@@ -1,3 +1,4 @@
+io.jutil.springeasy.spring.config.cache.CacheAutoConfiguration
 io.jutil.springeasy.spring.config.http.HttpTemplateAutoConfiguration
 io.jutil.springeasy.spring.config.schedule.ExecutorAutoConfiguration
 io.jutil.springeasy.spring.config.schedule.ScheduleAutoConfiguration

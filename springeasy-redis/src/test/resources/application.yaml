@@ -1,0 +1,14 @@
+springeasy:
+  executor:
+    enabled: true
+    configs:
+      - id: executor1
+        enabled: true
+        type: PLATFORM
+        core-size: 1
+        queueCapacity: 0
+        max-size: 10
+  redis:
+    enabled: true
+    server: redis://localhost:6379
+    password: 1111

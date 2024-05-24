@@ -19,6 +19,10 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: 'maven'
+      - name: Set up redis
+        uses: supercharge/redis-github-action@1.7.0
+        with:
+          redis-version: 7
       - name: Analyze with SonarCloud
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

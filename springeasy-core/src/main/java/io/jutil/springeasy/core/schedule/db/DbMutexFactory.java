@@ -35,6 +35,11 @@ public class DbMutexFactory implements MutexFactory {
 	}
 
 	@Override
+	public String getType() {
+		return "db";
+	}
+
+	@Override
 	public Mutex create(String jobId) {
 		var m = mutexMap.get(jobId);
 		if (m != null) {

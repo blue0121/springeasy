@@ -5,9 +5,9 @@ package io.jutil.springeasy.core.codec;
  * @since 2022-08-16
  */
 public class Hex {
-    private static final int RADIX = 16;
-    private static final int HEX_TO_BIT = 4;
-    private static final int BYTE_MASK = 0xff;
+	private static final int RADIX = 16;
+	private static final int HEX_TO_BIT = 4;
+	private static final int BYTE_MASK = 0xff;
 
 	private Hex() {
 	}

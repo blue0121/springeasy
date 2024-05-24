@@ -1,0 +1,2 @@
+io.jutil.springeasy.redis.config.RedisAutoConfiguration
+io.jutil.springeasy.redis.config.RedisCacheAutoConfiguration

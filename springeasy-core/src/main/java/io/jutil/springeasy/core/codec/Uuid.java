@@ -27,6 +27,7 @@ public class Uuid {
 		return builder.toString();
 	}
 
+	@SuppressWarnings("java:S127")
 	public static byte[] decode(String uuid) {
 		if (uuid == null || uuid.length() != STRING_LEN) {
 			throw new IllegalArgumentException("无效UUID字符串");

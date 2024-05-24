@@ -30,24 +30,6 @@ public class ScheduleAutoConfiguration {
 	@Autowired(required = false)
 	DataSource dataSource;
 
-	@Bean
-	public MutexFactory mutexFactory(ScheduleProperties prop) {
-		prop.check();
-		return switch (prop.getMutex()) {
-			case "db" -> this.createDbMutexFactory(prop);
-			case "memory" -> new MemoryMutexFactory();
-			default -> throw new UnsupportedOperationException("未知 mutex 类型: " + prop.getMutex());
-		};
-	}
-
-	private DbMutexFactory createDbMutexFactory(ScheduleProperties prop) {
-		var factory = new DbMutexFactory(dataSource, prop.getMutexKey());
-		factory.setKeepAliveSec(prop.getKeepAliveSec());
-		factory.setExpireSec(prop.getExpireSec());
-		factory.setJobIdList(this.getJobIdSet(prop));
-		return factory;
-	}
-
 	private Set<String> getJobIdSet(ScheduleProperties prop) {
 		if (prop.getConfigs() == null || prop.getConfigs().isEmpty()) {
 			return Set.of();
@@ -63,10 +45,40 @@ public class ScheduleAutoConfiguration {
 
 	@Bean
 	public CronScheduleJobFactoryBean cronScheduleJob(ScheduleProperties prop,
-	                                                  MutexFactory mutexFactory,
+	                                                  List<MutexFactory> mutexFactoryList,
 	                                                  List<SpringScheduleJob> jobList) {
 		prop.check();
+		var mutexFactory = this.getMutexFactory(prop, mutexFactoryList);
+		log.info("MutexFactory is: {}", mutexFactory.getClass().getSimpleName());
 		return new CronScheduleJobFactoryBean(prop, mutexFactory, jobList);
+	}
+
+	private MutexFactory getMutexFactory(ScheduleProperties prop,
+	                                     List<MutexFactory> mutexFactoryList) {
+		MutexFactory mutexFactory = null;
+		for (var factory : mutexFactoryList) {
+			if (prop.getMutex().equalsIgnoreCase(factory.getType())) {
+				mutexFactory = factory;
+				break;
+			}
+		}
+		if (mutexFactory != null) {
+			return mutexFactory;
+		}
+
+		return switch (prop.getMutex()) {
+			case "db" -> this.createDbMutexFactory(prop);
+			case "memory" -> new MemoryMutexFactory();
+			default -> throw new UnsupportedOperationException("未知 mutex 类型: " + prop.getMutex());
+		};
+	}
+
+	private DbMutexFactory createDbMutexFactory(ScheduleProperties prop) {
+		var factory = new DbMutexFactory(dataSource, prop.getMutexKey());
+		factory.setKeepAliveSec(prop.getKeepAliveSec());
+		factory.setExpireSec(prop.getExpireSec());
+		factory.setJobIdList(this.getJobIdSet(prop));
+		return factory;
 	}
 
 }

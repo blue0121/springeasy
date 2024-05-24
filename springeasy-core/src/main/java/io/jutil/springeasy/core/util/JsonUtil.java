@@ -20,18 +20,20 @@ public class JsonUtil {
 
 	private static final JSONWriter.Feature[] WRITER = new JSONWriter.Feature[] {
 			JSONWriter.Feature.WriteClassName,
-			JSONWriter.Feature.WriteEnumUsingOrdinal,
-			JSONWriter.Feature.WriteLongAsString
+			JSONWriter.Feature.WriteEnumUsingOrdinal
 	};
 
 	private static final JSONWriter.Feature[] OUTPUT = new JSONWriter.Feature[] {
-			JSONWriter.Feature.WriteEnumUsingOrdinal,
-			JSONWriter.Feature.WriteLongAsString
+			JSONWriter.Feature.WriteEnumUsingOrdinal
 	};
 
 	private static Filter autoedTypeFilter = JSONReader.autoTypeFilter(BASE_FILTER);
 
 	private JsonUtil() {
+	}
+
+	public static Filter getAutoedTypeFilter() {
+		return autoedTypeFilter;
 	}
 
 	public static void registerAutoType(String...names) {

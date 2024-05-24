@@ -12,6 +12,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MemoryMutexFactory implements MutexFactory {
 
 	@Override
+	public String getType() {
+		return "memory";
+	}
+
+	@Override
 	public Mutex create(String id) {
 		var lock = new AtomicBoolean(false);
 		return new MemoryMutex(id, lock);

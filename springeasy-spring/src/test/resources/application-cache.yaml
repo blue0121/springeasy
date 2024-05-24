@@ -1,0 +1,12 @@
+springeasy:
+  cache:
+    enabled: true
+    type: local
+    expire-sec: 60
+    max-size: 10000
+    expire-other-sec: 300
+    max-other-size: 50000
+    items:
+      - id: test1
+        expire-sec: 10
+        max-size: 1000
