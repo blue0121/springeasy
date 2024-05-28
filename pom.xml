@@ -35,7 +35,7 @@
 
 		<!-- maven plugins -->
 		<compiler.version>3.13.0</compiler.version>
-		<jar.version>3.3.0</jar.version>
+		<jar.version>3.4.1</jar.version>
 		<assembly.version>3.7.1</assembly.version>
 		<surefire.version>3.2.5</surefire.version>
 		<jacoco.version>0.8.12</jacoco.version>

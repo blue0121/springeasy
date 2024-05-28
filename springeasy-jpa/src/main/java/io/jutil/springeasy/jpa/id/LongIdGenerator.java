@@ -1,6 +1,7 @@
 package io.jutil.springeasy.jpa.id;
 
 import io.jutil.springeasy.core.id.IdGeneratorFactory;
+import io.jutil.springeasy.spring.config.node.MachineIdContext;
 import lombok.NoArgsConstructor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
@@ -14,6 +15,7 @@ public class LongIdGenerator implements IdentifierGenerator {
 
 	@Override
 	public Object generate(SharedSessionContractImplementor implementor, Object object) {
-		return IdGeneratorFactory.longId();
+		var machineId = MachineIdContext.getMachineId();
+		return IdGeneratorFactory.longId(machineId);
 	}
 }

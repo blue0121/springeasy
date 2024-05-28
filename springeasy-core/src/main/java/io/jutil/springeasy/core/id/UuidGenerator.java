@@ -20,15 +20,15 @@ class UuidGenerator extends AbstractIdGenerator<String> {
 	@Override
 	public synchronized String generate() {
 		var id = new byte[16];
+		System.arraycopy(addr, 0, id, 0, 6);
 		this.generateTimestamp(id);
-		System.arraycopy(addr, 0, id, 10, 6);
 		return Uuid.encode(id);
 	}
 
 	private synchronized void generateTimestamp(byte[] id) {
 		this.generateSequence();
-		this.writeTimestamp(id, lastTimestamp, 8);
-		id[8] = (byte) ((sequence >> 8) & 0xff);
-		id[9] = (byte) (sequence & 0xff);
+		this.writeLong(id, lastTimestamp, 6, 8);
+		id[14] = (byte) ((sequence >> 8) & 0xff);
+		id[15] = (byte) (sequence & 0xff);
 	}
 }

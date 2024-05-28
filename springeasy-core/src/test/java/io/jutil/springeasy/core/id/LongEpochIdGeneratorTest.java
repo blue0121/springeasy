@@ -7,7 +7,8 @@ package io.jutil.springeasy.core.id;
 class LongEpochIdGeneratorTest extends IdGeneratorTest<Long> {
 	LongEpochIdGeneratorTest() {
 		var options = new EpochOptions();
-		options.setMachineIdBits(8);
+		options.setMachineId(1);
+		options.setMachineIdBits(10);
 		options.setSequenceBits(12);
         this.generator = new LongEpochIdGenerator(options);
 	}

@@ -1,6 +1,7 @@
 package io.jutil.springeasy.core.id;
 
 import io.jutil.springeasy.core.codec.Base32;
+import io.jutil.springeasy.core.util.ByteUtil;
 import io.jutil.springeasy.core.util.NetworkUtil;
 
 /**
@@ -18,15 +19,15 @@ class String20IdGenerator extends AbstractIdGenerator<String> {
         super(SEQUENCE_BITS);
         this.options = options;
         this.timestampShift = SEQUENCE_BITS;
-        this.ip = NetworkUtil.getIpv4ForByteArray();
+        this.ip = ByteUtil.mask(NetworkUtil.getIpv4ForByteArray());
 	}
 
     @Override
     public String generate() {
         var id = new byte[12];
         var timestamp = this.generateTimestamp();
-        this.writeTimestamp(id, timestamp, 8);
-        System.arraycopy(this.ip, 0, id, 8, 4);
+        System.arraycopy(this.ip, 0, id, 0, 4);
+        this.writeLong(id, timestamp, 4, 8);
         return Base32.encode(id);
     }
 

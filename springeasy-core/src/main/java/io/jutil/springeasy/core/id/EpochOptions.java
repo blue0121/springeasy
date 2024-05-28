@@ -18,9 +18,9 @@ class EpochOptions {
     }
 
     EpochOptions(int machineId) {
-        this.epoch = LocalDate.of(2023, 1, 1);
+        this.epoch = LocalDate.of(2024, 1, 1);
         this.machineId = machineId;
-        this.machineIdBits = 8;
+        this.machineIdBits = 10;
         this.sequenceBits = 10;
     }
 

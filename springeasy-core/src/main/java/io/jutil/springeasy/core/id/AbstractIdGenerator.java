@@ -47,6 +47,13 @@ abstract class AbstractIdGenerator<T> implements IdGenerator<T> {
         }
     }
 
+    protected void writeLong(byte[] id, long value, int offset, int size) {
+        for (int i = 0; i < size; i++) {
+            var shift = (size - i - 1) << 3;
+            id[offset + i] = (byte) ((value >>> shift) & 0xff);
+        }
+    }
+
     protected void writeTimestamp(byte[] id, long timestamp, int size) {
         for (int i = 0; i < size; i++) {
             var shift = (size - i - 1) << 3;
