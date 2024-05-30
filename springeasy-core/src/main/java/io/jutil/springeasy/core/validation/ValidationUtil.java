@@ -7,6 +7,7 @@ import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Jin Zheng
@@ -25,23 +26,21 @@ public class ValidationUtil {
 	 * @param object 对象
 	 * @param groups 验证分组
 	 */
+	@SuppressWarnings("unchecked")
 	public static void valid(Object object, Class<?>... groups) throws ValidationException {
 		init();
 
-		Set<ConstraintViolation<Object>> set = validator.validate(object, groups);
+		Set set = validator.validate(object, groups);
 		if (set == null || set.isEmpty()) {
 			return;
 		}
 
-		StringBuilder sb = new StringBuilder();
-		for (ConstraintViolation<Object> cv : set) {
-			sb.append(cv.getMessage()).append(",");
-		}
-		if (sb.length() > 1) {
-			sb.delete(sb.length() - 1, sb.length());
-		}
+		throw new ValidationException(getErrorMessage(set));
+	}
 
-		throw new ValidationException(sb.toString());
+	public static String getErrorMessage(Set<ConstraintViolation<?>> set) {
+		return set.stream().map(ConstraintViolation::getMessage)
+				.collect(Collectors.joining(","));
 	}
 
 	private static void init() {
