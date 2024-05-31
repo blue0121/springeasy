@@ -78,6 +78,11 @@ public abstract class BaseDao<T, ID extends Serializable> extends QueryDao {
 		return this.queryList(entityClazz, hql, map);
 	}
 
+	public int deleteOne(ID id) {
+		var hql = this.formatHql("delete from {entity} where id in=?1");
+		return this.execute(hql, id);
+	}
+
 	public int deleteList(Collection<ID> idList) {
 		var hql = this.formatHql("delete from {entity} where id in (?1)");
 		return this.execute(hql, idList);

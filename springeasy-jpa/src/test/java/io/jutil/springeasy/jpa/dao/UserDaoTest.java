@@ -58,6 +58,23 @@ class UserDaoTest {
 	}
 
 	@Test
+	void testDelete() {
+		var entity = new UserEntity();
+		entity.setName(name1);
+		userDao.insert(entity);
+		Assertions.assertNotNull(entity.getId());
+
+		var view = userDao.getOne(entity.getId());
+		Assertions.assertNotNull(view);
+		Assertions.assertEquals(name1, view.getName());
+
+		var rs = userDao.deleteList(List.of(entity.getId()));
+		Assertions.assertEquals(1, rs);
+
+		Assertions.assertNull(userDao.getOne(entity.getId()));
+	}
+
+	@Test
 	void testAll() {
 		var entity = new UserEntity();
 		entity.setName(name1);
