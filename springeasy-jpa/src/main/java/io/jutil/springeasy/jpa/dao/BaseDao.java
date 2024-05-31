@@ -56,8 +56,9 @@ public abstract class BaseDao<T, ID extends Serializable> extends QueryDao {
 	}
 
 	public T getOne(ID id) {
-		var list = this.getList(List.of(id));
-		return list.isEmpty() ? null : list.get(0);
+		var map = Map.of("id", id);
+		var hql = this.select("where e.id = :id");
+		return this.querySingle(entityClazz, hql, map);
 	}
 
 	public T getOne(Consumer<Expression> f) {
@@ -79,7 +80,7 @@ public abstract class BaseDao<T, ID extends Serializable> extends QueryDao {
 	}
 
 	public int deleteOne(ID id) {
-		var hql = this.formatHql("delete from {entity} where id in=?1");
+		var hql = this.formatHql("delete from {entity} where id = ?1");
 		return this.execute(hql, id);
 	}
 

@@ -68,7 +68,7 @@ class UserDaoTest {
 		Assertions.assertNotNull(view);
 		Assertions.assertEquals(name1, view.getName());
 
-		var rs = userDao.deleteList(List.of(entity.getId()));
+		var rs = userDao.deleteOne(entity.getId());
 		Assertions.assertEquals(1, rs);
 
 		Assertions.assertNull(userDao.getOne(entity.getId()));
