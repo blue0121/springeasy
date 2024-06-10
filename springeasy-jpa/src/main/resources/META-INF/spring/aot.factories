@@ -1,2 +1,0 @@
-org.springframework.aot.hint.RuntimeHintsRegistrar=\
-io.jutil.springeasy.jpa.config.JpaRuntimeHintsRegistrar
