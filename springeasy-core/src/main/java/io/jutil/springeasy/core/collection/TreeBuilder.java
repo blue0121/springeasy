@@ -18,7 +18,10 @@ public class TreeBuilder {
 	private static final String KEY_CHILDREN = "children";
 
 	public static <T extends Item> JSONArray build(List<T> list) {
-		var map = list.stream().collect(Collectors.groupingBy(Item::getParentId));
+		var map = list.stream()
+				.collect(Collectors.groupingBy(e ->
+					e.getParentId() == null ? ROOT_PARENT_ID : e.getParentId()
+				));
 		return build(map);
 	}
 
@@ -49,6 +52,7 @@ public class TreeBuilder {
 		for (var item : list) {
 			var child = JSONObject.from(item);
 			children.add(child);
+			buildChildren(child, map, item.getId());
 		}
 		obj.put(KEY_CHILDREN, children);
 	}
