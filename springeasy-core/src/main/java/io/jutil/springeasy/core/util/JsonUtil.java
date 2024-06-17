@@ -16,15 +16,17 @@ import java.nio.charset.StandardCharsets;
  */
 @Slf4j
 public class JsonUtil {
-	private static final String BASE_FILTER = "io.jutil.springeasy";
+	private static final String BASE_FILTER = "io.jutil";
 
 	private static final JSONWriter.Feature[] WRITER = new JSONWriter.Feature[] {
 			JSONWriter.Feature.WriteClassName,
-			JSONWriter.Feature.WriteEnumUsingOrdinal
+			JSONWriter.Feature.WriteEnumUsingOrdinal,
+			JSONWriter.Feature.WriteLongAsString
 	};
 
 	private static final JSONWriter.Feature[] OUTPUT = new JSONWriter.Feature[] {
-			JSONWriter.Feature.WriteEnumUsingOrdinal
+			JSONWriter.Feature.WriteEnumUsingOrdinal,
+			JSONWriter.Feature.WriteLongAsString
 	};
 
 	private static Filter autoedTypeFilter = JSONReader.autoTypeFilter(BASE_FILTER);

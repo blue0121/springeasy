@@ -2,6 +2,7 @@ package io.jutil.springeasy.spring.exception;
 
 import io.jutil.springeasy.core.security.TokenException;
 import io.jutil.springeasy.core.util.StringUtil;
+import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -42,7 +43,12 @@ public class ErrorCodeExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<Object> handleValidationException(ValidationException ex,
 	                                                        WebRequest request) {
 		var headers = new HttpHeaders();
-		var error = BaseErrorCode.INVALID_PARAM.toJsonString(ex.getMessage());
+		var message = ex.getMessage();
+		if (ex instanceof ConstraintViolationException ex2) {
+			message = ex2.getMessage();
+		}
+
+		var error = BaseErrorCode.INVALID_PARAM.toJsonString(message);
 		log.error("ValidationException: {}", ex.getMessage());
 		return handleExceptionInternal(ex, error, headers, HttpStatus.BAD_REQUEST,
 				request);
