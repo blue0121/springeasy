@@ -30,6 +30,7 @@ class HttpTemplateTest {
     @Qualifier("test2")
     AsyncHttpTemplate asyncHttpTemplate;
 
+
     @Test
     void testPost() {
         var url = "http://localhost:" + port + "/test";
@@ -50,5 +51,22 @@ class HttpTemplateTest {
         var entity = response.convertTo(TestResponse.class);
         Assertions.assertEquals("red", entity.getName());
         Assertions.assertEquals("Hello, red", entity.getMessage());
+    }
+
+    @Test
+    void testValidate1() {
+        var url = "http://localhost:" + port + "/validate?id=1";
+        var response = httpTemplate.get(url);
+        Assertions.assertEquals(204, response.getStatusCode());
+    }
+
+    @Test
+    void testValidate2() {
+        var url = "http://localhost:" + port + "/validate";
+        var response = httpTemplate.get(url);
+        Assertions.assertEquals(400, response.getStatusCode());
+        var error = response.convertTo(ErrorCode.class);
+        Assertions.assertEquals(400_000, error.getCode());
+        Assertions.assertEquals("无效参数: ID不能为空", error.getMessage());
     }
 }
