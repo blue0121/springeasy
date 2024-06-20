@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
  * @since 2024-06-13
  */
 @Slf4j
+@Transactional
 class UserDaoTest extends BaseTest {
 	@Autowired
 	UserDao userDao;
@@ -35,7 +37,7 @@ class UserDaoTest extends BaseTest {
 	}
 
 	List<UserEntity> insertListTest() {
-		int count = 1000;
+		int count = 10000;
 		List<UserEntity> list = new ArrayList<>();
 		for (int i = 1; i <= count; i++) {
 			var entity = new UserEntity();
@@ -53,7 +55,7 @@ class UserDaoTest extends BaseTest {
 
 	@Test
 	void testUpdateListTest() {
-		int count = 1000;
+		int count = 10000;
 		List<UserEntity> list = this.insertListTest();
 
 		for (int i = 1; i <= count; i++) {

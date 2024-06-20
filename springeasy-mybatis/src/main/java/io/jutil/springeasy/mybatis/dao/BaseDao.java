@@ -2,9 +2,7 @@ package io.jutil.springeasy.mybatis.dao;
 
 import io.jutil.springeasy.mybatis.entity.LongIdEntity;
 import io.jutil.springeasy.mybatis.id.LongIdGenerator;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
 
@@ -15,12 +13,10 @@ import java.util.List;
 public abstract class BaseDao<T extends LongIdEntity> {
 	private static final String INSERT_NAME = "insert";
 	private static final String UPDATE_NAME = "update";
-	private static final int BATCH_SIZE = 100;
+	private static final int BATCH_SIZE = 1000;
 
 	@Autowired
-	@Qualifier("batchSqlSessionTemplate")
-	protected SqlSessionTemplate sqlSession;
-
+	protected BatchSqlSessionTemplate sqlSession;
 
 	public int insertList(Class<?> mapper, List<T> list) {
 		return this.insertList(mapper, INSERT_NAME, list, BATCH_SIZE);
