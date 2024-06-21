@@ -28,7 +28,7 @@ class UserMapperTest extends BaseTest {
 		var entity = new UserEntity();
 		entity.setId(IdGeneratorFactory.longId());
 		entity.setName("blue");
-		mapper.insert(entity);
+		Assertions.assertEquals(1, mapper.insert(entity));
 		var now = DateUtil.now();
 
 		var view = mapper.getOne(entity.getId());
@@ -44,5 +44,14 @@ class UserMapperTest extends BaseTest {
 		Assertions.assertEquals(entity.getName(), view0.getName());
 		Assertions.assertTrue(DateUtil.equal(now, view0.getCreateTime()));
 		Assertions.assertTrue(DateUtil.equal(now, view0.getUpdateTime()));
+
+		entity.setName("red");
+		Assertions.assertEquals(1, mapper.update(entity));
+		view = mapper.getOne(entity.getId());
+		Assertions.assertNotNull(view);
+		Assertions.assertEquals(entity.getName(), view.getName());
+
+		Assertions.assertEquals(1, mapper.deleteAll());
+		Assertions.assertNull(mapper.getOne(entity.getId()));
 	}
 }
