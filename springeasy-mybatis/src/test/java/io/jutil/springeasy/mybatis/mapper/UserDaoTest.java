@@ -66,6 +66,12 @@ class UserDaoTest extends BaseTest {
 		int rs = userDao.updateList(UserMapper.class, list);
 		log.info("UpdateList 用时: {} ms", System.currentTimeMillis() - start);
 		Assertions.assertEquals(count, rs);
+
+		var view = userMapper.getOne(list.getFirst().getId());
+		Assertions.assertNotNull(view);
+		Assertions.assertEquals(list.getFirst().getName(), view.getName());
+
+		userMapper.update(list.getFirst());
 		this.verify(list);
 	}
 

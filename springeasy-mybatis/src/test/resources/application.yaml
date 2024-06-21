@@ -13,7 +13,7 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
-    default-fetch-size: 1000
+    cache-enabled: false
 
 springeasy:
   node:
