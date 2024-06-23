@@ -1,5 +1,6 @@
 package io.jutil.springeasy.core.collection;
 
+import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import io.jutil.springeasy.core.util.JsonUtil;
 import lombok.AllArgsConstructor;
@@ -19,9 +20,9 @@ class TreeBuilderTest {
 	@Test
 	void testBuild1() {
 		List<TreeItem> itemList = new ArrayList<>();
-		itemList.add(new TreeItem(1L,null,"name1"));
-		itemList.add(new TreeItem(2L,null,"name2"));
-		itemList.add(new TreeItem(3L,null,"name3"));
+		itemList.add(new TreeItem(1L,null,"name1", Status.ACTIVE));
+		itemList.add(new TreeItem(2L,null,"name2", Status.ACTIVE));
+		itemList.add(new TreeItem(3L,null,"name3", Status.ACTIVE));
 		var array = TreeBuilder.build(itemList);
 		System.out.println(JsonUtil.output(array));
 		Assertions.assertEquals(3, array.size());
@@ -33,17 +34,17 @@ class TreeBuilderTest {
 	@Test
 	void testBuild2() {
 		List<TreeItem> itemList = new ArrayList<>();
-		itemList.add(new TreeItem(1L,null,"name1"));
-		itemList.add(new TreeItem(2L,null,"name2"));
+		itemList.add(new TreeItem(1L,null,"name1", Status.ACTIVE));
+		itemList.add(new TreeItem(2L,null,"name2", Status.ACTIVE));
 
-		itemList.add(new TreeItem(11L,1L,"name11"));
-		itemList.add(new TreeItem(12L,1L,"name12"));
+		itemList.add(new TreeItem(11L,1L,"name11", Status.ACTIVE));
+		itemList.add(new TreeItem(12L,1L,"name12", Status.ACTIVE));
 
-		itemList.add(new TreeItem(21L,2L,"name21"));
-		itemList.add(new TreeItem(22L,2L,"name22"));
+		itemList.add(new TreeItem(21L,2L,"name21", Status.ACTIVE));
+		itemList.add(new TreeItem(22L,2L,"name22", Status.ACTIVE));
 
-		itemList.add(new TreeItem(121L,21L,"name121"));
-		itemList.add(new TreeItem(122L,21L,"name122"));
+		itemList.add(new TreeItem(121L,21L,"name121", Status.ACTIVE));
+		itemList.add(new TreeItem(122L,21L,"name122", Status.ACTIVE));
 
 		var array = TreeBuilder.build(itemList);
 		System.out.println(JsonUtil.output(array));
@@ -77,6 +78,19 @@ class TreeBuilderTest {
 		Assertions.assertEquals(id, obj.getLong("id"));
 		Assertions.assertEquals(parentId, obj.getLong("parentId"));
 		Assertions.assertEquals(name, obj.getString("name"));
+		Assertions.assertEquals(0, obj.getIntValue("status"));
+	}
+
+	@Test
+	void testJson() {
+		var item = new TreeItem(1L,null,"name", Status.ACTIVE);
+		var json = JsonUtil.output(item);
+		System.out.println(json);
+		var obj = JSON.parseObject(json);
+		System.out.println(obj);
+		Assertions.assertEquals(1L, obj.getLong("id"));
+		Assertions.assertEquals("name", obj.getString("name"));
+		Assertions.assertEquals(0, obj.getIntValue("status"));
 	}
 
 	@Getter
@@ -85,6 +99,10 @@ class TreeBuilderTest {
 		Long id;
 		Long parentId;
 		String name;
+		Status status;
+	}
 
+	enum Status {
+		ACTIVE
 	}
 }

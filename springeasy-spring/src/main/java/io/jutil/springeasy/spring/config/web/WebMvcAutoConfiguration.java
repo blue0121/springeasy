@@ -1,8 +1,8 @@
 package io.jutil.springeasy.spring.config.web;
 
-import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.support.config.FastJsonConfig;
 import com.alibaba.fastjson2.support.spring6.http.converter.FastJsonHttpMessageConverter;
+import io.jutil.springeasy.core.util.JsonUtil;
 import io.jutil.springeasy.spring.exception.ErrorCodeExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,8 +38,7 @@ public class WebMvcAutoConfiguration implements WebMvcConfigurer {
 		converter.setSupportedMediaTypes(List.of(MediaType.APPLICATION_JSON));
 
 		var config = new FastJsonConfig();
-		config.setWriterFeatures(JSONWriter.Feature.WriteEnumUsingOrdinal,
-				JSONWriter.Feature.WriteLongAsString);
+		config.setWriterFeatures(JsonUtil.OUTPUT);
 		converter.setFastJsonConfig(config);
 		return converter;
 	}
