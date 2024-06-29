@@ -2,6 +2,7 @@ package io.jutil.springeasy.spring.cache;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.LoadingCache;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.support.AbstractValueAdaptingCache;
 
 import java.util.concurrent.Callable;
@@ -11,6 +12,7 @@ import java.util.function.Function;
  * @author Jin Zheng
  * @since 2024-05-21
  */
+@Slf4j
 public final class CaffeineCache extends AbstractValueAdaptingCache {
 	private final String name;
 	private final Cache<Object, Object> cache;
@@ -33,6 +35,9 @@ public final class CaffeineCache extends AbstractValueAdaptingCache {
 
 	@Override
 	protected Object lookup(Object key) {
+		if (log.isDebugEnabled()) {
+			log.debug("Cache lookup key: {}, name: {}", key, name);
+		}
 		if (cache instanceof LoadingCache<Object, Object> loadingCache) {
 			return loadingCache.get(key);
 		}
@@ -42,6 +47,9 @@ public final class CaffeineCache extends AbstractValueAdaptingCache {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T get(Object key, Callable<T> valueLoader) {
+		if (log.isDebugEnabled()) {
+			log.debug("Cache get key: {}, name: {}", key, name);
+		}
 		var call = new LoadFunction(valueLoader);
 		var result = cache.get(key, call);
 		return (T) this.fromStoreValue(result);
@@ -49,11 +57,17 @@ public final class CaffeineCache extends AbstractValueAdaptingCache {
 
 	@Override
 	public void put(Object key, Object value) {
+		if (log.isDebugEnabled()) {
+			log.debug("Cache put key: {}, name: {}", key, name);
+		}
 		cache.put(key, this.toStoreValue(value));
 	}
 
 	@Override
 	public ValueWrapper putIfAbsent(Object key, Object value) {
+		if (log.isDebugEnabled()) {
+			log.debug("Cache putIfAbsent key: {}, name: {}", key, name);
+		}
 		var call = new PutIfAbsentFunction(value);
 		var result = cache.get(key, call);
 		return call.called ? null : this.toValueWrapper(result);
@@ -61,22 +75,34 @@ public final class CaffeineCache extends AbstractValueAdaptingCache {
 
 	@Override
 	public void evict(Object key) {
+		if (log.isDebugEnabled()) {
+			log.debug("Cache evict key: {}, name: {}", key, name);
+		}
 		cache.invalidate(key);
 	}
 
 	@Override
 	public boolean evictIfPresent(Object key) {
+		if (log.isDebugEnabled()) {
+			log.debug("Cache evictIfPresent key: {}, name: {}", key, name);
+		}
 		var map = cache.asMap();
 		return map.remove(key) != null;
 	}
 
 	@Override
 	public void clear() {
+		if (log.isDebugEnabled()) {
+			log.debug("Cache clear");
+		}
 		cache.invalidateAll();
 	}
 
 	@Override
 	public boolean invalidate() {
+		if (log.isDebugEnabled()) {
+			log.debug("Cache invalidate");
+		}
 		var empty = cache.asMap().isEmpty();
 		cache.invalidateAll();
 		return !empty;
