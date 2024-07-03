@@ -2,6 +2,8 @@ package io.jutil.springeasy.redis.cache;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -12,17 +14,28 @@ import org.springframework.cache.annotation.Cacheable;
  */
 @Getter
 @NoArgsConstructor
+@Slf4j
 @CacheConfig(cacheNames = "test1")
 public class TestService {
-	private int value = 0;
+	@Autowired
+	TestRepository repository;
 
-	@Cacheable
-	public int add() {
-		return ++value;
+	@Cacheable(key = "'call_' + #key")
+	public String call(String key) {
+		var message = "call, key: " + key;
+		log.info(message);
+		repository.call(key);
+		return message;
 	}
 
-	@CacheEvict
+	@Cacheable(key = "'empty_' + #key")
+	public String empty(String key) {
+		log.info("empty, key: {}", key);
+		repository.call(key);
+		return null;
+	}
+
+	@CacheEvict(allEntries = true)
 	public void reset() {
-		this.value = 0;
 	}
 }

@@ -2,9 +2,12 @@ package io.jutil.springeasy.redis.cache;
 
 import io.jutil.springeasy.redis.Application;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,9 +22,16 @@ import org.springframework.test.context.ActiveProfiles;
 class RedisCacheServiceIT {
 	@Autowired
 	TestService testService;
+	@MockBean
+	TestRepository testRepository;
 
 	@Autowired
 	CacheManager cacheManager;
+
+	@BeforeEach
+	void beforeEach() {
+		testService.reset();
+	}
 
 	@Test
 	void testCacheManager() {
@@ -30,17 +40,27 @@ class RedisCacheServiceIT {
 
 	@Test
 	void testCache() {
-		Assertions.assertEquals(1, testService.add());
-		Assertions.assertEquals(1, testService.add());
-		Assertions.assertEquals(1, testService.add());
-		Assertions.assertEquals(1, testService.getValue());
+		var key = "key";
+		var message = "call, key: key";
+		var view = testService.call(key);
+		Assertions.assertEquals(message, view);
+		Mockito.verify(testRepository).call(Mockito.eq(key));
 
-		testService.reset();
-		Assertions.assertEquals(0, testService.getValue());
-		Assertions.assertEquals(1, testService.add());
-		Assertions.assertEquals(1, testService.add());
-		Assertions.assertEquals(1, testService.getValue());
+		view = testService.call(key);
+		Assertions.assertEquals(message, view);
+		Mockito.verify(testRepository).call(Mockito.eq(key));
+	}
 
+	@Test
+	void testCacheEmpty() {
+		var key = "key";
+		var view = testService.empty(key);
+		Assertions.assertNull(view);
+		Mockito.verify(testRepository).call(Mockito.eq(key));
+
+		view = testService.empty(key);
+		Assertions.assertNull(view);
+		Mockito.verify(testRepository).call(Mockito.eq(key));
 	}
 
 	@Configuration

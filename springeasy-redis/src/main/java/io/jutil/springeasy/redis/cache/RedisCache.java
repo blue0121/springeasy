@@ -1,6 +1,7 @@
 package io.jutil.springeasy.redis.cache;
 
 import io.jutil.springeasy.spring.config.cache.CacheProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RMapCache;
 import org.springframework.cache.Cache;
 import org.springframework.cache.support.SimpleValueWrapper;
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @author Jin Zheng
  * @since 2024-05-23
  */
+@Slf4j
 public class RedisCache implements Cache {
 	private final RMapCache<Object, Object> mapCache;
 	private final CacheProperties.CacheItemProperties config;
@@ -34,6 +36,9 @@ public class RedisCache implements Cache {
 
 	@Override
 	public ValueWrapper get(Object key) {
+		if (log.isDebugEnabled()) {
+			log.debug("Cache get key: {}, name: {}", key, mapCache.getName());
+		}
 		var value = mapCache.getWithTTLOnly(key);
 		return this.toValueWrapper(value);
 	}
@@ -41,6 +46,9 @@ public class RedisCache implements Cache {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T get(Object key, Class<T> type) {
+		if (log.isDebugEnabled()) {
+			log.debug("Cache get with type key: {}, name: {}", key, mapCache.getName());
+		}
 		var value = mapCache.getWithTTLOnly(key);
 		if (value == null) {
 			return null;
@@ -52,6 +60,9 @@ public class RedisCache implements Cache {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T get(Object key, Callable<T> valueLoader) {
+		if (log.isDebugEnabled()) {
+			log.debug("Cache get with valueLoader key: {}, name: {}", key, mapCache.getName());
+		}
 		var value = mapCache.getWithTTLOnly(key);
 		if (value != null) {
 			return (T) this.fromStoreValue(value);
@@ -78,20 +89,17 @@ public class RedisCache implements Cache {
 
 	@Override
 	public void put(Object key, Object value) {
-		if (value == null) {
-			mapCache.remove(key);
-			return;
+		if (log.isDebugEnabled()) {
+			log.debug("Cache put key: {}, name: {}", key, mapCache.getName());
 		}
-
 		var storeValue = this.toStoreValue(value);
 		mapCache.fastPut(key, storeValue, config.getExpireSec(), TimeUnit.SECONDS);
 	}
 
 	@Override
 	public ValueWrapper putIfAbsent(Object key, Object value) {
-		if (value == null) {
-			var prevValue = mapCache.remove(key);
-			return this.toValueWrapper(prevValue);
+		if (log.isDebugEnabled()) {
+			log.debug("Cache putIfAbsent key: {}, name: {}", key, mapCache.getName());
 		}
 		var storeValue = this.toStoreValue(value);
 		var prevValue = mapCache.putIfAbsent(key, storeValue, config.getExpireSec(), TimeUnit.SECONDS);
@@ -100,17 +108,26 @@ public class RedisCache implements Cache {
 
 	@Override
 	public void evict(Object key) {
+		if (log.isDebugEnabled()) {
+			log.debug("Cache evict key: {}, name: {}", key, mapCache.getName());
+		}
 		mapCache.fastRemove(key);
 	}
 
 	@Override
 	public boolean evictIfPresent(Object key) {
+		if (log.isDebugEnabled()) {
+			log.debug("Cache evictIfPresent key: {}, name: {}", key, mapCache.getName());
+		}
 		var count = mapCache.fastRemove(key);
 		return count > 0;
 	}
 
 	@Override
 	public void clear() {
+		if (log.isDebugEnabled()) {
+			log.debug("Cache clear, name: {}", mapCache.getName());
+		}
 		mapCache.clear();
 	}
 
