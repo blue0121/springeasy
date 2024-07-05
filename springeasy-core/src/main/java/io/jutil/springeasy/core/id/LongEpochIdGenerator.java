@@ -7,7 +7,7 @@ import io.jutil.springeasy.core.util.NumberUtil;
  * @since 2022-08-12
  */
 class LongEpochIdGenerator extends AbstractIdGenerator<Long> {
-    private final static int TOTAL_SHIFT = 63;
+    private static final int TOTAL_SHIFT = 63;
     private final EpochOptions options;
     private final int timestampBits;
     private final int ipShift;

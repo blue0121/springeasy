@@ -62,14 +62,14 @@ abstract class IdGeneratorTest<T> {
         }
         WaitUtil.await(latch);
         var used = System.currentTimeMillis() - start;
-        System.out.printf("多线程, 用时: %d ms, 速度: %g/ms.\n", used, (double)set.size() / used);
+        System.out.printf("多线程, 用时: %d ms, 速度: %g/ms.%n", used, (double)set.size() / used);
         Assertions.assertEquals(threads * count, set.size(), "多线程下ID有重复");
     }
 
     protected void addId(Set<T> set) {
         var id = generator.generate();
         if (!set.add(id)) {
-            System.out.printf("重复ID: %s\n", this.toString(id));
+            System.out.printf("重复ID: %s%n", this.toString(id));
         }
     }
 

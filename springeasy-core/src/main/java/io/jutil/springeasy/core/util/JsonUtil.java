@@ -25,7 +25,7 @@ public class JsonUtil {
 			JSONWriter.Feature.WriteLongAsString
 	};
 
-	@SuppressWarnings("java:S2386")
+	@SuppressWarnings({"java:S2386", "java:S1845"})
 	public static final JSONWriter.Feature[] OUTPUT = new JSONWriter.Feature[] {
 			JSONWriter.Feature.WriteEnumUsingOrdinal,
 			JSONWriter.Feature.WriteLongAsString

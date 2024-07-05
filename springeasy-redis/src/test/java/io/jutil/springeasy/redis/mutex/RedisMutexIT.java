@@ -47,6 +47,14 @@ class RedisMutexIT {
 		mutex.unlock();
 	}
 
+	@Test
+	void testExecute() {
+		var mutex = (RedisMutex) factory.create("redisLock");
+		mutex.execute(5, TimeUnit.SECONDS, () -> {
+			System.out.println(Thread.currentThread().getName());
+			return null;
+		});
+	}
 
 	class Job implements Runnable {
 		private final AtomicInteger counter;

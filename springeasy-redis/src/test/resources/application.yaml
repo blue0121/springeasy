@@ -12,3 +12,8 @@ springeasy:
     enabled: true
     server: redis://localhost:6379
     password: 1111
+    timeout-millis: 60000
+    retry: 3
+    database: 0
+    connection-pool-size: 24
+    subscription-connection-pool-size: 2
