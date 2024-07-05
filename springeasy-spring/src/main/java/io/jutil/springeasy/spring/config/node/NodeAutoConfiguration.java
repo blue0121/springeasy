@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(NodeProperties.class)
 public class NodeAutoConfiguration implements InitializingBean {
 	@Autowired
+	@SuppressWarnings("java:S6813")
 	NodeProperties prop;
 
 	@Override

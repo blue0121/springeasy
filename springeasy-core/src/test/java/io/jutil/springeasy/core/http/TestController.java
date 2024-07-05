@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.text.MessageFormat;
 
 /**
@@ -27,7 +26,7 @@ import java.text.MessageFormat;
 public class TestController {
 
 	@GetMapping("/test/{name}")
-	public String say(@PathVariable("name") String name) {
+	public String sayGet(@PathVariable("name") String name) {
 		log.info("name: {}", name);
 		return "Hello, " + name;
 	}
@@ -63,7 +62,7 @@ public class TestController {
 	}
 
 	@GetMapping("/download")
-	public ResponseEntity<InputStreamResource> download() throws IOException {
+	public ResponseEntity<InputStreamResource> download() {
 		var in = TestController.class.getResourceAsStream("/json/string.json");
 		return ResponseEntity.ok()
 				.contentType(MediaType.APPLICATION_OCTET_STREAM)

@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @since 2024-05-30
  */
 @SpringBootTest(classes = {Application.class})
-public class MethodValidationTest {
+class MethodValidationTest {
 	@Autowired
 	ValidationService service;
 

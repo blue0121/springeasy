@@ -16,10 +16,6 @@ import java.util.concurrent.TimeUnit;
 class RemovalListenerTest implements RemovalListener<Integer, Integer> {
 	private Cache<Integer, Integer> cache;
 
-	private Integer key;
-	private Integer value;
-	private RemovalCause cause;
-
 
 	@BeforeEach
 	void beforeEach() {
@@ -40,9 +36,6 @@ class RemovalListenerTest implements RemovalListener<Integer, Integer> {
 
 	@Override
 	public void onRemoval(Integer key, Integer value, RemovalCause cause) {
-		this.key = key;
-		this.value = value;
-		this.cause = cause;
 		log.info("onRemoval, key: {}, value: {}, cause: {}", key, value, cause);
 	}
 }

@@ -18,12 +18,14 @@ import java.nio.charset.StandardCharsets;
 public class JsonUtil {
 	private static final String BASE_FILTER = "io.jutil";
 
+	@SuppressWarnings("java:S2386")
 	public static final JSONWriter.Feature[] WRITER = new JSONWriter.Feature[] {
 			JSONWriter.Feature.WriteClassName,
 			JSONWriter.Feature.WriteEnumUsingOrdinal,
 			JSONWriter.Feature.WriteLongAsString
 	};
 
+	@SuppressWarnings("java:S2386")
 	public static final JSONWriter.Feature[] OUTPUT = new JSONWriter.Feature[] {
 			JSONWriter.Feature.WriteEnumUsingOrdinal,
 			JSONWriter.Feature.WriteLongAsString

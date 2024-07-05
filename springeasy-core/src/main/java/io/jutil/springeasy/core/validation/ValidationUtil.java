@@ -26,7 +26,7 @@ public class ValidationUtil {
 	 * @param object 对象
 	 * @param groups 验证分组
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "java:S3740"})
 	public static void valid(Object object, Class<?>... groups) throws ValidationException {
 		init();
 

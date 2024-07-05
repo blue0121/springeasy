@@ -7,6 +7,9 @@ package io.jutil.springeasy.spring.config.node;
 public class MachineIdContext {
 	private static int machineId;
 
+	private MachineIdContext() {
+	}
+
 	public static void setMachineId(int machineId) {
 		MachineIdContext.machineId = machineId;
 	}

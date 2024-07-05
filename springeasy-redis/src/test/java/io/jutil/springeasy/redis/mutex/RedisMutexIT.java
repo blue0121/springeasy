@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -26,7 +27,7 @@ class RedisMutexIT {
 	ExecutorService executor;
 
 	@Test
-	void testMutex() throws Exception {
+	void testMutex() {
 		var counter = new AtomicInteger(0);
 		var latch = new CountDownLatch(2);
 		var mutex = factory.create("redisMutex");
@@ -36,6 +37,14 @@ class RedisMutexIT {
 		executor.submit(job2);
 		WaitUtil.await(latch);
 		Assertions.assertEquals(1, counter.get());
+	}
+
+	@Test
+	void testLock() {
+		var mutex = (RedisMutex) factory.create("redisLock");
+		mutex.lock(5, TimeUnit.SECONDS);
+		System.out.println(Thread.currentThread().getName());
+		mutex.unlock();
 	}
 
 

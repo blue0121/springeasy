@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.support.AbstractValueAdaptingCache;
 
 import java.util.concurrent.Callable;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 /**
  * @author Jin Zheng
@@ -108,7 +108,7 @@ public final class CaffeineCache extends AbstractValueAdaptingCache {
 		return !empty;
 	}
 
-	private class PutIfAbsentFunction implements Function<Object, Object> {
+	private class PutIfAbsentFunction implements UnaryOperator<Object> {
 		boolean called;
 		private final Object value;
 
@@ -124,7 +124,7 @@ public final class CaffeineCache extends AbstractValueAdaptingCache {
 		}
 	}
 
-	private class LoadFunction implements Function<Object, Object> {
+	private class LoadFunction implements UnaryOperator<Object> {
 		private final Callable<?> loader;
 
 		public LoadFunction(Callable<?> loader) {

@@ -23,7 +23,7 @@ abstract class IdGeneratorTest<T> {
         for (int i = 0; i < count; i++) {
             var id = this.toString(generator.generate());
             set.add(id);
-            System.out.printf("ID值: %s\n", id);
+            System.out.printf("ID值: %s%n", id);
         }
         Assertions.assertEquals(count, set.size());
     }
@@ -37,7 +37,7 @@ abstract class IdGeneratorTest<T> {
             this.addId(set);
         }
         var used = System.currentTimeMillis() - start;
-        System.out.printf("单线程, 用时: %d ms, 速度: %g/ms.\n", used, (double)set.size() / used);
+        System.out.printf("单线程, 用时: %d ms, 速度: %g/ms.%n", used, (double)set.size() / used);
         Assertions.assertEquals(count, set.size(), "单线程下ID有重复");
     }
 

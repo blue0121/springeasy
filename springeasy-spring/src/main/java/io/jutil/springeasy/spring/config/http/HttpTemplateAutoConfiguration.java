@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Jin Zheng
  * @since 2022-12-22
  */
+@SuppressWarnings("java:S1118")
 @Configuration
 @EnableConfigurationProperties(HttpProperties.class)
 @ConditionalOnProperty(prefix = "springeasy.http", name = "enabled", havingValue = "true")

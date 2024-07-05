@@ -37,5 +37,6 @@ public class TestService {
 
 	@CacheEvict(allEntries = true)
 	public void reset() {
+		log.info("reset");
 	}
 }

@@ -9,6 +9,7 @@ import java.io.Serializable;
  * @author Jin Zheng
  * @since 2024-05-23
  */
+@SuppressWarnings("java:S6548")
 class NullValue implements Cache.ValueWrapper, Serializable {
 	@Serial
 	private static final long serialVersionUID = 1L;

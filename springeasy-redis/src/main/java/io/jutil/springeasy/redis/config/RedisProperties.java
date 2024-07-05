@@ -31,13 +31,13 @@ public class RedisProperties implements PropertiesChecker {
 
 	@Override
 	public void check() {
-		if (mode == RedisMode.SINGLE) {
-			AssertUtil.notEmpty(server, "Server");
-		} else if (mode == RedisMode.SENTINEL) {
-			AssertUtil.notEmpty(servers, "Servers");
-			AssertUtil.notEmpty(masterName, "MasterName");
-		} else {
-			AssertUtil.notEmpty(servers, "Servers");
+		switch (mode) {
+			case SINGLE -> AssertUtil.notEmpty(server, "Server");
+			case SENTINEL -> {
+				AssertUtil.notEmpty(servers, "Servers");
+				AssertUtil.notEmpty(masterName, "MasterName");
+			}
+			case CLUSTER -> AssertUtil.notEmpty(servers, "Servers");
 		}
 
 		AssertUtil.nonNegative(timeoutMillis, "Timeout");

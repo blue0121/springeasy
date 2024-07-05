@@ -152,7 +152,7 @@ class JsonUtilTest {
 	@Getter
 	@Setter
 	@NoArgsConstructor
-	static abstract class Animal {
+	abstract static class Animal {
 		private String name;
 
 		public Animal(String name) {

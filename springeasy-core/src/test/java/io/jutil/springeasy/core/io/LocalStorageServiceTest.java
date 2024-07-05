@@ -92,7 +92,7 @@ class LocalStorageServiceTest {
 	}
 
 	@Test
-	void testWriteString() throws Exception {
+	void testWriteString() {
 		String str = "test_content";
 		var meta = storageService.writeString(filename, str);
 		Assertions.assertNotNull(meta);
@@ -106,7 +106,7 @@ class LocalStorageServiceTest {
 	}
 
 	@Test
-	void testRemoveDirectory() throws IOException {
+	void testRemoveDirectory() {
 		var is = LocalStorageServiceTest.class.getResourceAsStream(source);
 		String path = dir + filename;
 		storageService.write(path, is);

@@ -9,6 +9,9 @@ import io.jutil.springeasy.spring.config.node.MachineIdContext;
  */
 public class LongIdGenerator {
 
+	private LongIdGenerator() {
+	}
+
 	public static long nextId() {
 		var machineId = MachineIdContext.getMachineId();
 		return IdGeneratorFactory.longId(machineId);

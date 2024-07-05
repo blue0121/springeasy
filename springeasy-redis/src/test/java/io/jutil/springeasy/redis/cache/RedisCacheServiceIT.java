@@ -44,11 +44,11 @@ class RedisCacheServiceIT {
 		var message = "call, key: key";
 		var view = testService.call(key);
 		Assertions.assertEquals(message, view);
-		Mockito.verify(testRepository).call(Mockito.eq(key));
+		Mockito.verify(testRepository).call(key);
 
 		view = testService.call(key);
 		Assertions.assertEquals(message, view);
-		Mockito.verify(testRepository).call(Mockito.eq(key));
+		Mockito.verify(testRepository).call(key);
 	}
 
 	@Test
@@ -56,11 +56,11 @@ class RedisCacheServiceIT {
 		var key = "key";
 		var view = testService.empty(key);
 		Assertions.assertNull(view);
-		Mockito.verify(testRepository).call(Mockito.eq(key));
+		Mockito.verify(testRepository).call(key);
 
 		view = testService.empty(key);
 		Assertions.assertNull(view);
-		Mockito.verify(testRepository).call(Mockito.eq(key));
+		Mockito.verify(testRepository).call(key);
 	}
 
 	@Configuration

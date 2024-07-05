@@ -18,6 +18,7 @@ public abstract class BaseDao<T extends LongIdEntity> {
 	private static final int BATCH_SIZE = 100;
 
 	@Autowired
+	@SuppressWarnings("java:S6813")
 	private SqlSessionFactory sessionFactory;
 
 	public int insertList(Class<?> mapper, List<T> list) {
