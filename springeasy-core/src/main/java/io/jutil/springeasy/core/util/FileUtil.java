@@ -3,7 +3,9 @@ package io.jutil.springeasy.core.util;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -32,18 +34,7 @@ public class FileUtil {
 	 * @return 读取的文本
 	 */
 	public static String readString(String path) {
-		AssertUtil.notEmpty(path, "Path");
-
-		if (isClassPath(path)) {
-			var classpath = extractClassPath(path);
-			try (var is = FileUtil.class.getResourceAsStream(classpath)) {
-				return new String(is.readAllBytes(), StandardCharsets.UTF_8);
-			} catch (IOException e) {
-				throw new UncheckedIOException(e);
-			}
-		}
-
-		try (var is = new FileInputStream(path)) {
+		try (var is = readStream(path)) {
 			return new String(is.readAllBytes(), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
@@ -58,6 +49,19 @@ public class FileUtil {
 			log.info("Create Directory: {}", dir);
 		}
 		return targetPath;
+	}
+
+	public static InputStream readStream(String path) {
+		AssertUtil.notEmpty(path, "Path");
+		if (isClassPath(path)) {
+			var classpath = extractClassPath(path);
+			return FileUtil.class.getResourceAsStream(classpath);
+		}
+		try {
+			return new FileInputStream(path);
+		} catch (FileNotFoundException e) {
+			throw new UncheckedIOException(e);
+		}
 	}
 
 	public static boolean isClassPath(String path) {

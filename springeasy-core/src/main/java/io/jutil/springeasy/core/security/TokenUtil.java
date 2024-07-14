@@ -1,5 +1,6 @@
 package io.jutil.springeasy.core.security;
 
+import io.jutil.springeasy.core.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.security.PrivateKey;
@@ -21,6 +22,12 @@ public class TokenUtil {
 
 	public static KeyPair generate() {
 		return new GenerateKeyPair(KEY_PAIR_MODE);
+	}
+
+	public static KeyPair load(String publicKeyPath, String privateKeyPath) {
+		var publicInput = FileUtil.readStream(publicKeyPath);
+		var privateInput = FileUtil.readStream(privateKeyPath);
+		return new LoadOpenSslKeyPair(KeyPairMode.ED_25519, publicInput, privateInput);
 	}
 
 	public static String create(PrivateKey key, byte[] data) {

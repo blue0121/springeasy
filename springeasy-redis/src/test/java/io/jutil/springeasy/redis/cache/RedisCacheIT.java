@@ -14,7 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
  */
 @ActiveProfiles("cache1")
 @SpringBootTest(classes = Application.class)
-class RedisCacheTest {
+class RedisCacheIT {
 	@Autowired
 	RedisCacheManager cacheManager;
 	RedisCache redisCache;

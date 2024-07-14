@@ -16,7 +16,9 @@ class LoadOpenSslKeyPairTest {
 			"RSA,/public.pem,/private.key,false",
 			"RSA,/public.crt,/private.key,true",
 			"DSA,/dsa_pub.pub,/dsa_priv_pkcs8.key,false",
-			"EC,/ecdsa_pub.pub,/ecdsa_priv_pkcs8.key,false"})
+			"EC,/ecdsa_pub.pub,/ecdsa_priv_pkcs8.key,false",
+			"ED_25519,/ed25519_pub.pub,/ed25519_priv.key,false",
+			"ED_448,/ed448_pub.pub,/ed448_priv.key,false"})
 	void testLoadOpenSsl(String mode, String pubPath, String privPath, boolean cert) {
 		var inPub = LoadOpenSslKeyPairTest.class.getResourceAsStream(prefix + pubPath);
 		var inPriv = LoadOpenSslKeyPairTest.class.getResourceAsStream(prefix + privPath);

@@ -24,4 +24,14 @@ class TokenUtilTest {
 		var pubKey = keyPair.getPublic();
 		Assertions.assertThrows(TokenException.class, () -> TokenUtil.verify(pubKey, token2));
 	}
+
+	@Test
+	void testLoad() {
+		var publicKeyPath = "classpath:/cert/ed25519_pub.pub";
+		var privateKeyPath = "classpath:/cert/ed25519_priv.key";
+		var keyPair = TokenUtil.load(publicKeyPath, privateKeyPath);
+		Assertions.assertNotNull(keyPair);
+		Assertions.assertNotNull(keyPair.getPublic());
+		Assertions.assertNotNull(keyPair.getPrivate());
+	}
 }
