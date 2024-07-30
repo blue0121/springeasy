@@ -1,6 +1,7 @@
 package io.jutil.springeasy.core.io;
 
 import io.jutil.springeasy.core.io.impl.LocalStorageService;
+import io.jutil.springeasy.core.util.JsonUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +10,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -110,11 +113,34 @@ class LocalStorageServiceTest {
 		var is = LocalStorageServiceTest.class.getResourceAsStream(source);
 		String path = dir + filename;
 		storageService.write(path, is);
+		Assertions.assertTrue(storageService.isDirectory(dir));
+		Assertions.assertFalse(storageService.isDirectory(path));
 		Assertions.assertTrue(storageService.exists(path));
 		Assertions.assertTrue(storageService.exists(dir));
 
 		storageService.remove(dir);
 		Assertions.assertFalse(storageService.exists(path));
 		Assertions.assertFalse(storageService.exists(dir));
+	}
+
+	@Test
+	void testListFiles() {
+		var text = "test_content";
+		String path = dir + filename;
+		String subPath = dir + dir + filename;
+		storageService.writeString(path, text);
+		storageService.writeString(subPath, text);
+
+		var list = storageService.listFiles(dir);
+		Assertions.assertEquals(2, list.size());
+		System.out.println(JsonUtil.output(list));
+		List<String> relativeList = new ArrayList<>();
+		for (var fileInfo : list) {
+			relativeList.add(fileInfo.getRelativePath());
+		}
+		Assertions.assertTrue(relativeList.contains(path));
+		Assertions.assertTrue(relativeList.contains(subPath));
+
+		storageService.remove(dir);
 	}
 }

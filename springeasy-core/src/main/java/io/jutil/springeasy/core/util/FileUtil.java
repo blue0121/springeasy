@@ -118,7 +118,7 @@ public class FileUtil {
 		}
 	}
 
-	public static String getRelativeDir(String path, String prefix) {
+	public static String getRelativePath(String path, String prefix) {
 		List<String> pathList = new ArrayList<>();
 		splitPath(pathList, path);
 
@@ -136,11 +136,11 @@ public class FileUtil {
 			}
 			index++;
 		}
-		if (index == pathList.size() - 1) {
+		if (index == pathList.size()) {
 			return STR_SLASH;
 		}
 		var sb = new StringBuilder();
-		for (int i = index; i < pathList.size() - 1; i++) {
+		for (int i = index; i < pathList.size(); i++) {
 			sb.append(STR_SLASH).append(pathList.get(i));
 		}
 		return sb.toString();

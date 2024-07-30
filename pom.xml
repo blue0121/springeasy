@@ -21,7 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<revision>1.0.0</revision>
-		<spring.boot.version>3.3.1</spring.boot.version>
+		<spring.boot.version>3.3.2</spring.boot.version>
 		<fastjson2.version>2.0.51</fastjson2.version>
 		<redisson.version>3.32.0</redisson.version>
 		<mybatis.version>3.5.16</mybatis.version>
@@ -37,10 +37,10 @@
 		<!-- maven plugins -->
 		<compiler.version>3.13.0</compiler.version>
 		<assembly.version>3.7.1</assembly.version>
-		<surefire.version>3.2.5</surefire.version>
+		<surefire.version>3.3.1</surefire.version>
 		<jacoco.version>0.8.12</jacoco.version>
 		<flatten.version>1.6.0</flatten.version>
-		<sonar.version>3.11.0.3922</sonar.version>
+		<sonar.version>4.0.0.4121</sonar.version>
 	</properties>
 
 	<dependencyManagement>

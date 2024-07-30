@@ -1,8 +1,10 @@
 package io.jutil.springeasy.core.io.impl;
 
+import io.jutil.springeasy.core.io.FileFilter;
 import io.jutil.springeasy.core.io.FileInfo;
 import io.jutil.springeasy.core.io.StorageException;
 import io.jutil.springeasy.core.io.StorageService;
+import io.jutil.springeasy.core.io.filter.FileFilterUtil;
 import io.jutil.springeasy.core.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,6 +13,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Jin Zheng
@@ -63,7 +67,7 @@ public class LocalStorageService implements StorageService {
 			var targetPath = FileUtil.buildPath(true, rootPath, path);
 			try (in) {
 				Files.copy(in, targetPath, StandardCopyOption.REPLACE_EXISTING);
-				return new LocalFileInfo(targetPath);
+				return new LocalFileInfo(targetPath, rootPath);
 			}
 		} catch (IOException e) {
 			throw new StorageException(e);
@@ -85,7 +89,7 @@ public class LocalStorageService implements StorageService {
 		try {
 			var targetPath = FileUtil.buildPath(true, rootPath, path);
 			Files.writeString(targetPath, content);
-			return new LocalFileInfo(targetPath);
+			return new LocalFileInfo(targetPath, rootPath);
 		} catch (IOException e) {
 			throw new StorageException(e);
 		}
@@ -96,7 +100,7 @@ public class LocalStorageService implements StorageService {
 		try {
 			var targetPath = FileUtil.buildPath(true, rootPath, path);
 			Files.write(targetPath, bytes);
-			return new LocalFileInfo(targetPath);
+			return new LocalFileInfo(targetPath, rootPath);
 		} catch (IOException e) {
 			throw new StorageException(e);
 		}
@@ -151,6 +155,36 @@ public class LocalStorageService implements StorageService {
 		try {
 			var targetPath = FileUtil.buildPath(false, rootPath, path);
 			return Files.exists(targetPath);
+		} catch (IOException e) {
+			throw new StorageException(e);
+		}
+	}
+
+	@Override
+	public boolean isDirectory(String path) throws StorageException {
+		try {
+			var targetPath = FileUtil.buildPath(false, rootPath, path);
+			return Files.isDirectory(targetPath);
+		} catch (IOException e) {
+			throw new StorageException(e);
+		}
+	}
+
+	@Override
+	public Collection<FileInfo> listFiles(String path, FileFilter... filters) throws StorageException {
+		try {
+			var dir = FileUtil.buildPath(false, rootPath, path);
+			if (!Files.exists(dir)) {
+				log.warn("Path not found: {}", path);
+				return List.of();
+			}
+			if (!Files.isDirectory(dir)) {
+				log.warn("Path is not a directory: {}", path);
+				return List.of();
+			}
+			var visitor = new FilesInDirectory(rootPath);
+			Files.walkFileTree(dir, visitor);
+			return FileFilterUtil.filter(visitor.getFileList(), filters);
 		} catch (IOException e) {
 			throw new StorageException(e);
 		}

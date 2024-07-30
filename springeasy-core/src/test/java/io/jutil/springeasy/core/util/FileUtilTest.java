@@ -43,13 +43,13 @@ class FileUtilTest {
 	}
 
 	@Test
-	void testGetRelativeDir() {
-		Assertions.assertEquals("/", FileUtil.getRelativeDir("/a", ""));
-		Assertions.assertEquals("/a", FileUtil.getRelativeDir("/a/b", ""));
-		Assertions.assertEquals("/b", FileUtil.getRelativeDir("/a/b/c", "/a"));
-		Assertions.assertEquals("/b/c", FileUtil.getRelativeDir("/a/b/c/d", "/a"));
-		Assertions.assertEquals("/c/d", FileUtil.getRelativeDir("/a/b/c/d/e", "/a/b"));
-		Assertions.assertEquals("/b", FileUtil.getRelativeDir("/a/b/c", "/a/x"));
+	void testGetRelativePath() {
+		Assertions.assertEquals("/a", FileUtil.getRelativePath("/a", ""));
+		Assertions.assertEquals("/a/b", FileUtil.getRelativePath("/a/b", ""));
+		Assertions.assertEquals("/b/c", FileUtil.getRelativePath("/a/b/c", "/a"));
+		Assertions.assertEquals("/b/c/d", FileUtil.getRelativePath("/a/b/c/d", "/a"));
+		Assertions.assertEquals("/c/d/e", FileUtil.getRelativePath("/a/b/c/d/e", "/a/b"));
+		Assertions.assertEquals("/b/c", FileUtil.getRelativePath("/a/b/c", "/a/x"));
 	}
 
 	@Test

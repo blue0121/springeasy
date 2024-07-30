@@ -2,12 +2,14 @@ package io.jutil.springeasy.core.io;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collection;
 
 /**
  * @author Jin Zheng
  * @since 2023-03-27
  */
 public interface StorageService {
+
 	InputStream read(String path) throws StorageException;
 
 	String readString(String path) throws StorageException;
@@ -29,4 +31,9 @@ public interface StorageService {
 	void remove(String path) throws StorageException;
 
 	boolean exists(String path) throws StorageException;
+
+	boolean isDirectory(String path) throws StorageException;
+
+	Collection<FileInfo> listFiles(String path, FileFilter ...filters) throws StorageException;
+
 }
