@@ -74,4 +74,14 @@ class StringUtilTest {
 		Assertions.assertEquals("0.0.0.0", StringUtil.toIpv4(0));
 		Assertions.assertEquals("192.168.1.1", StringUtil.toIpv4(-1062731519));
 	}
+
+	@Test
+	void testToLowerCamelCase() {
+		Assertions.assertEquals("aBC", StringUtil.toLowerCamelCase("a-b-c"));
+		Assertions.assertEquals("aBC", StringUtil.toLowerCamelCase("A-b-c"));
+		Assertions.assertEquals("aBC", StringUtil.toLowerCamelCase("a_b_c"));
+		Assertions.assertEquals("aBC", StringUtil.toLowerCamelCase("a-b_c"));
+		Assertions.assertEquals("aBC", StringUtil.toLowerCamelCase("a-bC"));
+		Assertions.assertEquals("aBC", StringUtil.toLowerCamelCase("aBC"));
+	}
 }

@@ -205,4 +205,25 @@ public class StringUtil {
 		str.append(ip & 0xff);
 		return str.toString();
 	}
+
+	public static String toLowerCamelCase(String name) {
+		if (name == null || name.isEmpty()) {
+			return name;
+		}
+		var sb = new StringBuilder(name.length());
+		for (int i = 0; i < name.length(); i++) {
+			char c = name.charAt(i);
+			if (i == 0) {
+				sb.append(Character.toLowerCase(c));
+				continue;
+			}
+			if (c == '-' || c == '_') {
+				i++;
+				sb.append(Character.toUpperCase(name.charAt(i)));
+			} else {
+				sb.append(c);
+			}
+		}
+		return sb.toString();
+	}
 }

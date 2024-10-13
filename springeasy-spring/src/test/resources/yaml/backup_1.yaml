@@ -1,0 +1,10 @@
+projects:
+  - name: project1
+    gcs-uri: gs://localhost
+    storage:
+      enabled: true
+      name: S3Bucket
+      target_type: S3
+    instances:
+      - name: sit
+        targetBucket: bucket
