@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 /**
  * @author Jin Zheng
@@ -22,7 +22,7 @@ import org.springframework.test.context.ActiveProfiles;
 class RedisCacheServiceIT {
 	@Autowired
 	TestService testService;
-	@MockBean
+	@MockitoBean
 	TestRepository testRepository;
 
 	@Autowired
