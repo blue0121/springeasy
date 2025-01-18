@@ -1,0 +1,14 @@
+config-list:
+  - name: test1
+    status: 1
+    type: type1
+  - name: test2
+    status: 2
+    type: type2
+config-map:
+  test1:
+    status: 1
+    type: type1
+  test2:
+    status: 2
+    type: type2
