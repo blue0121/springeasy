@@ -20,6 +20,28 @@
 		<dependency>
 			<groupId>org.redisson</groupId>
 			<artifactId>redisson</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>io.projectreactor</groupId>
+					<artifactId>reactor-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.reactivestreams</groupId>
+					<artifactId>reactive-streams</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.reactivex.rxjava3</groupId>
+					<artifactId>rxjava</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.esotericsoftware</groupId>
+					<artifactId>kryo</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>

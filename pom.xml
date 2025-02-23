@@ -10,6 +10,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>springeasy-bom</module>
 		<module>springeasy-core</module>
 		<module>springeasy-spring</module>
 		<module>springeasy-redis</module>
@@ -17,26 +18,25 @@
 	</modules>
 
 	<properties>
+		<revision>1.0.0</revision>
 		<java.version>21</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<revision>1.0.0</revision>
-		<spring.boot.version>3.4.1</spring.boot.version>
-		<fastjson2.version>2.0.54</fastjson2.version>
-		<redisson.version>3.43.0</redisson.version>
+		<spring.boot.version>3.4.3</spring.boot.version>
+		<fastjson2.version>2.0.56</fastjson2.version>
+		<redisson.version>3.45.0</redisson.version>
 		<mybatis.version>3.5.19</mybatis.version>
 		<mybatis.spring.version>3.0.4</mybatis.spring.version>
 
 		<!-- provided -->
 		<lombok.version>1.18.36</lombok.version>
 
-		<!-- test
-		<wiremock.version>2.35.0</wiremock.version> -->
-		<commons-codec.version>1.17.2</commons-codec.version>
+		<!-- test -->
+		<wiremock.version>3.12.0</wiremock.version>
+		<commons-codec.version>1.18.0</commons-codec.version>
 
 		<!-- maven plugins -->
-		<compiler.version>3.13.0</compiler.version>
-		<assembly.version>3.7.1</assembly.version>
+		<compiler.version>3.14.0</compiler.version>
 		<surefire.version>3.5.2</surefire.version>
 		<jacoco.version>0.8.12</jacoco.version>
 		<flatten.version>1.6.0</flatten.version>
@@ -69,28 +69,6 @@
 				<groupId>org.redisson</groupId>
 				<artifactId>redisson</artifactId>
 				<version>${redisson.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>io.projectreactor</groupId>
-						<artifactId>reactor-core</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.reactivestreams</groupId>
-						<artifactId>reactive-streams</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>io.reactivex.rxjava3</groupId>
-						<artifactId>rxjava</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>com.esotericsoftware</groupId>
-						<artifactId>kryo</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-api</artifactId>
-					</exclusion>
-				</exclusions>
 			</dependency>
 
 			<dependency>
@@ -178,11 +156,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${surefire.version}</version>
-				<configuration>
-					<excludes>
-						<exclude>**/*IT.java</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 
 			<plugin>
@@ -222,7 +195,6 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
-						<version>${surefire.version}</version>
 						<configuration combine.self="override">
 							<includes>
 								<include>**/*.java</include>
