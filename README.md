@@ -17,7 +17,8 @@
 ## 模块列表:
 - springeasy-core: 常用工具, 不依赖SpringBoot
 - springeasy-spring: 用SpringBoot的自动装配定义常用配置, 包含对`funthin-core`的自动装配
-- springeasy-jpa: 使用`JPA`访问数据库
+- springeasy-mybatis: 使用`MyBatis`访问数据库
+- springeasy-redis: 简化使用`Jedis`和`RedisTemplate`访问`Redis`, 集成`spring-cache`, `RedisPubSub`, 分布式锁
 
 ## 如何使用
 ### 拉取最新代码并安装到本地仓库:
@@ -32,9 +33,9 @@ mvn clean install
 <dependencies>
 	<!-- 先导入 -->
 	<dependency>
-		<groupId>io.jutil.springeasy</groupId>
-		<artifactId>springeasy</artifactId>
-		<version>0.1.0</version>
+		<groupId>io.jutil</groupId>
+		<artifactId>springeasy-parent</artifactId>
+		<version>1.0.0</version>
 		<type>pom</type>
 		<scope>import</scope>
 	</dependency>
@@ -47,6 +48,14 @@ mvn clean install
 	<dependency>
 		<groupId>io.jutil.springeasy</groupId>
 		<artifactId>springeasy-spring</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>io.jutil.springeasy</groupId>
+		<artifactId>springeasy-mybatis</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>io.jutil.springeasy</groupId>
+		<artifactId>springeasy-redis</artifactId>
 	</dependency>
 </dependencies>
 ```

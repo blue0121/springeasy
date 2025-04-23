@@ -49,7 +49,7 @@ class SingleScheduleJobTest {
 		boolean run = false;
 
 		@Override
-		protected void runInternal() {
+		protected void runInternal(ScheduleContext ctx) {
 			run = true;
 		}
 	}

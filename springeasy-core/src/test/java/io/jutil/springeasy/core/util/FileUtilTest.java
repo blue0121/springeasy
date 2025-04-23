@@ -33,6 +33,14 @@ class FileUtilTest {
 	}
 
 	@Test
+	void testGetExtension() {
+		Assertions.assertEquals("a", FileUtil.getExtension("a"));
+		Assertions.assertEquals("b", FileUtil.getExtension("a/b"));
+		Assertions.assertEquals(".t", FileUtil.getExtension("a.t"));
+		Assertions.assertEquals(".t", FileUtil.getExtension("a/b.t"));
+	}
+
+	@Test
 	void testGetFilenameWithoutExt() {
 		Assertions.assertEquals("a", FileUtil.getFilenameWithoutExt("a"));
 		Assertions.assertEquals("a", FileUtil.getFilenameWithoutExt("/a"));

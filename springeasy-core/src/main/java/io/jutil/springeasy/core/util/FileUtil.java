@@ -97,6 +97,19 @@ public class FileUtil {
 		}
 	}
 
+	public static String getExtension(String path) {
+		if (path == null) {
+			return null;
+		}
+		var fileName = getFilenameWithExt(path);
+		int dotPos = fileName.lastIndexOf(STR_DOT);
+		if (dotPos == -1) {
+			return fileName;
+		} else {
+			return fileName.substring(dotPos);
+		}
+	}
+
 	public static String getFilenameWithoutExt(String path) {
 		if (path == null) {
 			return null;

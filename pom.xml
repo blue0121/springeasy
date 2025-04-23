@@ -10,7 +10,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>springeasy-bom</module>
+		<module>springeasy-parent</module>
 		<module>springeasy-core</module>
 		<module>springeasy-spring</module>
 		<module>springeasy-redis</module>
@@ -22,25 +22,28 @@
 		<java.version>21</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<spring.boot.version>3.4.3</spring.boot.version>
-		<fastjson2.version>2.0.56</fastjson2.version>
-		<redisson.version>3.45.0</redisson.version>
+		<spring.boot.version>3.4.4</spring.boot.version>
+		<fastjson2.version>2.0.57</fastjson2.version>
+		<redisson.version>3.45.1</redisson.version>
 		<mybatis.version>3.5.19</mybatis.version>
 		<mybatis.spring.version>3.0.4</mybatis.spring.version>
+		<jedis.version>5.2.0</jedis.version>
 
 		<!-- provided -->
-		<lombok.version>1.18.36</lombok.version>
+		<lombok.version>1.18.38</lombok.version>
 
 		<!-- test -->
-		<wiremock.version>3.12.0</wiremock.version>
+		<wiremock.version>3.12.1</wiremock.version>
 		<commons-codec.version>1.18.0</commons-codec.version>
 
 		<!-- maven plugins -->
 		<compiler.version>3.14.0</compiler.version>
-		<surefire.version>3.5.2</surefire.version>
-		<jacoco.version>0.8.12</jacoco.version>
+		<jar.version>3.4.2</jar.version>
+		<surefire.version>3.5.3</surefire.version>
+		<assembly.version>3.7.1</assembly.version>
+		<jacoco.version>0.8.13</jacoco.version>
 		<flatten.version>1.6.0</flatten.version>
-		<sonar.version>5.0.0.4389</sonar.version>
+		<sonar.version>5.1.0.4751</sonar.version>
 	</properties>
 
 	<dependencyManagement>

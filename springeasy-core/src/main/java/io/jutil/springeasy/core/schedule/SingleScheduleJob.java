@@ -16,13 +16,15 @@ public abstract class SingleScheduleJob implements ScheduleJob {
 			log.warn("Schedule [{}] is running", mutex.getId());
 			return;
 		}
+		log.info(">> Schedule [{}] start", mutex.getId());
 		try {
-			this.runInternal();
+			this.runInternal(ctx);
 		} finally {
 			mutex.unlock();
+			log.info("<< Schedule [{}] stop", mutex.getId());
 		}
 	}
 
-	protected abstract void runInternal();
+	protected abstract void runInternal(ScheduleContext ctx);
 
 }

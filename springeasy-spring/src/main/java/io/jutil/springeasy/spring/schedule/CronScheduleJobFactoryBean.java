@@ -8,6 +8,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.InitializingBean;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -17,11 +18,12 @@ import java.util.concurrent.ExecutorService;
  * @since 2024-03-01
  */
 public class CronScheduleJobFactoryBean implements FactoryBean<CronScheduleJob>,
-		BeanFactoryAware {
+		BeanFactoryAware, InitializingBean {
 	private final ScheduleProperties prop;
 	private final MutexFactory mutexFactory;
 	private final List<SpringScheduleJob> jobList;
 	private BeanFactory beanFactory;
+	private CronScheduleJob cronScheduleJob;
 
 	public CronScheduleJobFactoryBean(ScheduleProperties prop, MutexFactory mutexFactory,
 	                                  List<SpringScheduleJob> jobList) {
@@ -32,17 +34,7 @@ public class CronScheduleJobFactoryBean implements FactoryBean<CronScheduleJob>,
 
 	@Override
 	public CronScheduleJob getObject() throws Exception {
-		var executor = beanFactory.getBean(prop.getExecutor(), ExecutorService.class);
-		var schedule = new CronScheduleJob(executor, mutexFactory);
-		for (var config : prop.getConfigs()) {
-			ExecutorService localExecutor = null;
-			if (config.getExecutor() != null && !config.getExecutor().isEmpty()) {
-				localExecutor = beanFactory.getBean(config.getExecutor(), ExecutorService.class);
-			}
-			var job = SpringBeans.getBean(jobList, config.getId());
-			schedule.add(config.getId(), config.getCronTrigger(), job, localExecutor);
-		}
-		return schedule;
+		return cronScheduleJob;
 	}
 
 	@Override
@@ -53,5 +45,19 @@ public class CronScheduleJobFactoryBean implements FactoryBean<CronScheduleJob>,
 	@Override
 	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
 		this.beanFactory = beanFactory;
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		var executor = beanFactory.getBean(prop.getExecutor(), ExecutorService.class);
+		cronScheduleJob = new CronScheduleJob(executor, mutexFactory);
+		for (var config : prop.getConfigs()) {
+			ExecutorService localExecutor = null;
+			if (config.getExecutor() != null && !config.getExecutor().isEmpty()) {
+				localExecutor = beanFactory.getBean(config.getExecutor(), ExecutorService.class);
+			}
+			var job = SpringBeans.getBean(jobList, config.getId());
+			cronScheduleJob.add(config.getId(), config.getCronTrigger(), job, localExecutor);
+		}
 	}
 }
