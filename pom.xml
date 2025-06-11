@@ -22,7 +22,7 @@
 		<java.version>21</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<spring.boot.version>3.4.4</spring.boot.version>
+		<spring.boot.version>3.5.0</spring.boot.version>
 		<fastjson2.version>2.0.57</fastjson2.version>
 		<redisson.version>3.45.1</redisson.version>
 		<mybatis.version>3.5.19</mybatis.version>

@@ -1,6 +1,6 @@
 package io.jutil.springeasy.core.schedule.impl;
 
-import io.jutil.springeasy.core.schedule.MutexFactory;
+import io.jutil.springeasy.core.mutex.MutexFactory;
 import io.jutil.springeasy.core.schedule.ScheduleContext;
 import lombok.Getter;
 

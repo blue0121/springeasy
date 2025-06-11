@@ -1,6 +1,6 @@
 package io.jutil.springeasy.redis.cache;
 
-import io.jutil.springeasy.redis.Application;
+import io.jutil.springeasy.redis.RedisTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,8 +13,8 @@ import org.springframework.test.context.ActiveProfiles;
  * @since 2024/7/5
  */
 @ActiveProfiles("cache1")
-@SpringBootTest(classes = Application.class)
-class RedisCacheIT {
+@SpringBootTest(classes = RedisTest.Application.class)
+class RedisCacheIT extends RedisTest {
 	@Autowired
 	RedisCacheManager cacheManager;
 	RedisCache redisCache;

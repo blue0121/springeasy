@@ -1,7 +1,7 @@
 package io.jutil.springeasy.spring.schedule;
 
+import io.jutil.springeasy.core.mutex.MutexFactory;
 import io.jutil.springeasy.core.schedule.CronScheduleJob;
-import io.jutil.springeasy.core.schedule.MutexFactory;
 import io.jutil.springeasy.spring.config.SpringBeans;
 import io.jutil.springeasy.spring.config.schedule.ScheduleProperties;
 import org.springframework.beans.BeansException;

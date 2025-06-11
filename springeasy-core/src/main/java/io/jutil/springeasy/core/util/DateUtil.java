@@ -47,8 +47,16 @@ public class DateUtil {
 	public static boolean equal(LocalDateTime time1, LocalDateTime time2, TemporalUnit unit) {
 		var ts1 = time1.toInstant(ZoneOffset.UTC).toEpochMilli();
 		var ts2 = time2.toInstant(ZoneOffset.UTC).toEpochMilli();
+		return equal(ts1, ts2, unit);
+	}
+
+	public static boolean equal(long time1, long time2) {
+		return equal(time1, time2, ChronoUnit.SECONDS);
+	}
+
+	public static boolean equal(long time1, long time2, TemporalUnit unit) {
 		var in = unit.getDuration().toMillis();
-		return Math.abs(ts1 - ts2) <= in;
+		return Math.abs(time1 - time2) <= in;
 	}
 
 	public static Date parse(String text, String pattern) {

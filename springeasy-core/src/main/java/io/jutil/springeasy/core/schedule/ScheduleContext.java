@@ -1,5 +1,7 @@
 package io.jutil.springeasy.core.schedule;
 
+import io.jutil.springeasy.core.mutex.MutexFactory;
+
 import java.util.concurrent.ExecutorService;
 
 /**

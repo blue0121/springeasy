@@ -13,15 +13,15 @@ public abstract class SingleScheduleJob implements ScheduleJob {
 	public final void run(ScheduleContext ctx) {
 		var mutex = ctx.getMutexFactory().create(ctx.getId());
 		if (!mutex.tryLock()) {
-			log.warn("Schedule [{}] is running", mutex.getId());
+			log.warn("Schedule [{}] is running", mutex.getKey());
 			return;
 		}
-		log.info(">> Schedule [{}] start", mutex.getId());
+		log.info(">> Schedule [{}] start", mutex.getKey());
 		try {
 			this.runInternal(ctx);
 		} finally {
 			mutex.unlock();
-			log.info("<< Schedule [{}] stop", mutex.getId());
+			log.info("<< Schedule [{}] stop", mutex.getKey());
 		}
 	}
 

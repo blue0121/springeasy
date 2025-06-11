@@ -11,7 +11,7 @@ springeasy:
   redis:
     enabled: true
     server: redis://localhost:6379
-    password: 1111
+    password:
   cache:
     enabled: true
     type: redis

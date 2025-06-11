@@ -1,25 +1,22 @@
 package io.jutil.springeasy.redis.mutex;
 
-import io.jutil.springeasy.core.schedule.Mutex;
-import io.jutil.springeasy.core.schedule.MutexFactory;
+import io.jutil.springeasy.core.mutex.Mutex;
+import io.jutil.springeasy.core.mutex.MutexFactory;
 import io.jutil.springeasy.core.util.WaitUtil;
-import io.jutil.springeasy.redis.Application;
+import io.jutil.springeasy.redis.RedisTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author Jin Zheng
  * @since 2024-05-17
  */
-@SpringBootTest(classes = Application.class)
-class RedisMutexIT {
+class RedisMutexIT extends RedisTest {
 	@Autowired
 	MutexFactory factory;
 
@@ -42,7 +39,7 @@ class RedisMutexIT {
 	@Test
 	void testLock() {
 		var mutex = (RedisMutex) factory.create("redisLock");
-		mutex.lock(5, TimeUnit.SECONDS);
+		mutex.lock();
 		System.out.println(Thread.currentThread().getName());
 		mutex.unlock();
 	}
@@ -50,7 +47,7 @@ class RedisMutexIT {
 	@Test
 	void testExecute() {
 		var mutex = (RedisMutex) factory.create("redisLock");
-		mutex.execute(5, TimeUnit.SECONDS, () -> {
+		mutex.execute(() -> {
 			System.out.println(Thread.currentThread().getName());
 			return null;
 		});

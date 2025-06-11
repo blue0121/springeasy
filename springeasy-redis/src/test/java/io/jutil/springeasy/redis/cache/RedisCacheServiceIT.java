@@ -1,6 +1,6 @@
 package io.jutil.springeasy.redis.cache;
 
-import io.jutil.springeasy.redis.Application;
+import io.jutil.springeasy.redis.RedisTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,8 +18,8 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
  * @since 2024-05-24
  */
 @ActiveProfiles("cache1")
-@SpringBootTest(classes = {Application.class, RedisCacheServiceIT.Config.class})
-class RedisCacheServiceIT {
+@SpringBootTest(classes = {RedisTest.Application.class, RedisCacheServiceIT.Config.class})
+class RedisCacheServiceIT extends RedisTest {
 	@Autowired
 	TestService testService;
 	@MockitoBean

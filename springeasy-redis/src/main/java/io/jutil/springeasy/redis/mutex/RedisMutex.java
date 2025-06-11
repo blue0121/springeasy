@@ -1,8 +1,7 @@
 package io.jutil.springeasy.redis.mutex;
 
-import io.jutil.springeasy.core.schedule.Mutex;
+import io.jutil.springeasy.core.mutex.Mutex;
 
-import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 /**
@@ -11,8 +10,8 @@ import java.util.function.Supplier;
  */
 public interface RedisMutex extends Mutex {
 
-	void lock(long leaseTime, TimeUnit unit);
+	void lock();
 
-	<T> T execute(long leaseTime, TimeUnit unit, Supplier<T> f);
+	<T> T execute(Supplier<T> f);
 
 }

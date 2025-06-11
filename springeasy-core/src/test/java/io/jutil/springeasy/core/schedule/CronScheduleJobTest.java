@@ -1,6 +1,6 @@
 package io.jutil.springeasy.core.schedule;
 
-import io.jutil.springeasy.core.schedule.memory.MemoryMutexFactory;
+import io.jutil.springeasy.core.mutex.memory.MemoryMutexFactory;
 import io.jutil.springeasy.core.util.WaitUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

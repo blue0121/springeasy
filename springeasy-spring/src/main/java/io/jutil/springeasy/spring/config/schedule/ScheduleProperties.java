@@ -22,8 +22,6 @@ import java.util.List;
 public class ScheduleProperties implements PropertiesChecker {
 	private boolean enabled;
 	private String mutex;
-	private String mutexKey;
-	private int keepAliveSec;
 	private String executor;
 	private List<ScheduleConfigProperties> configs;
 
@@ -35,16 +33,12 @@ public class ScheduleProperties implements PropertiesChecker {
 			return;
 		}
 		AssertUtil.notEmpty(mutex, "Mutex");
-		AssertUtil.notEmpty(mutexKey, "Mutex key");
-		AssertUtil.nonNegative(keepAliveSec, "Keep alive second");
 		AssertUtil.notEmpty(executor, "Executor");
 		PropertiesUtil.check(configs, p -> {
 			if (p.executor == null || p.executor.isEmpty()) {
 				p.executor = executor;
 			}
 		});
-
-		this.expireSec = keepAliveSec * 5;
 	}
 
 	@Getter

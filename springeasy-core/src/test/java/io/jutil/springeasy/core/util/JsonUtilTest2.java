@@ -31,4 +31,14 @@ class JsonUtilTest2 {
 	static class User {
 		private Long id;
 	}
+
+	@Test
+	void testString() {
+		var str = "hello world";
+		var json = JsonUtil.toString(str);
+		System.out.println(json);
+		var view = JsonUtil.fromString(json, String.class);
+		System.out.println(view);
+		Assertions.assertEquals(str, view);
+	}
 }

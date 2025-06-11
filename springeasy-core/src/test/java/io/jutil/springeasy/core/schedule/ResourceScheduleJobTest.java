@@ -1,5 +1,7 @@
 package io.jutil.springeasy.core.schedule;
 
+import io.jutil.springeasy.core.mutex.Mutex;
+import io.jutil.springeasy.core.mutex.MutexFactory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

@@ -1,13 +1,16 @@
 package io.jutil.springeasy.redis.config;
 
 import io.jutil.springeasy.core.util.AssertUtil;
+import io.jutil.springeasy.redis.pubsub.TopicType;
 import io.jutil.springeasy.spring.config.PropertiesChecker;
+import io.jutil.springeasy.spring.config.PropertiesUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jin Zheng
@@ -18,6 +21,11 @@ import java.util.List;
 @NoArgsConstructor
 @ConfigurationProperties("springeasy.redis")
 public class RedisProperties implements PropertiesChecker {
+	private Map<String, String> publisherTopics;
+	private List<Subscriber> subscribers;
+
+
+
 	private String server;
 	private List<String> servers;
 	private RedisMode mode = RedisMode.SINGLE;
@@ -31,18 +39,29 @@ public class RedisProperties implements PropertiesChecker {
 
 	@Override
 	public void check() {
-		switch (mode) {
-			case SINGLE -> AssertUtil.notEmpty(server, "Server");
-			case SENTINEL -> {
-				AssertUtil.notEmpty(servers, "Servers");
-				AssertUtil.notEmpty(masterName, "MasterName");
-			}
-			case CLUSTER -> AssertUtil.notEmpty(servers, "Servers");
-		}
+		PropertiesUtil.check(subscribers);
+	}
 
-		AssertUtil.nonNegative(timeoutMillis, "Timeout");
-		AssertUtil.nonNegative(subscriptionConnectionPoolSize, "SubscriptionConnectionPoolSize");
-		AssertUtil.nonNegative(connectionPoolSize, "ConnectionPoolSize");
-		AssertUtil.nonNegative(retry, "Retry");
+	@Getter
+	@Setter
+	@NoArgsConstructor
+	public static class Subscriber implements PropertiesChecker {
+		private boolean enabled = true;
+		private String id;
+		private String topic;
+		private String type = TopicType.CHANNEL.name();
+		private TopicType topicType;
+
+		@Override
+		public void check() {
+			if (!enabled) {
+				return;
+			}
+			AssertUtil.notEmpty(id, "id");
+			AssertUtil.notEmpty(topic, "topic");
+			AssertUtil.notEmpty(type, "type");
+			this.topicType = TopicType.getType(type);
+			AssertUtil.notNull(topicType, "TopicType");
+		}
 	}
 }
