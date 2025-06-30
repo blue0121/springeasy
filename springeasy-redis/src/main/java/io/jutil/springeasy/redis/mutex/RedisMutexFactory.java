@@ -6,10 +6,8 @@ import io.jutil.springeasy.core.mutex.MutexType;
 import io.jutil.springeasy.core.mutex.RenewSchedule;
 import io.jutil.springeasy.core.util.AssertUtil;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.util.UUID;
@@ -20,20 +18,28 @@ import java.util.UUID;
  */
 @Slf4j
 @Getter
-@Setter
-public class RedisMutexFactory implements MutexFactory, InitializingBean, DisposableBean {
+public class RedisMutexFactory implements MutexFactory, DisposableBean {
 	private final StringRedisTemplate redisTemplate;
 	private final String rootKey;
 
-	private int keepAliveSec;
-	private int expireSec;
-	private String instanceId;
-	private RenewSchedule schedule;
+	private final int keepAliveSec;
+	private final int expireSec;
+	private final String instanceId;
+	private final RenewSchedule schedule;
 
-	public RedisMutexFactory(StringRedisTemplate redisTemplate, String rootKey) {
+	public RedisMutexFactory(StringRedisTemplate redisTemplate, String rootKey,
+	                         int keepAliveSec, int expireSec) {
+		AssertUtil.notNull(redisTemplate, "redisTemplate");
+		AssertUtil.notEmpty(rootKey, "rootKey");
+		AssertUtil.nonNegative(keepAliveSec, "KeepAliveSecond");
+		AssertUtil.nonNegative(expireSec, "ExpireSecond");
 		this.redisTemplate = redisTemplate;
 		this.rootKey = rootKey;
+		this.keepAliveSec = keepAliveSec;
+		this.expireSec = expireSec;
 		this.instanceId = UUID.randomUUID().toString();
+		this.schedule = new RedisRenewSchedule(redisTemplate, instanceId,
+				keepAliveSec, expireSec);
 	}
 
 	@Override
@@ -52,14 +58,5 @@ public class RedisMutexFactory implements MutexFactory, InitializingBean, Dispos
 		if (schedule != null) {
 			schedule.shutdown();
 		}
-	}
-
-	@Override
-	public void afterPropertiesSet() {
-		AssertUtil.nonNegative(keepAliveSec, "KeepAliveSecond");
-		AssertUtil.nonNegative(expireSec, "ExpireSecond");
-		AssertUtil.notEmpty(instanceId, "Instance Id");
-		this.schedule = new RedisRenewSchedule(redisTemplate, instanceId,
-				keepAliveSec, expireSec);
 	}
 }

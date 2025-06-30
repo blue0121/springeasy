@@ -46,7 +46,7 @@ public class ScheduleProperties implements PropertiesChecker {
 	@NoArgsConstructor
 	public static class ScheduleConfigProperties implements PropertiesChecker {
 		private String id;
-		private boolean enabled;
+		private boolean enabled = true;
 		private String cron;
 		private String executor;
 

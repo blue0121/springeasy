@@ -17,7 +17,7 @@ public class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
 		try {
 			return JsonUtil.toBytes(value);
 		} catch (Exception e) {
-			throw new SerializationException("Could not serialize: " + e.getMessage(), e);
+			throw new SerializationException("无法序列化: " + e.getMessage(), e);
 		}
 	}
 
@@ -29,7 +29,7 @@ public class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
 		try {
 			return JsonUtil.fromBytes(bytes);
 		} catch (Exception e) {
-			throw new SerializationException("Could not deserialize: " + e.getMessage(), e);
+			throw new SerializationException("无法反序列化: " + e.getMessage(), e);
 		}
 	}
 }

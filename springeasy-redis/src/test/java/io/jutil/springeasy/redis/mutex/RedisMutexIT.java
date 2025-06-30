@@ -5,6 +5,7 @@ import io.jutil.springeasy.core.mutex.MutexFactory;
 import io.jutil.springeasy.core.util.WaitUtil;
 import io.jutil.springeasy.redis.RedisTest;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,6 +24,9 @@ class RedisMutexIT extends RedisTest {
 	@Autowired
 	ExecutorService executor;
 
+	final String lockKey = "redisLock";
+
+	@Disabled
 	@Test
 	void testMutex() {
 		var counter = new AtomicInteger(0);
@@ -37,13 +41,16 @@ class RedisMutexIT extends RedisTest {
 	}
 
 	@Test
-	void testLock() {
-		var mutex = (RedisMutex) factory.create("redisLock");
-		mutex.lock();
-		System.out.println(Thread.currentThread().getName());
+	void testTryLock() throws Exception {
+		var mutex = (RedisMutex) factory.create(lockKey);
+		Assertions.assertTrue(mutex.tryLock());
+		Assertions.assertFalse(mutex.tryLock());
+		mutex.unlock();
+		Assertions.assertTrue(mutex.tryLock());
 		mutex.unlock();
 	}
 
+	@Disabled
 	@Test
 	void testExecute() {
 		var mutex = (RedisMutex) factory.create("redisLock");

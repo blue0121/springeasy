@@ -2,6 +2,8 @@ package io.jutil.springeasy.spring.schedule;
 
 import io.jutil.springeasy.core.schedule.ExecutorThreadFactory;
 import io.jutil.springeasy.spring.config.schedule.ExecutorProperties;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -16,6 +18,8 @@ import java.util.concurrent.TimeUnit;
  * @author Jin Zheng
  * @since 2023-08-12
  */
+@Slf4j
+@Setter
 public class ExecutorServiceFactoryBean implements FactoryBean<ExecutorService>, InitializingBean {
 	private String id;
 	private ExecutorProperties.Type type;
@@ -49,31 +53,13 @@ public class ExecutorServiceFactoryBean implements FactoryBean<ExecutorService>,
 			default -> new LinkedBlockingQueue<Runnable>(this.queueCapacity);
 		};
 		var threadFactory = new ExecutorThreadFactory(this.id);
+		log.info("创建 ExecutorService, id: {}, coreSize: {}, maxSize: {}, queueType: {}",
+				this.id, this.coreSize, this.maxSize, queue.getClass().getSimpleName());
 		return new ThreadPoolExecutor(this.coreSize, this.maxSize,
 				1, TimeUnit.MINUTES, queue, threadFactory);
 	}
 
 	private ExecutorService createVirtual() {
 		return Executors.newVirtualThreadPerTaskExecutor();
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public void setType(ExecutorProperties.Type type) {
-		this.type = type;
-	}
-
-	public void setQueueCapacity(int queueCapacity) {
-		this.queueCapacity = queueCapacity;
-	}
-
-	public void setCoreSize(int coreSize) {
-		this.coreSize = coreSize;
-	}
-
-	public void setMaxSize(int maxSize) {
-		this.maxSize = maxSize;
 	}
 }

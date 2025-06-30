@@ -52,6 +52,10 @@ public class CronScheduleJobFactoryBean implements FactoryBean<CronScheduleJob>,
 		var executor = beanFactory.getBean(prop.getExecutor(), ExecutorService.class);
 		cronScheduleJob = new CronScheduleJob(executor, mutexFactory);
 		for (var config : prop.getConfigs()) {
+			if (!config.isEnabled()) {
+				continue;
+			}
+
 			ExecutorService localExecutor = null;
 			if (config.getExecutor() != null && !config.getExecutor().isEmpty()) {
 				localExecutor = beanFactory.getBean(config.getExecutor(), ExecutorService.class);

@@ -8,8 +8,6 @@ import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.filter.Filter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.nio.charset.StandardCharsets;
-
 /**
  * @author Jin Zheng
  * @since 1.0 2019-07-26
@@ -55,15 +53,6 @@ public class JsonUtil {
 		if (object == null) {
 			return new byte[0];
 		}
-
-		if (object instanceof byte[] bytes) {
-			return bytes;
-		}
-
-		if (object instanceof CharSequence str) {
-			return str.toString().getBytes(StandardCharsets.UTF_8);
-		}
-
 		return JSON.toJSONBytes(object, WRITER);
 	}
 
@@ -76,20 +65,10 @@ public class JsonUtil {
 		return (T) JSON.parseObject(bytes, Object.class, autoedTypeFilter);
 	}
 
-	@SuppressWarnings("unchecked")
 	public static <T> T fromBytes(byte[] bytes, Class<T> clazz) {
 		if (bytes == null || bytes.length == 0) {
 			return null;
 		}
-
-		if (clazz == byte[].class) {
-			return (T) bytes;
-		}
-
-		if (clazz == String.class) {
-			return (T) new String(bytes, StandardCharsets.UTF_8);
-		}
-
 		return JSON.parseObject(bytes, clazz, autoedTypeFilter);
 	}
 
@@ -114,15 +93,6 @@ public class JsonUtil {
 		if (object == null) {
 			return null;
 		}
-
-		if (object instanceof byte[] bytes) {
-			return new String(bytes, StandardCharsets.UTF_8);
-		}
-
-		if (object instanceof CharSequence str) {
-			return str.toString();
-		}
-
 		return JSON.toJSONString(object, WRITER);
 	}
 
@@ -135,16 +105,10 @@ public class JsonUtil {
 		return (T) JSON.parseObject(json, Object.class, autoedTypeFilter);
 	}
 
-	@SuppressWarnings("unchecked")
 	public static <T> T fromString(String json, Class<T> clazz) {
 		if (json == null || json.isEmpty()) {
 			return null;
 		}
-
-		if (clazz == String.class) {
-			return (T) json;
-		}
-
 		return JSON.parseObject(json, clazz, autoedTypeFilter);
 	}
 

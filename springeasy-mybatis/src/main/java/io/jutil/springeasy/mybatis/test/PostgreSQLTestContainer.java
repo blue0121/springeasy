@@ -1,11 +1,14 @@
 package io.jutil.springeasy.mybatis.test;
 
+import lombok.extern.slf4j.Slf4j;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
 
 /**
  * @author Jin Zheng
  * @since 2025-06-10
  */
+@Slf4j
 public class PostgreSQLTestContainer extends PostgreSQLContainer<PostgreSQLTestContainer> {
 	private static final String DOCKER_IMAGE = "postgres:17-alpine";
 	private static final String DATABASE = "testdb";
@@ -16,7 +19,8 @@ public class PostgreSQLTestContainer extends PostgreSQLContainer<PostgreSQLTestC
 			.withDatabaseName(DATABASE)
 			.withUsername(USERNAME)
 			.withPassword(PASSWORD)
-			.withReuse(true);
+			.withReuse(true)
+			.withLogConsumer(new Slf4jLogConsumer(log));
 
 	static {
 		Runtime.getRuntime().addShutdownHook(new Thread(POSTGRESQL_CONTAINER::destroy));

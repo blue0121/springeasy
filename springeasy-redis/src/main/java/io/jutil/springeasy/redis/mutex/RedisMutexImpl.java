@@ -73,12 +73,14 @@ class RedisMutexImpl implements RedisMutex {
 			return false;
 		}
 		renewSchedule.startRenew(key);
+		log.debug("RedisMutex lock, key: {}", key);
 		return true;
 	}
 
 	@Override
 	public void unlock() {
 		redisTemplate.execute(script, List.of(key), instanceId);
+		log.debug("RedisMutex unlock, key: {}", key);
 	}
 
 	@Override

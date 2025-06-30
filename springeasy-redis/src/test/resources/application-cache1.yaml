@@ -10,8 +10,6 @@ springeasy:
         max-size: 10
   redis:
     enabled: true
-    server: redis://localhost:6379
-    password:
   cache:
     enabled: true
     type: redis

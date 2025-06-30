@@ -19,10 +19,14 @@ import java.util.List;
 @NoArgsConstructor
 @ConfigurationProperties("springeasy.schedule")
 public class ExecutorProperties implements PropertiesChecker {
+	private boolean enabled;
 	private List<ExecutorConfigProperties> configs;
 
 	@Override
 	public void check() {
+		if (!enabled) {
+			return;
+		}
 		PropertiesUtil.check(configs);
 	}
 
@@ -32,7 +36,7 @@ public class ExecutorProperties implements PropertiesChecker {
 	@NoArgsConstructor
 	public static class ExecutorConfigProperties implements PropertiesChecker {
 		private String id;
-		private boolean enabled;
+		private boolean enabled = true;
 		private Type type = Type.PLATFORM;
 		private int queueCapacity;
 		private int coreSize;

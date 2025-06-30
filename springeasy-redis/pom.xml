@@ -20,16 +20,17 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
-			<!--<exclusions>
+			<exclusions>
 				<exclusion>
-					<groupId>io.projectreactor</groupId>
-					<artifactId>reactor-core</artifactId>
+					<groupId>io.lettuce</groupId>
+					<artifactId>lettuce-core</artifactId>
 				</exclusion>
-			</exclusions>-->
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
 			<!--<exclusions>
 				<exclusion>
 					<groupId>org.json</groupId>
@@ -40,33 +41,6 @@
 					<artifactId>gson</artifactId>
 				</exclusion>
 			</exclusions>-->
-		</dependency>
-
-		<dependency>
-			<groupId>org.redisson</groupId>
-			<artifactId>redisson</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>io.projectreactor</groupId>
-					<artifactId>reactor-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.reactivestreams</groupId>
-					<artifactId>reactive-streams</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>io.reactivex.rxjava3</groupId>
-					<artifactId>rxjava</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.esotericsoftware</groupId>
-					<artifactId>kryo</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<dependency>

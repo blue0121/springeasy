@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.cache.RedisCache;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.test.context.ActiveProfiles;
 
 /**
@@ -42,7 +44,9 @@ class RedisCacheIT extends RedisTest {
 		Assertions.assertEquals(value, redisCache.get(key, () -> value));
 		Assertions.assertEquals(value, redisCache.get(key, () -> value));
 
-		Assertions.assertTrue(redisCache.evictIfPresent(key));
+		Assertions.assertEquals(value, redisCache.get(key, String.class));
+		Assertions.assertFalse(redisCache.evictIfPresent(key));
+		Assertions.assertNull(redisCache.get(key, String.class));
 	}
 
 	@Test

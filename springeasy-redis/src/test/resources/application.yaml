@@ -27,22 +27,10 @@ springeasy:
         max-size: 10
   redis:
     enabled: true
-    publisher-topics:
-      user: user-topic
-    subscribers:
-      - id: user1
-        topic: user-topic
-        type: channel
-      - id: user2
-        topic: user*
-        type: pattern
-      - id: string
-        topic: string-topic
-
-    server: redis://localhost:6379
-    password:
-    timeout-millis: 60000
-    retry: 3
-    database: 0
-    connection-pool-size: 24
-    subscription-connection-pool-size: 2
+  mutex:
+    enabled: true
+    keep-alive-sec: 60
+    configs:
+      - id: redisMutex
+        type: redis
+        key: redisMutexKey
