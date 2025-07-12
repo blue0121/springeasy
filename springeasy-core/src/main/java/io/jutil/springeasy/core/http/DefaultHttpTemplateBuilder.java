@@ -14,6 +14,7 @@ import java.util.Map;
  */
 @Slf4j
 @NoArgsConstructor
+@SuppressWarnings("javaarchitecture:S7027")
 class DefaultHttpTemplateBuilder implements HttpTemplateBuilder {
 
 	private String id;
