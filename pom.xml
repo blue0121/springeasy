@@ -15,6 +15,7 @@
 		<module>springeasy-spring</module>
 		<module>springeasy-redis</module>
 		<module>springeasy-mybatis</module>
+		<module>springeasy-test</module>
 	</modules>
 
 	<properties>

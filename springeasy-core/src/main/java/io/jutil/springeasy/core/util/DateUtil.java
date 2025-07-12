@@ -50,10 +50,12 @@ public class DateUtil {
 		return equal(ts1, ts2, unit);
 	}
 
+	@SuppressWarnings("java:S1221")
 	public static boolean equal(long time1, long time2) {
 		return equal(time1, time2, ChronoUnit.SECONDS);
 	}
 
+	@SuppressWarnings("java:S1221")
 	public static boolean equal(long time1, long time2, TemporalUnit unit) {
 		var in = unit.getDuration().toMillis();
 		return Math.abs(time1 - time2) <= in;

@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
  * @author Jin Zheng
  * @since 2023-03-27
  */
+@SuppressWarnings("javaarchitecture:S7027")
 class ImmutableMultiMap<K, V> extends AbstractMultiMap<K, V> {
 	ImmutableMultiMap(MultiMap<K, V> map) {
 		AssertUtil.notNull(map, "MultiMap");
@@ -46,6 +47,5 @@ class ImmutableMultiMap<K, V> extends AbstractMultiMap<K, V> {
 	public Class<?> getMapType() {
 		return map.getClass();
 	}
-
 
 }

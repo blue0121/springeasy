@@ -7,6 +7,7 @@ import java.util.Set;
  * @author Jin Zheng
  * @since 2023-03-27
  */
+@SuppressWarnings("javaarchitecture:S7027")
 abstract class AbstractMultiMap<K, V> implements MultiMap<K, V> {
 	protected Map<K, Set<V>> map;
 

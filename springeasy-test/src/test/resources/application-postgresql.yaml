@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:h2:mem:testdb
+    username: root
+    password: ""
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:/sql/postgresql/*.sql
+
+

@@ -13,6 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * @date 2020-07-08
  */
 @Slf4j
+@SuppressWarnings("javaarchitecture:S7027")
 class DefaultAsyncHttpTemplate extends AbstractHttpTemplate implements AsyncHttpTemplate {
 
 	DefaultAsyncHttpTemplate(DefaultHttpTemplateBuilder builder) {

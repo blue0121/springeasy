@@ -29,7 +29,9 @@ class ShellExecutorTest {
 		var start = System.currentTimeMillis();
 		var cmd = "ls /";
 		for (int i = 0; i < 5; i++) {
-			ShellExecutor.execute(cmd);
+			var rs = ShellExecutor.execute(cmd);
+			Assertions.assertEquals(0, rs.getExitValue());
+			Assertions.assertNull(rs.getCause());
 		}
 		System.out.println("used time: " + (System.currentTimeMillis() - start));
 	}

@@ -27,6 +27,7 @@ public class MemoryMutexFactory implements MutexFactory {
 	}
 
 	@Override
+	@SuppressWarnings("java:S1186")
 	public void destroy() {
 
 	}

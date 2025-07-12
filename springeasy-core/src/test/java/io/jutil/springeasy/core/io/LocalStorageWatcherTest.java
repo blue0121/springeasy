@@ -16,6 +16,7 @@ import java.nio.file.Paths;
  * @author Jin Zheng
  * @since 2024-12-22
  */
+@SuppressWarnings("java:S2699")
 class LocalStorageWatcherTest {
 	private static LocalStorageWatcher watcher;
 	private static StorageService storageService;

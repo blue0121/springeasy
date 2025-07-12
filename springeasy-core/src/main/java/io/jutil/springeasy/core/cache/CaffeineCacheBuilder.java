@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
  * @author Jin Zheng
  * @since 2023-03-26
  */
+@SuppressWarnings("javaarchitecture:S7027")
 class CaffeineCacheBuilder implements CacheBuilder {
 	private Caffeine<Object, Object> caffeine = Caffeine.newBuilder();
 

@@ -8,6 +8,7 @@ import java.util.Map;
  * @author Jin Zheng
  * @since 2024-2-7 0007
  */
+@SuppressWarnings("javaarchitecture:S7027")
 public interface ClassOperation extends AnnotationOperation, NameOperation {
 
 	Class<?> getTargetClass();

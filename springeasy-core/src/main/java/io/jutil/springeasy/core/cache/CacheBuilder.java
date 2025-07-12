@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
  * @author Jin Zheng
  * @since 2023-03-26
  */
+@SuppressWarnings("javaarchitecture:S7027")
 public interface CacheBuilder {
 
 	CacheBuilder expireAfterWrite(long val, TimeUnit unit);

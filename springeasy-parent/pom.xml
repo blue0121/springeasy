@@ -41,6 +41,12 @@
 				<artifactId>springeasy-redis</artifactId>
 				<version>${revision}</version>
 			</dependency>
+			<dependency>
+				<groupId>io.jutil</groupId>
+				<artifactId>springeasy-test</artifactId>
+				<version>${revision}</version>
+				<scope>test</scope>
+			</dependency>
 
 			<dependency>
 				<groupId>org.wiremock</groupId>

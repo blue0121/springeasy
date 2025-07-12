@@ -17,6 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Jin Zheng
  * @since 2024-05-17
  */
+@SuppressWarnings("java:S2699")
 class RedisMutexIT extends RedisTest {
 	@Autowired
 	MutexFactory factory;

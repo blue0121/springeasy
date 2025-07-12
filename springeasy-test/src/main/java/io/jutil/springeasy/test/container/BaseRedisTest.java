@@ -1,31 +1,26 @@
-package io.jutil.springeasy.redis;
+package io.jutil.springeasy.test.container;
 
-import io.jutil.springeasy.test.container.RedisTestContainer;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 /**
  * @author Jin Zheng
- * @since 2025-04-27
+ * @since 2025-06-10
  */
 @Slf4j
+@ActiveProfiles("redis")
 @Testcontainers
-@SpringBootTest(classes = RedisTest.Application.class)
-public abstract class RedisTest {
+public abstract class BaseRedisTest {
 
 	@DynamicPropertySource
-	static void redisProperties(DynamicPropertyRegistry registry) {
+	public static void dynamicProperty(DynamicPropertyRegistry registry) {
 		registry.add("spring.data.redis.host", RedisTestContainer::getHost);
 		registry.add("spring.data.redis.port", RedisTestContainer::getPort);
 		log.info(">>>>>>>>> Redis Server host: {}, port: {}",
 				RedisTestContainer.getHost(), RedisTestContainer.getPort());
 	}
 
-	@SpringBootApplication
-	public static class Application {
-	}
 }

@@ -7,6 +7,7 @@ import java.util.Map;
  * @author Jin Zheng
  * @since 2023-03-26
  */
+@SuppressWarnings("javaarchitecture:S7027")
 public interface Cache<K, V> {
 
 	static CacheBuilder builder() {

@@ -1,4 +1,4 @@
-package io.jutil.springeasy.redis.test;
+package io.jutil.springeasy.test.container;
 
 import lombok.extern.slf4j.Slf4j;
 import org.testcontainers.containers.GenericContainer;

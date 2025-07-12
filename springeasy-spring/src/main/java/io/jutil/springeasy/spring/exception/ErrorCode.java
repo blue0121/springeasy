@@ -8,6 +8,7 @@ import java.text.MessageFormat;
  * @author Jin Zheng
  * @since 2023-10-05
  */
+@SuppressWarnings("javaarchitecture:S7027")
 public record ErrorCode(int code, String message) {
 
 	public int httpStatus() {

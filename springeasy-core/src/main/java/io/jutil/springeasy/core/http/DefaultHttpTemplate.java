@@ -12,6 +12,7 @@ import java.util.Map;
  * @date 2020-07-08
  */
 @Slf4j
+@SuppressWarnings("javaarchitecture:S7027")
 class DefaultHttpTemplate extends AbstractHttpTemplate implements HttpTemplate {
 
 	DefaultHttpTemplate(DefaultHttpTemplateBuilder builder) {

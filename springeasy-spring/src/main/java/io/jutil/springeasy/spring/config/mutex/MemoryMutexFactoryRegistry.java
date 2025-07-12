@@ -16,6 +16,7 @@ import org.springframework.core.env.Environment;
 public class MemoryMutexFactoryRegistry implements BeanDefinitionRegistryPostProcessor, EnvironmentAware {
 	private MutexProperties prop;
 
+	@SuppressWarnings("java:S131")
 	private void registryMutexFactory(BeanDefinitionRegistry registry,
 	                                  MutexProperties.MutexConfigProperties config) {
 		RootBeanDefinition definition = null;

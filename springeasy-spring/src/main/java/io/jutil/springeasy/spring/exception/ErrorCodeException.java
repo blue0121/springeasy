@@ -4,6 +4,7 @@ package io.jutil.springeasy.spring.exception;
  * @author Jin Zheng
  * @since 2023-10-05
  */
+@SuppressWarnings("javaarchitecture:S7027")
 public class ErrorCodeException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
