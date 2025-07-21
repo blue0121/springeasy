@@ -10,6 +10,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
@@ -19,9 +22,6 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: 'maven'
-          server-id: github
-          server-username: blue0121
-          server-password: ${{ secrets.GITHUB_TOKEN }}
       - name: Analyze with SonarCloud
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -36,3 +36,5 @@ jobs:
         run: cat ~/.m2/settings.xml
       - name: Deploy to Github Packages
         run: chmod 755 package.sh && ./package.sh $GITHUB_RUN_NUMBER
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
