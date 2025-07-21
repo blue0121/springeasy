@@ -27,5 +27,5 @@ if [ $EXIT_CODE -ne 0 ]; then
     exit $EXIT_CODE
 fi
 
-echo "version=NEW_VERSION" >> $GITHUB_OUTPUT
+echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
 echo "maven deploy successfully, final version: ${NEW_VERSION}"
