@@ -1,6 +1,6 @@
 package io.jutil.springeasy.core.http;
 
-import io.jutil.springeasy.core.util.JsonUtil;
+import io.jutil.springeasy.core.codec.json.Json;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.http.HttpResponse;
@@ -24,6 +24,6 @@ class DefaultStringResponse extends AbstractResponse<String> implements StringRe
 
 	@Override
 	public <T> T convertTo(Class<T> clazz) {
-		return JsonUtil.fromString(this.getBody(), clazz);
+		return Json.fromString(this.getBody(), clazz);
 	}
 }

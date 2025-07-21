@@ -1,4 +1,4 @@
-package io.jutil.springeasy.core.util;
+package io.jutil.springeasy.core.codec.json;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
@@ -6,19 +6,18 @@ import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.filter.Filter;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Jin Zheng
- * @since 1.0 2019-07-26
+ * @since 2025-07-14
  */
-@Slf4j
-public class JsonUtil {
+public class Json {
 	private static final String BASE_FILTER = "io.jutil";
 
 	@SuppressWarnings("java:S2386")
 	public static final JSONWriter.Feature[] WRITER = new JSONWriter.Feature[] {
 			JSONWriter.Feature.WriteClassName,
+			JSONWriter.Feature.WriteByteArrayAsBase64,
 			JSONWriter.Feature.WriteEnumUsingOrdinal,
 			JSONWriter.Feature.WriteLongAsString
 	};
@@ -26,12 +25,13 @@ public class JsonUtil {
 	@SuppressWarnings("java:S2386")
 	public static final JSONWriter.Feature[] OUTPUT = new JSONWriter.Feature[] {
 			JSONWriter.Feature.WriteEnumUsingOrdinal,
+			JSONWriter.Feature.WriteByteArrayAsBase64,
 			JSONWriter.Feature.WriteLongAsString
 	};
 
 	private static Filter autoedTypeFilter = JSONReader.autoTypeFilter(BASE_FILTER);
 
-	private JsonUtil() {
+	private Json() {
 	}
 
 	public static Filter getAutoedTypeFilter() {
@@ -61,7 +61,6 @@ public class JsonUtil {
 		if (bytes == null || bytes.length == 0) {
 			return null;
 		}
-
 		return (T) JSON.parseObject(bytes, Object.class, autoedTypeFilter);
 	}
 
@@ -77,15 +76,6 @@ public class JsonUtil {
 		if (object == null) {
 			return null;
 		}
-
-		if (object instanceof byte[] bytes) {
-			return String.format("{%d byte array}", bytes.length);
-		}
-
-		if (object instanceof CharSequence str) {
-			return str.toString();
-		}
-
 		return JSON.toJSONString(object, OUTPUT);
 	}
 

@@ -1,6 +1,6 @@
 package io.jutil.springeasy.core.codec;
 
-import io.jutil.springeasy.core.util.JsonUtil;
+import io.jutil.springeasy.core.codec.json.Json;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ class CodecFactoryTest {
 
 		var base64 = CodecFactory.encodeBase64(obj1);
 		log.info("Byte, len: {}, text: {}", base64.length(), base64);
-		var json = JsonUtil.output(obj1);
+		var json = Json.output(obj1);
 		log.info("Byte, len: {}, text: {}", json.length(), json);
 		var obj2 = new PrimitiveTypeObject();
 		CodecFactory.decode(obj2, base64);
@@ -69,7 +69,7 @@ class CodecFactoryTest {
 
 		var base64 = CodecFactory.encodeBase64(obj1);
 		log.info("Byte, len: {}, text: {}", base64.length(), base64);
-		var json = JsonUtil.output(obj1);
+		var json = Json.output(obj1);
 		log.info("Byte, len: {}, text: {}", json.length(), json);
 		var obj2 = new StringTypeObject();
 		CodecFactory.decode(obj2, base64);
@@ -90,7 +90,7 @@ class CodecFactoryTest {
 
 		var base64 = CodecFactory.encodeBase64(obj1);
 		log.info("Byte, len: {}, text: {}", base64.length(), base64);
-		var json = JsonUtil.output(obj1);
+		var json = Json.output(obj1);
 		log.info("Byte, len: {}, text: {}", json.length(), json);
 		var obj2 = new DateTypeObject();
 		CodecFactory.decode(obj2, base64);
@@ -106,7 +106,7 @@ class CodecFactoryTest {
 
 		var base64 = CodecFactory.encodeBase64(obj1);
 		log.info("Byte, len: {}, text: {}", base64.length(), base64);
-		var json = JsonUtil.output(obj1);
+		var json = Json.output(obj1);
 		log.info("Byte, len: {}, text: {}", json.length(), json);
 		var obj2 = new DateTypeObject();
 		CodecFactory.decode(obj2, base64);

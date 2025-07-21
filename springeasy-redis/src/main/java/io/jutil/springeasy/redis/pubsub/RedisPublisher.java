@@ -1,6 +1,6 @@
 package io.jutil.springeasy.redis.pubsub;
 
-import io.jutil.springeasy.core.util.JsonUtil;
+import io.jutil.springeasy.core.codec.json.Json;
 import io.jutil.springeasy.redis.config.RedisProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -29,7 +29,7 @@ public class RedisPublisher {
 
 	public void publish(String channel, Object payload) {
 		if (log.isDebugEnabled()) {
-			log.debug("Redis publishing, channel: {}, payload: {}", channel, JsonUtil.toString(payload));
+			log.debug("Redis publishing, channel: {}, payload: {}", channel, Json.toString(payload));
 		} else {
 			log.info("Redis publishing, channel: {}", channel);
 		}

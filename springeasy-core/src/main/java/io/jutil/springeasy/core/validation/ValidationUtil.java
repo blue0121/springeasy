@@ -28,6 +28,7 @@ public class ValidationUtil {
 	 */
 	@SuppressWarnings({"unchecked", "java:S3740"})
 	public static void valid(Object object, Class<?>... groups) throws ValidationException {
+		check(object);
 		init();
 
 		Set set = validator.validate(object, groups);
@@ -36,6 +37,17 @@ public class ValidationUtil {
 		}
 
 		throw new ValidationException(getErrorMessage(set));
+	}
+
+	private static void check(Object object) {
+		if (object == null) {
+			throw new ValidationException("object 不能为空");
+		}
+		if (object instanceof CharSequence str) {
+			if (str.isEmpty()) {
+				throw new ValidationException("object 不能为空");
+			}
+		}
 	}
 
 	public static String getErrorMessage(Set<ConstraintViolation<?>> set) {

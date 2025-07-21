@@ -1,4 +1,4 @@
-package io.jutil.springeasy.core.util;
+package io.jutil.springeasy.core.codec.json;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
@@ -6,15 +6,14 @@ import com.alibaba.fastjson2.JSONPath;
 
 /**
  * @author Jin Zheng
- * @since 2023-10-04
+ * @since 2025-07-14
  */
-public class JsonPathUtil {
-	private JsonPathUtil() {
+public class JsonPath {
+	private JsonPath() {
 	}
 
 	private static Object get(Object object, String path) {
 		var jsonPath = JSONPath.of(path);
-
 		return jsonPath.eval(object);
 	}
 

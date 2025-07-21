@@ -1,6 +1,6 @@
 package io.jutil.springeasy.redis.serializer;
 
-import io.jutil.springeasy.core.util.JsonUtil;
+import io.jutil.springeasy.core.codec.json.Json;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 
@@ -15,7 +15,7 @@ public class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
 			return new byte[0];
 		}
 		try {
-			return JsonUtil.toBytes(value);
+			return Json.toBytes(value);
 		} catch (Exception e) {
 			throw new SerializationException("无法序列化: " + e.getMessage(), e);
 		}
@@ -27,7 +27,7 @@ public class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
 			return null;
 		}
 		try {
-			return JsonUtil.fromBytes(bytes);
+			return Json.fromBytes(bytes);
 		} catch (Exception e) {
 			throw new SerializationException("无法反序列化: " + e.getMessage(), e);
 		}

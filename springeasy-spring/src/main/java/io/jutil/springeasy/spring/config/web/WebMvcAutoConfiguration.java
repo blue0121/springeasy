@@ -2,7 +2,7 @@ package io.jutil.springeasy.spring.config.web;
 
 import com.alibaba.fastjson2.support.config.FastJsonConfig;
 import com.alibaba.fastjson2.support.spring6.http.converter.FastJsonHttpMessageConverter;
-import io.jutil.springeasy.core.util.JsonUtil;
+import io.jutil.springeasy.core.codec.json.Json;
 import io.jutil.springeasy.spring.exception.ErrorCodeExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +30,7 @@ public class WebMvcAutoConfiguration implements WebMvcConfigurer {
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		var converter = this.getConvertor();
-		converters.add(0, converter);
+		converters.addFirst(converter);
 	}
 
 	private FastJsonHttpMessageConverter getConvertor() {
@@ -38,7 +38,7 @@ public class WebMvcAutoConfiguration implements WebMvcConfigurer {
 		converter.setSupportedMediaTypes(List.of(MediaType.APPLICATION_JSON));
 
 		var config = new FastJsonConfig();
-		config.setWriterFeatures(JsonUtil.OUTPUT);
+		config.setWriterFeatures(Json.OUTPUT);
 		converter.setFastJsonConfig(config);
 		return converter;
 	}

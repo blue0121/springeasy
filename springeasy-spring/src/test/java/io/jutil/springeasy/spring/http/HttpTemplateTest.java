@@ -1,8 +1,8 @@
 package io.jutil.springeasy.spring.http;
 
+import io.jutil.springeasy.core.codec.json.Json;
 import io.jutil.springeasy.core.http.AsyncHttpTemplate;
 import io.jutil.springeasy.core.http.HttpTemplate;
-import io.jutil.springeasy.core.util.JsonUtil;
 import io.jutil.springeasy.spring.Application;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -35,7 +35,7 @@ class HttpTemplateTest {
     void testPost() {
         var url = "http://localhost:" + port + "/test";
         var request = new TestRequest("blue");
-        var response = httpTemplate.post(url, JsonUtil.output(request));
+        var response = httpTemplate.post(url, Json.output(request));
         Assertions.assertEquals(200, response.getStatusCode());
         var entity = response.convertTo(TestResponse.class);
         Assertions.assertEquals("blue", entity.getName());
@@ -46,7 +46,7 @@ class HttpTemplateTest {
     void testPostAsync() throws Exception {
         var url = "http://localhost:" + port + "/test";
         var request = new TestRequest("red");
-        var response = asyncHttpTemplate.post(url, JsonUtil.output(request)).get();
+        var response = asyncHttpTemplate.post(url, Json.output(request)).get();
         Assertions.assertEquals(200, response.getStatusCode());
         var entity = response.convertTo(TestResponse.class);
         Assertions.assertEquals("red", entity.getName());

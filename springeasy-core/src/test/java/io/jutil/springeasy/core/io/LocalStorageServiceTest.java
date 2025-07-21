@@ -1,7 +1,7 @@
 package io.jutil.springeasy.core.io;
 
+import io.jutil.springeasy.core.codec.json.Json;
 import io.jutil.springeasy.core.io.impl.LocalStorageService;
-import io.jutil.springeasy.core.util.JsonUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -133,7 +133,7 @@ class LocalStorageServiceTest {
 
 		var list = storageService.listFiles(dir);
 		Assertions.assertEquals(2, list.size());
-		System.out.println(JsonUtil.output(list));
+		System.out.println(Json.output(list));
 		List<String> relativeList = new ArrayList<>();
 		for (var fileInfo : list) {
 			relativeList.add(fileInfo.getRelativePath());

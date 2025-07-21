@@ -1,6 +1,6 @@
 package io.jutil.springeasy.spring.config;
 
-import io.jutil.springeasy.core.util.JsonUtil;
+import io.jutil.springeasy.core.codec.json.Json;
 import io.jutil.springeasy.spring.BaseTest;
 import io.jutil.springeasy.spring.http.ErrorCode;
 import io.jutil.springeasy.spring.http.TestRequest;
@@ -23,7 +23,7 @@ class ErrorCodeTest extends BaseTest {
 	void testJson() {
 		var url = this.buildUrl("/test");
 		var request = new TestRequest("");
-		var response = httpTemplate.post(url, JsonUtil.output(request));
+		var response = httpTemplate.post(url, Json.output(request));
 		Assertions.assertEquals(400, response.getStatusCode());
 
 		var body = response.convertTo(ErrorCode.class);

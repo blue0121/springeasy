@@ -3,7 +3,7 @@ package io.jutil.springeasy.core.collection;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import io.jutil.springeasy.core.util.JsonUtil;
+import io.jutil.springeasy.core.codec.json.Json;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class TreeBuilder {
 		}
 
 		for (var item : rootList) {
-			var obj = JSON.parseObject(JsonUtil.output(item));
+			var obj = JSON.parseObject(Json.output(item));
 			array.add(obj);
 			buildChildren(obj, map, item.getId());
 		}
@@ -52,7 +52,7 @@ public class TreeBuilder {
 		}
 
 		for (var item : list) {
-			var child = JSON.parseObject(JsonUtil.output(item));
+			var child = JSON.parseObject(Json.output(item));
 			children.add(child);
 			buildChildren(child, map, item.getId());
 		}

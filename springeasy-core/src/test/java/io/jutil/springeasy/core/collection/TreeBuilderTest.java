@@ -2,7 +2,7 @@ package io.jutil.springeasy.core.collection;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import io.jutil.springeasy.core.util.JsonUtil;
+import io.jutil.springeasy.core.codec.json.Json;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.junit.jupiter.api.Assertions;
@@ -24,7 +24,7 @@ class TreeBuilderTest {
 		itemList.add(new TreeItem(2L,null,"name2", Status.ACTIVE));
 		itemList.add(new TreeItem(3L,null,"name3", Status.ACTIVE));
 		var array = TreeBuilder.build(itemList);
-		System.out.println(JsonUtil.output(array));
+		System.out.println(Json.output(array));
 		Assertions.assertEquals(3, array.size());
 		this.verify(array.getJSONObject(0), 1L, null, "name1");
 		this.verify(array.getJSONObject(1), 2L, null, "name2");
@@ -47,7 +47,7 @@ class TreeBuilderTest {
 		itemList.add(new TreeItem(122L,21L,"name122", Status.ACTIVE));
 
 		var array = TreeBuilder.build(itemList);
-		System.out.println(JsonUtil.output(array));
+		System.out.println(Json.output(array));
 		Assertions.assertEquals(2, array.size());
 
 		var child1 = array.getJSONObject(0);
@@ -84,7 +84,7 @@ class TreeBuilderTest {
 	@Test
 	void testJson() {
 		var item = new TreeItem(1L,null,"name", Status.ACTIVE);
-		var json = JsonUtil.output(item);
+		var json = Json.output(item);
 		System.out.println(json);
 		var obj = JSON.parseObject(json);
 		System.out.println(obj);

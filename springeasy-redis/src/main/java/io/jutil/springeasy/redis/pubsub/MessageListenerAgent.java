@@ -1,6 +1,6 @@
 package io.jutil.springeasy.redis.pubsub;
 
-import io.jutil.springeasy.core.util.JsonUtil;
+import io.jutil.springeasy.core.codec.json.Json;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
@@ -34,7 +34,7 @@ public class MessageListenerAgent implements MessageListener {
 
 		var topic = new RedisSubscribeTopic(strPattern, strChannel);
 		try {
-			var body = JsonUtil.fromBytes(message.getBody(), listener.getMessageType());
+			var body = Json.fromBytes(message.getBody(), listener.getMessageType());
 			listener.onReceived(topic, body);
 		} catch (Exception e) {
 			log.error("Redis subscribe error, pattern: {}, channel: {}", strPattern, strChannel, e);

@@ -19,6 +19,7 @@ class WatchThread implements Runnable {
 	private static final String THREAD_NAME = "WatchThread";
 
 	private final WatchService watchService;
+	@SuppressWarnings("java:S3077")
 	private volatile Map<Path, StorageWatcher.WatchListener> listenerMap;
 	private Thread thread;
 

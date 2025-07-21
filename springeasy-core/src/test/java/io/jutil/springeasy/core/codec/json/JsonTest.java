@@ -1,6 +1,8 @@
-package io.jutil.springeasy.core.util;
+package io.jutil.springeasy.core.codec.json;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import io.jutil.springeasy.core.util.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,91 +11,66 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 /**
  * @author Jin Zheng
- * @since 2023-10-04
+ * @since 2025-07-14
  */
-class JsonUtilTest {
-	@Test
-	void testRemoveType1() {
-		var now = DateUtil.now();
-		var user = new User(1, "blue", now);
-		var json = JsonUtil.toString(user);
-		var obj = JSON.parseObject(json);
-		Assertions.assertTrue(obj.containsKey("@type"));
-		JsonUtil.removeType(obj);
-		System.out.println(obj);
-		Assertions.assertFalse(obj.containsKey("@type"));
-	}
+class JsonTest {
 
 	@Test
 	void testToString() {
 		var now = DateUtil.now();
-		var user = new User(1, "blue", now);
-		var json = JsonUtil.toString(user);
+		var user = User.create(now);
+		var json = Json.toString(user);
 		System.out.println(json);
 		var obj = JSON.parseObject(json);
-		Assertions.assertEquals(1, obj.getIntValue("id"));
-		Assertions.assertEquals("blue", obj.getString("name"));
-		Assertions.assertEquals(DateUtil.format(now), obj.getString("createTime"));
+		User.verify(obj, now);
 		Assertions.assertEquals(User.class.getName(), obj.getString("@type"));
+	}
+
+	@Test
+	void testToBytes() {
+		var now = DateUtil.now();
+		var user = User.create(now);
+		var buf = Json.toBytes(user);
+
+		var obj = JSON.parseObject(buf);
+		User.verify(obj, now);
+		Assertions.assertEquals(User.class.getName(), obj.getString("@type"));
+
+		User view1 = Json.fromBytes(buf);
+		User.verify(view1, now);
+
+		var view2 = Json.fromBytes(buf, User.class);
+		User.verify(view2, now);
 	}
 
 	@Test
 	void testOutput() {
 		var now = DateUtil.now();
-		var user = new User(1, "blue", now);
-		var json = JsonUtil.output(user);
+		var user = new User(1, "blue", now, 2L);
+		var json = Json.output(user);
 		System.out.println(json);
 		var obj = JSON.parseObject(json);
 		Assertions.assertEquals(1, obj.getIntValue("id"));
 		Assertions.assertEquals("blue", obj.getString("name"));
 		Assertions.assertEquals(DateUtil.format(now), obj.getString("createTime"));
+		Assertions.assertEquals("2", obj.getString("longId"));
 		Assertions.assertFalse(obj.containsKey("@type"));
 	}
 
 	@Test
-	void testFromString() {
-		var json1 = "{\"@type\":\"io.jutil.springeasy.core.util.JsonUtilTest$User\",\"createTime\":\"2022-12-20 14:50:53\",\"id\":1,\"name\":\"blue\"}";
-		var json2 = "{\"createTime\":\"2022-12-20 14:50:54\",\"id\":1,\"name\":\"blue\"}";
-
-		JsonUtil.registerAutoType("io.jutil.springeasy.core");
-		User user1 = JsonUtil.fromString(json1);
-		Assertions.assertEquals(1, user1.getId());
-		Assertions.assertEquals("blue", user1.getName());
-
-		User user2 = JsonUtil.fromString(json2, User.class);
-		Assertions.assertEquals(1, user2.getId());
-		Assertions.assertEquals("blue", user2.getName());
-	}
-
-	@Test
-	void testAutoType() {
-		var now = DateUtil.now(ChronoUnit.SECONDS);
-		var user = new User(1, "blue", now);
-		var json = JsonUtil.toBytes(user);
-		System.out.println(new String(json));
-
-		User view = JsonUtil.fromBytes(json);
-		Assertions.assertEquals(User.class, view.getClass());
-		Assertions.assertEquals(1, view.getId());
-		Assertions.assertEquals("blue", view.getName());
-	}
-
-	@Test
-	void testAutoType2() {
-		var now = DateUtil.now(ChronoUnit.SECONDS);
-		var user = new User(1, "blue", now);
-		var json = JsonUtil.toString(user);
-		System.out.println(json);
-
-		User view = JsonUtil.fromString(json);
-		Assertions.assertEquals(User.class, view.getClass());
-		Assertions.assertEquals(1, view.getId());
-		Assertions.assertEquals("blue", view.getName());
+	void testRemoveType1() {
+		var now = DateUtil.now();
+		var user = new User(1, "blue", now, 2L);
+		var json = Json.toString(user);
+		var obj = JSON.parseObject(json);
+		Assertions.assertTrue(obj.containsKey("@type"));
+		Json.removeType(obj);
+		System.out.println(obj);
+		Assertions.assertFalse(obj.containsKey("@type"));
 	}
 
 	@Test
@@ -103,9 +80,9 @@ class JsonUtilTest {
 
 		var animalList = new AnimalList();
 		animalList.setAnimalList(List.of(cat1, cat2));
-		var json = JsonUtil.toString(animalList);
+		var json = Json.toString(animalList);
 
-		AnimalList view = JsonUtil.fromString(json);
+		AnimalList view = Json.fromString(json);
 		var list = view.getAnimalList();
 		Assertions.assertEquals(2, list.size());
 		Assertions.assertEquals(Cat.class, list.get(0).getClass());
@@ -121,9 +98,9 @@ class JsonUtilTest {
 
 		var animalList = new AnimalList();
 		animalList.setAnimalList(List.of(dog1, dog2));
-		var json = JsonUtil.toString(animalList);
+		var json = Json.toString(animalList);
 
-		AnimalList view = JsonUtil.fromString(json, AnimalList.class);
+		AnimalList view = Json.fromString(json, AnimalList.class);
 		var list = view.getAnimalList();
 		Assertions.assertEquals(2, list.size());
 		Assertions.assertEquals(Dog.class, list.get(0).getClass());
@@ -140,6 +117,27 @@ class JsonUtilTest {
 		private Integer id;
 		private String name;
 		private LocalDateTime createTime;
+		private long longId;
+
+		static User create(LocalDateTime now) {
+			return new User(1, "blue", now, 2L);
+		}
+
+		static void verify(JSONObject obj, LocalDateTime now) {
+			Assertions.assertNotNull(obj);
+			Assertions.assertEquals(1, obj.getIntValue("id"));
+			Assertions.assertEquals("blue", obj.getString("name"));
+			Assertions.assertEquals(DateUtil.format(now), obj.getString("createTime"));
+			Assertions.assertEquals("2", obj.getString("longId"));
+		}
+
+		static void verify(User user, LocalDateTime now) {
+			Assertions.assertNotNull(user);
+			Assertions.assertEquals(1, user.getId());
+			Assertions.assertEquals("blue", user.getName());
+			Assertions.assertEquals(now, user.getCreateTime());
+			Assertions.assertEquals(2L, user.getLongId());
+		}
 	}
 
 	@Getter
