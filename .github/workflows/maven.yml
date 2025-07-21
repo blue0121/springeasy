@@ -20,7 +20,7 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
           server-id: github
-          server-username: ${{ secrets.GITHUB_ACTOR }}
+          server-username: ${{ github.actor }}
           server-password: ${{ secrets.GITHUB_TOKEN }}
       - name: Analyze with SonarCloud
         env:
