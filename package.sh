@@ -20,11 +20,12 @@ else
     echo "Keeping SNAPSHOT version: ${CURRENT_VERSION}"
 fi
 
-mvn clean deploy -X -DskipTests -Drevision=${NEW_VERSION}
+mvn clean deploy -DskipTests -Drevision=${NEW_VERSION}
 EXIT_CODE=$?
 if [ $EXIT_CODE -ne 0 ]; then
     echo "maven build failed"
     exit $EXIT_CODE
 fi
 
+echo "version=NEW_VERSION" >> $GITHUB_OUTPUT
 echo "maven deploy successfully, final version: ${NEW_VERSION}"

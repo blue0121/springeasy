@@ -32,9 +32,18 @@ jobs:
           -Dsonar.organization=blue0121
           -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.login=$SONAR_TOKEN
-      - name: Print Maven settings for debug
-        run: cat ~/.m2/settings.xml
       - name: Deploy to Github Packages
+        id: deploy
         run: chmod 755 package.sh && ./package.sh $GITHUB_RUN_NUMBER
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Replace version in README.md and push updated
+        run: |
+          VERSION="${{ steps.deploy.outputs.version }}"
+          echo "Updating README.md with version: $VERSION"
+          sed -i "s/\${VERSION}/$VERSION/g" README.md
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add README.md
+          git commit -m "Update README.md with version $VERSION"
+          git push
