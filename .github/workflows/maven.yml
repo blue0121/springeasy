@@ -20,7 +20,7 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
           server-id: github
-          server-username: ${{ github.actor }}
+          server-username: blue0121
           server-password: ${{ secrets.GITHUB_TOKEN }}
       - name: Analyze with SonarCloud
         env:
@@ -32,5 +32,7 @@ jobs:
           -Dsonar.organization=blue0121
           -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.login=$SONAR_TOKEN
+      - name: Print Maven settings for debug
+        run: cat ~/.m2/settings.xml
       - name: Deploy to Github Packages
         run: chmod 755 package.sh && ./package.sh $GITHUB_RUN_NUMBER
