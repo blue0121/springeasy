@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>io.jutil</groupId>
+		<groupId>io.jutil.springeasy</groupId>
 		<artifactId>springeasy</artifactId>
 		<version>${revision}</version>
 	</parent>
@@ -22,27 +22,27 @@
 			</dependency>
 
 			<dependency>
-				<groupId>io.jutil</groupId>
+				<groupId>io.jutil.springeasy</groupId>
 				<artifactId>springeasy-core</artifactId>
 				<version>${revision}</version>
 			</dependency>
 			<dependency>
-				<groupId>io.jutil</groupId>
+				<groupId>io.jutil.springeasy</groupId>
 				<artifactId>springeasy-spring</artifactId>
 				<version>${revision}</version>
 			</dependency>
 			<dependency>
-				<groupId>io.jutil</groupId>
+				<groupId>io.jutil.springeasy</groupId>
 				<artifactId>springeasy-mybatis</artifactId>
 				<version>${revision}</version>
 			</dependency>
 			<dependency>
-				<groupId>io.jutil</groupId>
+				<groupId>io.jutil.springeasy</groupId>
 				<artifactId>springeasy-redis</artifactId>
 				<version>${revision}</version>
 			</dependency>
 			<dependency>
-				<groupId>io.jutil</groupId>
+				<groupId>io.jutil.springeasy</groupId>
 				<artifactId>springeasy-test</artifactId>
 				<version>${revision}</version>
 				<scope>test</scope>

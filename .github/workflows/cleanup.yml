@@ -1,0 +1,67 @@
+name: Cleanup
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    env:
+      KEEP_VERSIONS: 10
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Cleanup springeasy
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'io.jutil.springeasy.springeasy'
+          package-type: 'maven'
+          min-versions-to-keep: ${{ env.KEEP_VERSIONS }}
+
+      - name: Cleanup springeasy-core
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'io.jutil.springeasy.springeasy-core'
+          package-type: 'maven'
+          min-versions-to-keep: ${{ env.KEEP_VERSIONS }}
+
+      - name: Cleanup springeasy-mybatis
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'io.jutil.springeasy.springeasy-mybatis'
+          package-type: 'maven'
+          min-versions-to-keep: ${{ env.KEEP_VERSIONS }}
+
+      - name: Cleanup springeasy-parent
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'io.jutil.springeasy.springeasy-parent'
+          package-type: 'maven'
+          min-versions-to-keep: ${{ env.KEEP_VERSIONS }}
+
+      - name: Cleanup springeasy-redis
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'io.jutil.springeasy.springeasy-redis'
+          package-type: 'maven'
+          min-versions-to-keep: ${{ env.KEEP_VERSIONS }}
+
+      - name: Cleanup springeasy-spring
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'io.jutil.springeasy.springeasy-spring'
+          package-type: 'maven'
+          min-versions-to-keep: ${{ env.KEEP_VERSIONS }}
+
+      - name: Cleanup springeasy-test
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'io.jutil.springeasy.springeasy-test'
+          package-type: 'maven'
+          min-versions-to-keep: ${{ env.KEEP_VERSIONS }}

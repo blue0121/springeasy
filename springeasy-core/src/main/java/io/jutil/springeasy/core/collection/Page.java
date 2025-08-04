@@ -2,7 +2,10 @@ package io.jutil.springeasy.core.collection;
 
 import lombok.Getter;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * @author Jin Zheng
@@ -41,6 +44,26 @@ public class Page {
         this.total = total;
         this.totalPage = (total + pageSize - 1) / pageSize;
         this.offset = (pageIndex - 1) * pageSize;
+    }
+
+    public void check(Collection<String> validFieldList) {
+        if (sort == null) {
+            return;
+        }
+        sort.check(validFieldList);
+    }
+
+    public void setSortIfAbsent(Supplier<Sort> f) {
+        if (this.sort == null) {
+            this.sort = f.get();
+        }
+    }
+
+    public String toOrderByString(Map<String, String> fieldMap) {
+        if (sort == null) {
+            return null;
+        }
+        return sort.toOrderByString(fieldMap);
     }
 
     public void setContents(List<?> contents) {

@@ -1,11 +1,13 @@
 package io.jutil.springeasy.core.collection;
 
+import jakarta.validation.ValidationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jin Zheng
@@ -28,5 +30,40 @@ class PageTest {
         var page = new Page();
         page.setContents(list);
         Assertions.assertEquals(list, page.getContents());
+    }
+
+    @Test
+    void testCheck() {
+        var list = List.of("id");
+        var page = new Page();
+        page.check(list);
+
+        page.setSort(new Sort("id"));
+        page.check(list);
+
+        page.setSort(new Sort("id1"));
+        Assertions.assertThrows(ValidationException.class, () -> page.check(list));
+    }
+
+    @Test
+    void testSetSortIfAbsent() {
+        var page = new Page();
+        var sort1 = new Sort("id1");
+        var sort2 = new Sort("id2");
+        page.setSortIfAbsent(() -> sort1);
+        Assertions.assertSame(sort1, page.getSort());
+
+        page.setSortIfAbsent(() -> sort2);
+        Assertions.assertSame(sort1, page.getSort());
+    }
+
+    @Test
+    void testToOrderByString() {
+        var page = new Page();
+        Assertions.assertNull(page.toOrderByString(null));
+
+        page.setSortIfAbsent(() -> new Sort("id"));
+        Assertions.assertEquals("id DESC", page.toOrderByString(null));
+        Assertions.assertEquals("eid DESC", page.toOrderByString(Map.of("id", "eid")));
     }
 }

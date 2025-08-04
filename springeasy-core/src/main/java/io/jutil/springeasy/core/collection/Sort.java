@@ -1,10 +1,13 @@
 package io.jutil.springeasy.core.collection;
 
 import io.jutil.springeasy.core.util.StringUtil;
+import jakarta.validation.ValidationException;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jin Zheng
@@ -25,6 +28,10 @@ public class Sort {
 		orderList.add(new Order(field, direction));
 	}
 
+	public Sort(String field, int direction) {
+		orderList.add(new Order(field, direction));
+	}
+
 	public void add(String field, Direction direction) {
 		orderList.add(new Order(field, direction));
 	}
@@ -33,8 +40,20 @@ public class Sort {
 		orderList.add(new Order(field, direction));
 	}
 
-	public String toOrderBy(String prefix) {
-		List<String> orderByList = orderList.stream().map(e -> e.toString(prefix)).toList();
+	public void add(String field, int direction) {
+		orderList.add(new Order(field, direction));
+	}
+
+	public void check(Collection<String> validFieldList) {
+		for (var order : orderList) {
+			order.check(validFieldList);
+		}
+	}
+
+	public String toOrderByString(Map<String, String> fieldMap) {
+		var orderByList = orderList.stream()
+				.map(e -> e.toOrderByString(fieldMap))
+				.toList();
 		return StringUtil.join(orderByList, ",");
 	}
 
@@ -57,11 +76,29 @@ public class Sort {
 			this.direction = Direction.from(direction);
 		}
 
-		public String toString(String prefix) {
-			if (prefix == null || prefix.isEmpty()) {
-				return field + " " + direction.name().toLowerCase();
+		public Order(String field, int direction) {
+			this.field = field;
+			this.direction = Direction.from(direction);
+		}
+
+		public void check(Collection<String> validFieldList) {
+			for (var validField : validFieldList) {
+				if (validField.equalsIgnoreCase(field)) {
+					return;
+				}
 			}
-			return prefix + "." + field + " " + direction.name().toLowerCase();
+			throw new ValidationException("无效的排序字段: " + field);
+		}
+
+		public String toOrderByString(Map<String, String> fieldMap) {
+			String alias = null;
+			if (fieldMap != null && !fieldMap.isEmpty()) {
+				alias = fieldMap.get(field);
+			}
+			if (alias == null || alias.isEmpty()) {
+				return field + " " + direction.name();
+			}
+			return alias + " " + direction.name();
 		}
 	}
 
@@ -72,6 +109,13 @@ public class Sort {
 
 		public static Direction from(String text) {
 			if (ASC.name().equalsIgnoreCase(text)) {
+				return ASC;
+			}
+			return DESC;
+		}
+
+		public static Direction from(int order) {
+			if (ASC.ordinal() == order) {
 				return ASC;
 			}
 			return DESC;
