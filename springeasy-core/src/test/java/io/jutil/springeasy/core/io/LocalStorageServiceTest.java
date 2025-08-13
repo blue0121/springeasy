@@ -2,9 +2,11 @@ package io.jutil.springeasy.core.io;
 
 import io.jutil.springeasy.core.codec.json.Json;
 import io.jutil.springeasy.core.io.impl.LocalStorageService;
+import io.jutil.springeasy.core.util.FileUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -16,31 +18,31 @@ import java.util.UUID;
 
 /**
  * @author Jin Zheng
- * @since 2023-03-27
+ * @since 2023-10-04
  */
 class LocalStorageServiceTest {
 	private final StorageService storageService;
 
 	private final String dir;
 	private final String filename;
-	private final String rootPath = "/tmp";
+	private final String rootPath = File.separator + "tmp";
 	private final String source = "/logback.xml";
 
 	LocalStorageServiceTest() {
 		storageService = new LocalStorageService(rootPath);
 
-		dir = "/" + UUID.randomUUID();
-		filename = "/" + UUID.randomUUID();
+		dir = UUID.randomUUID().toString();
+		filename = UUID.randomUUID().toString();
 	}
 
 	@Test
 	void testWriteAndRemove() throws IOException {
 		var is = LocalStorageServiceTest.class.getResourceAsStream(source);
 		Assertions.assertNotNull(is);
-		String path = dir + filename;
+		String path = FileUtil.concat(dir, filename);
 		var metadata = storageService.write(path, is);
 		Assertions.assertTrue(metadata.getSize() > 0);
-		Assertions.assertEquals(filename, "/" + metadata.getFilename());
+		Assertions.assertEquals(filename, metadata.getFilename());
 
 		Path savePath = Paths.get(rootPath, path);
 		Assertions.assertTrue(storageService.exists(path));
@@ -63,7 +65,7 @@ class LocalStorageServiceTest {
 		storageService.write(filename, is);
 		Assertions.assertTrue(storageService.exists(filename));
 
-		String path = dir + filename;
+		String path = FileUtil.concat(dir, filename);
 		storageService.move(filename, path);
 
 		Assertions.assertFalse(storageService.exists(filename));
@@ -95,12 +97,12 @@ class LocalStorageServiceTest {
 	}
 
 	@Test
-	void testWriteString() {
+	void testWriteString() throws Exception {
 		String str = "test_content";
 		var meta = storageService.writeString(filename, str);
 		Assertions.assertNotNull(meta);
 		Assertions.assertEquals(str.getBytes(StandardCharsets.UTF_8).length, meta.getSize());
-		Assertions.assertEquals(filename, "/" + meta.getFilename());
+		Assertions.assertEquals(filename, meta.getFilename());
 
 		String txt = storageService.readString(filename);
 		Assertions.assertEquals(str, txt);
@@ -109,9 +111,9 @@ class LocalStorageServiceTest {
 	}
 
 	@Test
-	void testRemoveDirectory() {
+	void testRemoveDirectory() throws IOException {
 		var is = LocalStorageServiceTest.class.getResourceAsStream(source);
-		String path = dir + filename;
+		String path = FileUtil.concat(dir, filename);
 		storageService.write(path, is);
 		Assertions.assertTrue(storageService.isDirectory(dir));
 		Assertions.assertFalse(storageService.isDirectory(path));
@@ -126,8 +128,8 @@ class LocalStorageServiceTest {
 	@Test
 	void testListFiles() {
 		var text = "test_content";
-		String path = dir + filename;
-		String subPath = dir + dir + filename;
+		String path = FileUtil.concat(dir, filename);
+		String subPath = FileUtil.concat(dir, dir, filename);
 		storageService.writeString(path, text);
 		storageService.writeString(subPath, text);
 

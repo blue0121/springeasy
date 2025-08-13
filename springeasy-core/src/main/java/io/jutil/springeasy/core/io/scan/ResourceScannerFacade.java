@@ -64,6 +64,7 @@ public class ResourceScannerFacade {
 	}
 
 	private static void handleFs(String base, String path, ResourceHandler...handlers) {
+		path = FileUtil.getRealPath(path);
 		log.debug("Scan file system, dir: {}, path: {}", base, path);
 		FileSystemResourceScanner.INSTANCE.scan(base, path, handlers);
 	}

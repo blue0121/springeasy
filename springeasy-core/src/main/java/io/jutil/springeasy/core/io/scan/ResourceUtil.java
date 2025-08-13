@@ -1,5 +1,6 @@
 package io.jutil.springeasy.core.io.scan;
 
+import io.jutil.springeasy.core.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -61,6 +62,7 @@ class ResourceUtil {
 	}
 
 	public static String extractPackage(String base, String path) {
+		path = FileUtil.normalizePath(path);
 		var pos = path.indexOf(base);
 		if (pos == -1) {
 			return null;

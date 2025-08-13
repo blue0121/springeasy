@@ -4,12 +4,22 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
+
+import java.io.File;
 
 /**
  * @author Jin Zheng
- * @since 2023-03-27
+ * @since 2023-10-04
  */
+@DisabledOnOs(OS.WINDOWS)
 class FileUtilTest {
+
+	@Test
+	void testSeparator() {
+		Assertions.assertEquals("/", File.separator);
+	}
 
 	@Test
 	void testReadString() {

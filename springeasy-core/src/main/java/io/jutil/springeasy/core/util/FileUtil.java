@@ -2,6 +2,7 @@ package io.jutil.springeasy.core.util;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,12 +17,13 @@ import java.util.List;
 
 /**
  * @author Jin Zheng
- * @since 2023-02-07
+ * @since 2023-10-04
  */
 @Slf4j
 public class FileUtil {
 	private static final String STR_DOT = ".";
-	private static final String STR_SLASH = "/";
+	private static final String STR_SLASH = File.separator;
+	private static final String STR_SPLIT = "[/\\\\]";
 	private static final String KEY_CLASSPATH = "classpath:";
 
 	private FileUtil() {
@@ -72,16 +74,18 @@ public class FileUtil {
 		return path.substring(KEY_CLASSPATH.length());
 	}
 
-	public static String getRealPath(String classpath) {
-		var url = FileUtil.class.getResource(classpath);
-		if (url == null) {
-			return null;
-		}
-		var path = url.getPath();
-		if (path.startsWith(STR_SLASH) && path.contains(":")) {
+	public static String getRealPath(String path) {
+		if ((path.startsWith("/") || path.startsWith("\\")) && path.contains(":")) {
 			return path.substring(1);
 		}
 		return path;
+	}
+
+	public static String normalizePath(String path) {
+		if (!OsUtil.isWindows()) {
+			return path;
+		}
+		return path.replace('\\', '/');
 	}
 
 	public static String getFilenameWithExt(String path) {
@@ -164,7 +168,7 @@ public class FileUtil {
 			return;
 		}
 
-		var splits = path.split(STR_SLASH);
+		var splits = path.split(STR_SPLIT);
 		for (var split : splits) {
 			if (split.isEmpty() || split.equals(STR_SLASH)) {
 				continue;

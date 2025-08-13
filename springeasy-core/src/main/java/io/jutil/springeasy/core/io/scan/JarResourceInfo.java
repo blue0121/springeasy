@@ -1,6 +1,5 @@
 package io.jutil.springeasy.core.io.scan;
 
-import io.jutil.springeasy.core.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -43,7 +42,12 @@ class JarResourceInfo implements ResourceInfo {
 
 	@Override
 	public String getFileName() {
-		return FileUtil.getFilenameWithExt(entry.getName());
+		int slashPos = entry.getName().lastIndexOf('/');
+		if (slashPos == -1) {
+			return entry.getName();
+		} else {
+			return entry.getName().substring(slashPos + 1);
+		}
 	}
 
 	@Override
