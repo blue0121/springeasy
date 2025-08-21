@@ -12,20 +12,26 @@ import java.util.Map;
  * @author Jin Zheng
  * @since 2025-07-14
  */
-public class EnumObjectReader<T extends Enum<T>> implements ObjectReader<T> {
+public class EnumObjectReader<T> implements ObjectReader<T> {
 	private final boolean isDict;
 
 	private final Map<Integer, T> ordinalMap = new HashMap<>();
 	private final Map<Integer, T> codeMap = new HashMap<>();
 	private final Map<String, T> nameMap = new HashMap<>();
 
-	public EnumObjectReader(Class<T> clazz) {
+	@SuppressWarnings("unchecked")
+	public EnumObjectReader(Class<?> clazz) {
+		if (!clazz.isEnum()) {
+			throw new IllegalArgumentException(clazz.getName() + " 不是一个枚举类型");
+		}
+
 		this.isDict = Dict.class.isAssignableFrom(clazz);
 		for (var entry : clazz.getEnumConstants()) {
-			ordinalMap.put(entry.ordinal(), entry);
-			nameMap.put(entry.name(), entry);
+			var e = (Enum<?>) entry;
+			ordinalMap.put(e.ordinal(), (T) e);
+			nameMap.put(e.name(), (T) e);
 			if (entry instanceof Dict dict) {
-				codeMap.put(dict.getCode(), entry);
+				codeMap.put(dict.getCode(), (T) dict);
 			}
 		}
 	}
@@ -41,13 +47,13 @@ public class EnumObjectReader<T extends Enum<T>> implements ObjectReader<T> {
 				target = ordinalMap.get(code);
 			}
 			if (target == null) {
-				throw new ValidationException("无效的枚举值: " + code);
+				throw new ValidationException("无效的枚举值[" + code + "]");
 			}
 		} else if (reader.isString()) {
 			var name = reader.readString();
 			target = nameMap.get(name);
 			if (target == null) {
-				throw new ValidationException("无效的枚举值: " + name);
+				throw new ValidationException("无效的枚举值[" + name + "]");
 			}
 		}
 

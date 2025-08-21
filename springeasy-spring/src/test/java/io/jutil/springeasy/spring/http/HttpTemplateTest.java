@@ -69,4 +69,28 @@ class HttpTemplateTest {
         Assertions.assertEquals(400_000, error.getCode());
         Assertions.assertEquals("无效参数: ID不能为空", error.getMessage());
     }
+
+	@Test
+	void testDict() {
+		var url = "http://localhost:" + port + "/test-dict";
+		var body = """
+				{
+					"status": 0
+				}
+				""";
+		var response = httpTemplate.post(url, body);
+		Assertions.assertEquals(204, response.getStatusCode());
+	}
+
+	@Test
+	void testDict1() {
+		var url = "http://localhost:" + port + "/test-dict";
+		var body = """
+				{
+					"status": 2
+				}
+				""";
+		var response = httpTemplate.post(url, body);
+		Assertions.assertEquals(400, response.getStatusCode());
+	}
 }

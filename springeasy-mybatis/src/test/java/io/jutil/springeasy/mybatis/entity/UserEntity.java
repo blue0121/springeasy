@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserEntity extends LongIdEntity {
 	private String name;
+	private Status status;
 	private LocalDateTime createTime;
 	private LocalDateTime updateTime;
 }

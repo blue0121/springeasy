@@ -2,6 +2,7 @@ package io.jutil.springeasy.mybatis.mapper;
 
 import io.jutil.springeasy.core.util.DateUtil;
 import io.jutil.springeasy.mybatis.BaseTest;
+import io.jutil.springeasy.mybatis.entity.Status;
 import io.jutil.springeasy.mybatis.entity.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -42,6 +43,7 @@ class UserDaoTest extends BaseTest {
 		for (int i = 1; i <= count; i++) {
 			var entity = new UserEntity();
 			entity.setName("blue" + i);
+			entity.setStatus(Status.ACTIVE);
 			list.add(entity);
 		}
 
@@ -61,6 +63,7 @@ class UserDaoTest extends BaseTest {
 		for (int i = 1; i <= count; i++) {
 			var entity = list.get(i - 1);
 			entity.setName("red" + i);
+			entity.setStatus(Status.ACTIVE);
 		}
 		long start = System.currentTimeMillis();
 		int rs = userDao.updateList(UserMapper.class, list);
@@ -86,6 +89,7 @@ class UserDaoTest extends BaseTest {
 			}
 			Assertions.assertNotNull(view);
 			Assertions.assertEquals(entity.getName(), view.getName());
+			Assertions.assertEquals(Status.ACTIVE, view.getStatus());
 			Assertions.assertTrue(DateUtil.equal(now, view.getCreateTime()));
 			Assertions.assertTrue(DateUtil.equal(now, view.getUpdateTime()));
 		}

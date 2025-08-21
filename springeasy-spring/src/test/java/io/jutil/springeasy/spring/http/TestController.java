@@ -1,6 +1,7 @@
 package io.jutil.springeasy.spring.http;
 
 import io.jutil.springeasy.core.validation.group.GetOperation;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,14 @@ public class TestController {
 		response.setName(request.getName());
 		response.setMessage("Hello, " + request.getName());
 		return response;
+	}
+
+	@PostMapping(value = "/test-dict",
+			produces = MediaType.APPLICATION_JSON_VALUE,
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void testDict(@RequestBody @Valid TestDictRequest request) {
+		log.info("status: {}", request.getStatus());
 	}
 
 	@GetMapping("/validate")

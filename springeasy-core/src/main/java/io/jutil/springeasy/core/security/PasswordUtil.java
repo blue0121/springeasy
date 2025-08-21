@@ -9,6 +9,10 @@ public class PasswordUtil {
 	private PasswordUtil() {
 	}
 
+	public static String encrypt(String password) {
+		return encrypt(password, "salt");
+	}
+
 	public static String encrypt(String password, String salt) {
 		var digest = new DefaultDigest(DigestType.SHA3_256);
 		var src = password + "{" + salt + "}";

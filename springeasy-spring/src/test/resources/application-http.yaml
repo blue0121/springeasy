@@ -1,4 +1,7 @@
 springeasy:
+  web:
+    dict-scan-packages:
+      - io.jutil.springeasy.spring.http
   http:
     enabled: true
     configs:

@@ -1,6 +1,7 @@
 package io.jutil.springeasy.mybatis.mapper;
 
 import io.jutil.springeasy.core.id.IdGeneratorFactory;
+import io.jutil.springeasy.mybatis.entity.Status;
 import io.jutil.springeasy.mybatis.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,7 @@ public class UserService {
 		var entity = new UserEntity();
 		entity.setId(IdGeneratorFactory.longId());
 		entity.setName(name);
+		entity.setStatus(Status.ACTIVE);
 		return userMapper.insert(entity);
 	}
 
@@ -59,6 +61,7 @@ public class UserService {
 		for (int i = 1; i <= count; i++) {
 			var entity = new UserEntity();
 			entity.setName("blue" + i);
+			entity.setStatus(Status.ACTIVE);
 			list.add(entity);
 		}
 		return userDao.insertList(UserMapper.class, list);

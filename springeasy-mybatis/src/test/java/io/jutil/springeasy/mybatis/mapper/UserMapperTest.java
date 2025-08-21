@@ -3,6 +3,7 @@ package io.jutil.springeasy.mybatis.mapper;
 import io.jutil.springeasy.core.id.IdGeneratorFactory;
 import io.jutil.springeasy.core.util.DateUtil;
 import io.jutil.springeasy.mybatis.BaseTest;
+import io.jutil.springeasy.mybatis.entity.Status;
 import io.jutil.springeasy.mybatis.entity.UserEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,12 +29,14 @@ class UserMapperTest extends BaseTest {
 		var entity = new UserEntity();
 		entity.setId(IdGeneratorFactory.longId());
 		entity.setName("blue");
+		entity.setStatus(Status.INACTIVE);
 		Assertions.assertEquals(1, mapper.insert(entity));
 		var now = DateUtil.now();
 
 		var view = mapper.getOne(entity.getId());
 		Assertions.assertNotNull(view);
 		Assertions.assertEquals(entity.getName(), view.getName());
+		Assertions.assertEquals(Status.INACTIVE, view.getStatus());
 		Assertions.assertTrue(DateUtil.equal(now, view.getCreateTime()));
 		Assertions.assertTrue(DateUtil.equal(now, view.getUpdateTime()));
 
@@ -42,6 +45,7 @@ class UserMapperTest extends BaseTest {
 		var view0 = map.get(entity.getId());
 		Assertions.assertEquals(entity.getId(), view0.getId());
 		Assertions.assertEquals(entity.getName(), view0.getName());
+		Assertions.assertEquals(Status.INACTIVE, view0.getStatus());
 		Assertions.assertTrue(DateUtil.equal(now, view0.getCreateTime()));
 		Assertions.assertTrue(DateUtil.equal(now, view0.getUpdateTime()));
 

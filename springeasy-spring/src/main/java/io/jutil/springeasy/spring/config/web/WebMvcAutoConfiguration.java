@@ -3,7 +3,11 @@ package io.jutil.springeasy.spring.config.web;
 import com.alibaba.fastjson2.support.config.FastJsonConfig;
 import com.alibaba.fastjson2.support.spring6.http.converter.FastJsonHttpMessageConverter;
 import io.jutil.springeasy.core.codec.json.Json;
+import io.jutil.springeasy.core.io.scan.ResourceScannerFacade;
 import io.jutil.springeasy.spring.exception.ErrorCodeExceptionHandler;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -20,7 +24,22 @@ import java.util.List;
  */
 @Configuration
 @Import(ErrorCodeExceptionHandler.class)
+@EnableConfigurationProperties(WebProperties.class)
 public class WebMvcAutoConfiguration implements WebMvcConfigurer {
+	@Autowired
+	WebProperties prop;
+
+	@PostConstruct
+	public void init() {
+		var pkgList = prop.getDictScanPackages();
+		if (pkgList != null && !pkgList.isEmpty()) {
+			var fileHandler = new DictFileHandler();
+			for (var pkg : pkgList) {
+				ResourceScannerFacade.scanPackage(pkg, fileHandler);
+			}
+		}
+
+	}
 
 	@Bean
 	public static MethodValidationPostProcessor validationPostProcessor() {
