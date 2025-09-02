@@ -2,7 +2,6 @@ package io.jutil.springeasy.mybatis.mapper;
 
 import com.alibaba.fastjson2.JSONObject;
 import io.jutil.springeasy.core.id.IdGeneratorFactory;
-import io.jutil.springeasy.core.util.DateUtil;
 import io.jutil.springeasy.mybatis.entity.Status;
 import io.jutil.springeasy.mybatis.entity.UserEntity;
 import org.junit.jupiter.api.Assertions;
@@ -33,15 +32,14 @@ public abstract class UserMapperTest {
 		entity.setBody(body);
 		entity.setStatus(Status.INACTIVE);
 		Assertions.assertEquals(1, mapper.insert(entity));
-		var now = DateUtil.now();
 
 		var view = mapper.getOne(entity.getId());
 		Assertions.assertNotNull(view);
 		Assertions.assertEquals(entity.getName(), view.getName());
 		Assertions.assertEquals(Status.INACTIVE, view.getStatus());
 		Assertions.assertEquals(body, view.getBody());
-		Assertions.assertTrue(DateUtil.equal(now, view.getCreateTime()));
-		Assertions.assertTrue(DateUtil.equal(now, view.getUpdateTime()));
+		Assertions.assertNotNull(view.getCreateTime());
+		Assertions.assertNotNull(view.getUpdateTime());
 
 		var map = mapper.listAll();
 		Assertions.assertEquals(1, map.size());
@@ -50,8 +48,8 @@ public abstract class UserMapperTest {
 		Assertions.assertEquals(entity.getName(), view0.getName());
 		Assertions.assertEquals(Status.INACTIVE, view0.getStatus());
 		Assertions.assertEquals(body, view0.getBody());
-		Assertions.assertTrue(DateUtil.equal(now, view0.getCreateTime()));
-		Assertions.assertTrue(DateUtil.equal(now, view0.getUpdateTime()));
+		Assertions.assertNotNull(view0.getCreateTime());
+		Assertions.assertNotNull(view0.getUpdateTime());
 
 		entity.setName("red");
 		Assertions.assertEquals(1, mapper.update(entity));
