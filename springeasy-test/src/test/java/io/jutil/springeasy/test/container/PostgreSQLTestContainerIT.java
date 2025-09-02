@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @author Jin Zheng
  * @since 2025-07-12
  */
-class PostgreSQLTestContainerIT extends BasePostgreSQLTest implements BaseTest {
+class PostgreSQLTestContainerIT implements PostgreSQLTest, BaseTest {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
@@ -31,4 +31,5 @@ class PostgreSQLTestContainerIT extends BasePostgreSQLTest implements BaseTest {
 		var view = jdbcTemplate.queryForObject(selectSql, String.class, id);
 		Assertions.assertEquals(name, view);
 	}
+
 }

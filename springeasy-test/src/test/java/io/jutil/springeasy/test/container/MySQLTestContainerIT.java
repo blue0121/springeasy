@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @author Jin Zheng
  * @since 2025-07-12
  */
-class MySQLTestContainerIT extends BaseMySQLTest implements BaseTest {
+class MySQLTestContainerIT implements MySQLTest, BaseTest {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 

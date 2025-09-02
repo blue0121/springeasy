@@ -16,13 +16,13 @@ class SortTest {
 
 	@Test
 	void testToOrderByString1() {
-		Assertions.assertEquals("e.id DESC",
+		Assertions.assertEquals("ORDER BY e.id DESC",
 				new Sort("id").toOrderByString(fieldMap));
-		Assertions.assertEquals("e.id ASC",
+		Assertions.assertEquals("ORDER BY e.id ASC",
 				new Sort("id", Sort.Direction.ASC).toOrderByString(fieldMap));
-		Assertions.assertEquals("e.id DESC",
+		Assertions.assertEquals("ORDER BY e.id DESC",
 				new Sort("id", "DESC").toOrderByString(fieldMap));
-		Assertions.assertEquals("e.id DESC",
+		Assertions.assertEquals("ORDER BY e.id DESC",
 				new Sort("id").toOrderByString(fieldMap));
 	}
 
@@ -30,7 +30,8 @@ class SortTest {
 	void testToOrderByString2() {
 		var sort = new Sort("id", "DESC");
 		sort.add("name", "asc");
-		Assertions.assertEquals("e.id DESC,e.name ASC", sort.toOrderByString(fieldMap));
+		Assertions.assertEquals("ORDER BY e.id DESC,e.name ASC",
+				sort.toOrderByString(fieldMap));
 	}
 
 	@Test
@@ -38,6 +39,7 @@ class SortTest {
 		var sort = new Sort("id", "DESC");
 		sort.check(List.of("id"));
 
-		Assertions.assertThrows(ValidationException.class, () -> sort.check(List.of("eid")));
+		Assertions.assertThrows(ValidationException.class,
+				() -> sort.check(List.of("eid")));
 	}
 }

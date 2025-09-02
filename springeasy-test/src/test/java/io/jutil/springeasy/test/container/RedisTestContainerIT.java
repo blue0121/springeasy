@@ -10,7 +10,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  * @author Jin Zheng
  * @since 2025-07-12
  */
-class RedisTestContainerIT extends BaseRedisTest implements BaseTest {
+class RedisTestContainerIT implements RedisTest, BaseTest {
 	@Autowired
 	StringRedisTemplate redisTemplate;
 

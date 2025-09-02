@@ -5,16 +5,19 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Jin Zheng
  * @since 2025-04-27
  */
 @Slf4j
 public class RedisTestContainer {
-	private static final String DOCKER_IMAGE = "redis:7-alpine";
+	private static final String DOCKER_IMAGE = "redis:8-alpine";
 	private static final int REDIS_PORT = 6379;
 
-	public static final GenericContainer<?> REDIS =
+	public static final GenericContainer<?> CONTAINER =
 			new GenericContainer<>(DOCKER_IMAGE)
 					.withExposedPorts(REDIS_PORT)
 					.withReuse(true)
@@ -22,21 +25,25 @@ public class RedisTestContainer {
 					.withLogConsumer(new Slf4jLogConsumer(log));
 
 	static {
-		REDIS.start();
-		Runtime.getRuntime().addShutdownHook(new Thread(REDIS::stop));
+		CONTAINER.start();
+		Runtime.getRuntime().addShutdownHook(new Thread(CONTAINER::stop));
 	}
 
 	public static String getHost() {
-		return REDIS.getHost();
+		return CONTAINER.getHost();
 	}
 
 	public static Integer getPort() {
-		return REDIS.getMappedPort(REDIS_PORT);
+		return CONTAINER.getMappedPort(REDIS_PORT);
 	}
 
-	public static String getRedisUrl() {
-		return String.format("redis://%s:%d",
-				REDIS.getHost(),
-				REDIS.getMappedPort(REDIS_PORT));
+	public static Map<String, String> getProperties() {
+		Map<String, String> map = new HashMap<>();
+		map.put("spring.data.redis.host", RedisTestContainer.getHost());
+		map.put("spring.data.redis.port", String.valueOf(RedisTestContainer.getPort()));
+		log.info(">>>>>>>>> Redis Server host: {}, port: {}",
+				RedisTestContainer.getHost(), RedisTestContainer.getPort());
+		return  map;
 	}
+
 }

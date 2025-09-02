@@ -14,7 +14,7 @@ import javax.sql.DataSource;
  * @author Jin Zheng
  * @since 2024-02-21
  */
-class DatabaseMutexFactoryTest extends BaseTest {
+class DatabaseMutexFactoryTest implements BaseTest {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	@Autowired

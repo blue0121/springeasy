@@ -16,6 +16,9 @@ import java.util.Map;
 public class Sort {
 	private final List<Order> orderList = new ArrayList<>();
 
+	public Sort() {
+	}
+
 	public Sort(String field) {
 		orderList.add(new Order(field));
 	}
@@ -30,6 +33,10 @@ public class Sort {
 
 	public Sort(String field, int direction) {
 		orderList.add(new Order(field, direction));
+	}
+
+	public void add(String field) {
+		orderList.add(new Order(field, Direction.DESC));
 	}
 
 	public void add(String field, Direction direction) {
@@ -51,10 +58,14 @@ public class Sort {
 	}
 
 	public String toOrderByString(Map<String, String> fieldMap) {
+		if (orderList.isEmpty()) {
+			return "";
+		}
+
 		var orderByList = orderList.stream()
 				.map(e -> e.toOrderByString(fieldMap))
 				.toList();
-		return StringUtil.join(orderByList, ",");
+		return "ORDER BY " + StringUtil.join(orderByList, ",");
 	}
 
 	@Getter

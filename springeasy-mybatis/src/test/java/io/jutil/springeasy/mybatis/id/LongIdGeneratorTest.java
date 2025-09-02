@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
  * @author Jin Zheng
  * @since 2024-06-13
  */
-class LongIdGeneratorTest extends BaseTest {
+class LongIdGeneratorTest implements BaseTest {
 
 	@Test
 	void testId() {

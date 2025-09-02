@@ -23,18 +23,19 @@
 		<java.version>21</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<spring.boot.version>3.5.3</spring.boot.version>
-		<fastjson2.version>2.0.57</fastjson2.version>
+		<spring.boot.version>3.5.5</spring.boot.version>
+		<fastjson2.version>2.0.58</fastjson2.version>
 		<mybatis.version>3.5.19</mybatis.version>
-		<mybatis.spring.version>3.0.4</mybatis.spring.version>
-		<jedis.version>6.0.0</jedis.version>
+		<mybatis.spring.version>3.0.5</mybatis.spring.version>
+		<jedis.version>6.2.0</jedis.version>
 
 		<!-- provided -->
 		<lombok.version>1.18.38</lombok.version>
 
 		<!-- test -->
-		<wiremock.version>3.12.1</wiremock.version>
-		<commons-codec.version>1.18.0</commons-codec.version>
+		<wiremock.version>3.13.1</wiremock.version>
+		<commons-codec.version>1.19.0</commons-codec.version>
+		<cucumber.version>7.23.0</cucumber.version>
 
 		<!-- maven plugins -->
 		<compiler.version>3.14.0</compiler.version>
@@ -42,7 +43,7 @@
 		<surefire.version>3.5.3</surefire.version>
 		<assembly.version>3.7.1</assembly.version>
 		<jacoco.version>0.8.13</jacoco.version>
-		<flatten.version>1.6.0</flatten.version>
+		<flatten.version>1.7.1</flatten.version>
 		<sonar.version>5.1.0.4751</sonar.version>
 	</properties>
 
@@ -52,6 +53,14 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
 				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>io.cucumber</groupId>
+				<artifactId>cucumber-bom</artifactId>
+				<version>${cucumber.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -78,18 +87,18 @@
 				<artifactId>mybatis-spring-boot-starter</artifactId>
 				<version>${mybatis.spring.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.mybatis.spring.boot</groupId>
-				<artifactId>mybatis-spring-boot-starter-test</artifactId>
-				<version>${mybatis.spring.version}</version>
-				<scope>test</scope>
-			</dependency>
 
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
 				<version>${lombok.version}</version>
 				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.wiremock</groupId>
+				<artifactId>wiremock-standalone</artifactId>
+				<version>${wiremock.version}</version>
 			</dependency>
 
 			<dependency>
@@ -161,6 +170,11 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${surefire.version}</version>
+				<configuration>
+					<excludes>
+						<exclude>**/*IT.java</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 
 			<plugin>

@@ -1,5 +1,6 @@
 package io.jutil.springeasy.mybatis.mapper;
 
+import com.alibaba.fastjson2.JSONObject;
 import io.jutil.springeasy.core.id.IdGeneratorFactory;
 import io.jutil.springeasy.mybatis.entity.Status;
 import io.jutil.springeasy.mybatis.entity.UserEntity;
@@ -23,6 +24,8 @@ public class UserService {
 
 	@Autowired
 	UserMapper userMapper;
+
+	final JSONObject body = JSONObject.of("key", "value");
 
 	public int deleteAll() {
 		return userMapper.deleteAll();
@@ -53,6 +56,7 @@ public class UserService {
 		entity.setId(IdGeneratorFactory.longId());
 		entity.setName(name);
 		entity.setStatus(Status.ACTIVE);
+		entity.setBody(body);
 		return userMapper.insert(entity);
 	}
 
@@ -62,6 +66,7 @@ public class UserService {
 			var entity = new UserEntity();
 			entity.setName("blue" + i);
 			entity.setStatus(Status.ACTIVE);
+			entity.setBody(body);
 			list.add(entity);
 		}
 		return userDao.insertList(UserMapper.class, list);

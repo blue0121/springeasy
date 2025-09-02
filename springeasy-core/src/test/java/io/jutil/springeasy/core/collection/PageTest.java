@@ -60,10 +60,12 @@ class PageTest {
     @Test
     void testToOrderByString() {
         var page = new Page();
-        Assertions.assertNull(page.toOrderByString(null));
+        Assertions.assertEquals("", page.toOrderByString(null));
 
         page.setSortIfAbsent(() -> new Sort("id"));
-        Assertions.assertEquals("id DESC", page.toOrderByString(null));
-        Assertions.assertEquals("eid DESC", page.toOrderByString(Map.of("id", "eid")));
+        Assertions.assertEquals("ORDER BY id DESC",
+		        page.toOrderByString(null));
+        Assertions.assertEquals("ORDER BY eid DESC",
+		        page.toOrderByString(Map.of("id", "eid")));
     }
 }

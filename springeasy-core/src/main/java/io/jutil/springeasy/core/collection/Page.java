@@ -61,7 +61,7 @@ public class Page {
 
     public String toOrderByString(Map<String, String> fieldMap) {
         if (sort == null) {
-            return null;
+            return "";
         }
         return sort.toOrderByString(fieldMap);
     }

@@ -1,8 +1,8 @@
 package io.jutil.springeasy.mybatis.mapper;
 
+import com.alibaba.fastjson2.JSONObject;
 import io.jutil.springeasy.core.id.IdGeneratorFactory;
 import io.jutil.springeasy.core.util.DateUtil;
-import io.jutil.springeasy.mybatis.BaseTest;
 import io.jutil.springeasy.mybatis.entity.Status;
 import io.jutil.springeasy.mybatis.entity.UserEntity;
 import org.junit.jupiter.api.Assertions;
@@ -14,21 +14,23 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Jin Zheng
  * @since 2024-06-03
  */
-
-class UserMapperTest extends BaseTest {
+public abstract class UserMapperTest {
 	@Autowired
 	UserMapper mapper;
 
+	final JSONObject body = JSONObject.of("key", "value");
+
 	@BeforeEach
-	void beforeEach() {
+	public void beforeEach() {
 		mapper.deleteAll();
 	}
 
 	@Test
-	void testCrud() {
+	public void testCrud() {
 		var entity = new UserEntity();
 		entity.setId(IdGeneratorFactory.longId());
 		entity.setName("blue");
+		entity.setBody(body);
 		entity.setStatus(Status.INACTIVE);
 		Assertions.assertEquals(1, mapper.insert(entity));
 		var now = DateUtil.now();
@@ -37,6 +39,7 @@ class UserMapperTest extends BaseTest {
 		Assertions.assertNotNull(view);
 		Assertions.assertEquals(entity.getName(), view.getName());
 		Assertions.assertEquals(Status.INACTIVE, view.getStatus());
+		Assertions.assertEquals(body, view.getBody());
 		Assertions.assertTrue(DateUtil.equal(now, view.getCreateTime()));
 		Assertions.assertTrue(DateUtil.equal(now, view.getUpdateTime()));
 
@@ -46,6 +49,7 @@ class UserMapperTest extends BaseTest {
 		Assertions.assertEquals(entity.getId(), view0.getId());
 		Assertions.assertEquals(entity.getName(), view0.getName());
 		Assertions.assertEquals(Status.INACTIVE, view0.getStatus());
+		Assertions.assertEquals(body, view0.getBody());
 		Assertions.assertTrue(DateUtil.equal(now, view0.getCreateTime()));
 		Assertions.assertTrue(DateUtil.equal(now, view0.getUpdateTime()));
 

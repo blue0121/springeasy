@@ -11,7 +11,7 @@ import javax.sql.DataSource;
  * @author Jin Zheng
  * @since 2025-06-11
  */
-class H2MetadataTest extends BaseTest {
+class H2MetadataTest implements BaseTest {
 	@Autowired
 	DataSource dataSource;
 

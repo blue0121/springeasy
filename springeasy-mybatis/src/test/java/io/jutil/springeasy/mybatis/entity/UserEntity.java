@@ -1,5 +1,6 @@
 package io.jutil.springeasy.mybatis.entity;
 
+import com.alibaba.fastjson2.JSONObject;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 public class UserEntity extends LongIdEntity {
 	private String name;
 	private Status status;
+	private JSONObject body;
 	private LocalDateTime createTime;
 	private LocalDateTime updateTime;
 }
