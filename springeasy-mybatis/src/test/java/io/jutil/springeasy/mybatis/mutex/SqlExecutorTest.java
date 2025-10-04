@@ -2,9 +2,10 @@ package io.jutil.springeasy.mybatis.mutex;
 
 import io.jutil.springeasy.core.util.DateUtil;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.sql.Timestamp;
@@ -17,8 +18,7 @@ import java.util.UUID;
  * @author Jin Zheng
  * @since 2024-02-21
  */
-@Component
-public class SqlExecutorTest {
+public abstract class SqlExecutorTest {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	@Autowired
@@ -31,11 +31,13 @@ public class SqlExecutorTest {
 	final String key = "key123";
 	final String instanceId = UUID.randomUUID().toString();
 
+	@BeforeEach
 	public void beforeEach() {
 		this.executor = new SqlExecutor(jdbcTemplate, transactionTemplate, table);
 		jdbcTemplate.update("TRUNCATE TABLE " + table);
 	}
 
+	@Test
 	public void testCanStart1() {
 		var expire = this.getExpire();
 		Assertions.assertTrue(executor.canStart(key, instanceId, expire));
@@ -45,6 +47,7 @@ public class SqlExecutorTest {
 		this.verify(1, instanceId, expire);
 	}
 
+	@Test
 	public void testCanStart2() {
 		var expire = this.getExpire();
 		Assertions.assertTrue(executor.canStart(key, "instanceId", expire));
@@ -54,6 +57,7 @@ public class SqlExecutorTest {
 		this.verify(1, "instanceId", expire);
 	}
 
+	@Test
 	public void testCanStart3() {
 		var now = DateUtil.now();
 		var expire = this.getExpire();
@@ -66,6 +70,7 @@ public class SqlExecutorTest {
 		this.verify(1, instanceId, expire);
 	}
 
+	@Test
 	public void testRenew() {
 		var now = DateUtil.now();
 		var expire = this.getExpire();
@@ -76,6 +81,7 @@ public class SqlExecutorTest {
 		this.verify(1, instanceId, expire);
 	}
 
+	@Test
 	public void testDelete() {
 		var now = DateUtil.now();
 		Assertions.assertTrue(executor.canStart(key, instanceId, now));
