@@ -20,31 +20,32 @@
 
 	<properties>
 		<revision>1.2.1-SNAPSHOT</revision>
-		<java.version>21</java.version>
+		<java.version>25</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<spring.boot.version>3.5.5</spring.boot.version>
-		<fastjson2.version>2.0.58</fastjson2.version>
+		<spring.boot.version>3.5.8</spring.boot.version>
+		<fastjson2.version>2.0.59</fastjson2.version>
 		<mybatis.version>3.5.19</mybatis.version>
 		<mybatis.spring.version>3.0.5</mybatis.spring.version>
-		<jedis.version>6.2.0</jedis.version>
+		<jedis.version>7.0.0</jedis.version>
+		<testcontainers.version>2.0.2</testcontainers.version>
 
 		<!-- provided -->
-		<lombok.version>1.18.38</lombok.version>
+		<lombok.version>1.18.42</lombok.version>
 
 		<!-- test -->
-		<wiremock.version>3.13.1</wiremock.version>
-		<commons-codec.version>1.19.0</commons-codec.version>
+		<wiremock.version>3.13.2</wiremock.version>
+		<commons-codec.version>1.20.0</commons-codec.version>
 		<cucumber.version>7.23.0</cucumber.version>
 
 		<!-- maven plugins -->
-		<compiler.version>3.14.0</compiler.version>
-		<jar.version>3.4.2</jar.version>
-		<surefire.version>3.5.3</surefire.version>
+		<compiler.version>3.14.1</compiler.version>
+		<jar.version>3.5.0</jar.version>
+		<surefire.version>3.5.4</surefire.version>
 		<assembly.version>3.7.1</assembly.version>
-		<jacoco.version>0.8.13</jacoco.version>
-		<flatten.version>1.7.1</flatten.version>
-		<sonar.version>5.1.0.4751</sonar.version>
+		<jacoco.version>0.8.14</jacoco.version>
+		<flatten.version>1.7.3</flatten.version>
+		<sonar.version>5.2.0.4988</sonar.version>
 	</properties>
 
 	<dependencyManagement>
@@ -53,6 +54,14 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
 				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.testcontainers</groupId>
+				<artifactId>testcontainers-bom</artifactId>
+				<version>${testcontainers.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

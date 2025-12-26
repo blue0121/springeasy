@@ -2,8 +2,10 @@ package io.jutil.springeasy.mybatis.mapper;
 
 import com.alibaba.fastjson2.JSONObject;
 import io.jutil.springeasy.core.id.IdGeneratorFactory;
+import io.jutil.springeasy.mybatis.dao.BatchDao;
 import io.jutil.springeasy.mybatis.entity.Status;
 import io.jutil.springeasy.mybatis.entity.UserEntity;
+import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +22,10 @@ import java.util.Map;
 @Transactional
 public class UserService {
 	@Autowired
-	UserDao userDao;
+	UserMapper userMapper;
 
 	@Autowired
-	UserMapper userMapper;
+	BatchDao batchDao;
 
 	final JSONObject body = JSONObject.of("key", "value");
 
@@ -36,16 +38,18 @@ public class UserService {
 	}
 
 	public void test1(boolean valid) {
-		this.insert("blue");
-		this.insertList(9);
+		Assertions.assertEquals(1, this.insert("blue"));
+		var count = 9;
+		Assertions.assertEquals(9, this.insertList(count));
 		if (!valid) {
 			throw new RuntimeException();
 		}
 	}
 
 	public void test2(boolean valid) {
-		this.insertList(9);
-		this.insert("blue");
+		var count = 9;
+		Assertions.assertEquals(9, this.insertList(count));
+		Assertions.assertEquals(1, this.insert("blue"));
 		if (!valid) {
 			throw new RuntimeException();
 		}
@@ -64,11 +68,15 @@ public class UserService {
 		List<UserEntity> list = new ArrayList<>();
 		for (int i = 1; i <= count; i++) {
 			var entity = new UserEntity();
+			entity.setId(IdGeneratorFactory.longId());
 			entity.setName("blue" + i);
 			entity.setStatus(Status.ACTIVE);
 			entity.setBody(body);
 			list.add(entity);
 		}
-		return userDao.insertList(UserMapper.class, list);
+		var sql = """
+				insert into test_user (id, name, status, body, create_time, update_time) values
+				 (:id, :name, :status, :body, now(), now())""";
+		return batchDao.update(sql, list);
 	}
 }

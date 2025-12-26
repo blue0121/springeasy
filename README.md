@@ -1,7 +1,7 @@
 # springeasy
 [![Build](https://github.com/blue0121/springeasy/actions/workflows/maven.yml/badge.svg)](https://github.com/blue0121/springeasy/actions/workflows/maven.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=blue0121_springeasy&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=blue0121_springeasy) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=blue0121_springeasy&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=blue0121_springeasy) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=blue0121_springeasy&metric=coverage)](https://sonarcloud.io/summary/new_code?id=blue0121_springeasy)
 
-简化SpringBoot3开发，集成常用3pp，当前最新版本`1.2.1-107`
+简化SpringBoot3开发，集成常用3pp，当前最新版本`1.2.1-110`
 
 ## 功能/特性:
 - cache: 缓存接口, 并使用`Caffeine`实现内存缓存
@@ -25,7 +25,7 @@
 ```bash
 git clone git@github.com/blue0121/springeasy.git
 cd springeasy
-mvn clean install -Drevision=1.2.1-107
+mvn clean install -Drevision=1.2.1-110
 ```
 
 ### 在`Maven`中添加依赖:
@@ -35,7 +35,7 @@ mvn clean install -Drevision=1.2.1-107
 	<dependency>
 		<groupId>io.jutil</groupId>
 		<artifactId>springeasy-parent</artifactId>
-		<version>1.2.1-107</version>
+		<version>1.2.1-110</version>
 		<type>pom</type>
 		<scope>import</scope>
 	</dependency>

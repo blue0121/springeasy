@@ -1,2 +1,3 @@
+io.jutil.springeasy.mybatis.config.BatchDaoAutoConfiguration
 io.jutil.springeasy.mybatis.config.DatabaseMutexAutoConfiguration
 io.jutil.springeasy.mybatis.config.MybatisAutoConfiguration

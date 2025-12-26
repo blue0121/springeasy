@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserEntity extends LongIdEntity {
+public class UserEntity {
+	private long id;
 	private String name;
 	private Status status;
 	private JSONObject body;
