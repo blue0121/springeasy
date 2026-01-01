@@ -7,6 +7,10 @@ import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.filter.Filter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 /**
  * @author Jin Zheng
  * @since 2025-07-14
@@ -30,6 +34,12 @@ public class Json {
 	};
 
 	private static Filter autoedTypeFilter = JSONReader.autoTypeFilter(BASE_FILTER);
+
+	static {
+		JSON.register(LocalDateTime.class, TemporalAccessorObjectWriter.INSTANCE);
+		JSON.register(LocalDate.class, TemporalAccessorObjectWriter.INSTANCE);
+		JSON.register(LocalTime.class, TemporalAccessorObjectWriter.INSTANCE);
+	}
 
 	private Json() {
 	}

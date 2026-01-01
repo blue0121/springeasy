@@ -8,12 +8,10 @@ import io.jutil.springeasy.spring.exception.ErrorCodeExceptionHandler;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
+import org.springframework.http.converter.HttpMessageConverters;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
@@ -38,18 +36,12 @@ public class WebMvcAutoConfiguration implements WebMvcConfigurer {
 				ResourceScannerFacade.scanPackage(pkg, fileHandler);
 			}
 		}
-
-	}
-
-	@Bean
-	public static MethodValidationPostProcessor validationPostProcessor() {
-		return new MethodValidationPostProcessor();
 	}
 
 	@Override
-	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+	public void configureMessageConverters(HttpMessageConverters.ServerBuilder builder) {
 		var converter = this.getConvertor();
-		converters.addFirst(converter);
+		builder.withJsonConverter(converter);
 	}
 
 	private FastJsonHttpMessageConverter getConvertor() {

@@ -13,7 +13,7 @@ import java.util.Map;
  */
 @Slf4j
 public class PostgreSQLTestContainer extends PostgreSQLContainer<PostgreSQLTestContainer> {
-	private static final String DOCKER_IMAGE = "postgres:17-alpine";
+	private static final String DOCKER_IMAGE = "postgres:18.1-alpine";
 
 	public static final PostgreSQLTestContainer CONTAINER = new PostgreSQLTestContainer()
 			.withDatabaseName("test_db")
@@ -47,7 +47,7 @@ public class PostgreSQLTestContainer extends PostgreSQLContainer<PostgreSQLTestC
 		map.put("spring.datasource.username", CONTAINER.getUsername());
 		map.put("spring.datasource.password", CONTAINER.getPassword());
 		log.info(">>>>>>>>> PostgreSQL Jdbc Url: {}", CONTAINER.getJdbcUrl());
-		return  map;
+		return map;
 	}
 
 }

@@ -14,7 +14,7 @@ import java.util.Map;
  */
 @Slf4j
 public class RedisTestContainer {
-	private static final String DOCKER_IMAGE = "redis:8-alpine";
+	private static final String DOCKER_IMAGE = "redis:8.4.0-alpine";
 	private static final int REDIS_PORT = 6379;
 
 	public static final GenericContainer<?> CONTAINER =
@@ -43,7 +43,7 @@ public class RedisTestContainer {
 		map.put("spring.data.redis.port", String.valueOf(RedisTestContainer.getPort()));
 		log.info(">>>>>>>>> Redis Server host: {}, port: {}",
 				RedisTestContainer.getHost(), RedisTestContainer.getPort());
-		return  map;
+		return map;
 	}
 
 }

@@ -28,6 +28,11 @@ class DefaultAsyncHttpTemplate extends AbstractHttpTemplate implements AsyncHttp
 	                                                 String body, Map<String, String> header) {
 		var publisher = this.publisher(body);
 		var builder = this.builder(uri, method, header, publisher);
+
+		if (log.isDebugEnabled()) {
+			log.debug("{} uri: {}, body: {}", method, uri, body);
+		}
+
 		var future = httpClient.sendAsync(builder.build(), HttpResponse.BodyHandlers.ofString());
 		return future.thenApply(DefaultStringResponse::new);
 	}

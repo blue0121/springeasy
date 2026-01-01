@@ -29,6 +29,10 @@ class DefaultHttpTemplate extends AbstractHttpTemplate implements HttpTemplate {
 		var publisher = this.publisher(body);
 		var builder = this.builder(uri, method, header, publisher);
 
+		if (log.isDebugEnabled()) {
+			log.debug("{} uri: {}, body: {}", method, uri, body);
+		}
+
 		try {
 			var response = httpClient.send(builder.build(),
 					HttpResponse.BodyHandlers.ofString());

@@ -19,16 +19,15 @@
 	</modules>
 
 	<properties>
-		<revision>1.2.1-SNAPSHOT</revision>
+		<revision>4.0.1-SNAPSHOT</revision>
 		<java.version>25</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<spring.boot.version>3.5.8</spring.boot.version>
+		<spring.boot.version>4.0.1</spring.boot.version>
 		<fastjson2.version>2.0.59</fastjson2.version>
 		<mybatis.version>3.5.19</mybatis.version>
-		<mybatis.spring.version>3.0.5</mybatis.spring.version>
-		<jedis.version>7.0.0</jedis.version>
-		<testcontainers.version>2.0.2</testcontainers.version>
+		<mybatis.spring.version>4.0.0</mybatis.spring.version>
+		<jedis.version>7.2.0</jedis.version>
 
 		<!-- provided -->
 		<lombok.version>1.18.42</lombok.version>
@@ -42,10 +41,10 @@
 		<compiler.version>3.14.1</compiler.version>
 		<jar.version>3.5.0</jar.version>
 		<surefire.version>3.5.4</surefire.version>
-		<assembly.version>3.7.1</assembly.version>
+		<assembly.version>3.8.0</assembly.version>
 		<jacoco.version>0.8.14</jacoco.version>
 		<flatten.version>1.7.3</flatten.version>
-		<sonar.version>5.2.0.4988</sonar.version>
+		<sonar.version>5.5.0.6356</sonar.version>
 	</properties>
 
 	<dependencyManagement>
@@ -54,14 +53,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
 				<version>${spring.boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.testcontainers</groupId>
-				<artifactId>testcontainers-bom</artifactId>
-				<version>${testcontainers.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -79,7 +70,6 @@
 				<artifactId>fastjson2</artifactId>
 				<version>${fastjson2.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>com.alibaba.fastjson2</groupId>
 				<artifactId>fastjson2-extension-spring6</artifactId>

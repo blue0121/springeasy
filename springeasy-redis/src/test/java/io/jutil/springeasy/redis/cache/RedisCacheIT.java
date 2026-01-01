@@ -45,7 +45,7 @@ class RedisCacheIT extends RedisTest {
 		Assertions.assertEquals(value, redisCache.get(key, () -> value));
 
 		Assertions.assertEquals(value, redisCache.get(key, String.class));
-		Assertions.assertFalse(redisCache.evictIfPresent(key));
+		Assertions.assertTrue(redisCache.evictIfPresent(key));
 		Assertions.assertNull(redisCache.get(key, String.class));
 	}
 

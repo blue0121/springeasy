@@ -13,7 +13,7 @@ import java.util.Map;
  */
 @Slf4j
 public class MySQLTestContainer extends MySQLContainer<MySQLTestContainer> {
-	private static final String DOCKER_IMAGE = "mysql:8";
+	private static final String DOCKER_IMAGE = "mysql:9.5";
 
 	public static final MySQLTestContainer CONTAINER = new MySQLTestContainer()
 			.withDatabaseName("test_db")
@@ -48,6 +48,6 @@ public class MySQLTestContainer extends MySQLContainer<MySQLTestContainer> {
 		map.put("spring.datasource.username", CONTAINER.getUsername());
 		map.put("spring.datasource.password", CONTAINER.getPassword());
 		log.info(">>>>>>>>> MySQL Jdbc Url: {}", CONTAINER.getJdbcUrl());
-		return  map;
+		return map;
 	}
 }
