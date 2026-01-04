@@ -4,6 +4,7 @@ import io.jutil.springeasy.core.mutex.MutexFactory;
 import io.jutil.springeasy.core.schedule.CronScheduleJob;
 import io.jutil.springeasy.spring.config.SpringBeans;
 import io.jutil.springeasy.spring.config.schedule.ScheduleProperties;
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -33,12 +34,12 @@ public class CronScheduleJobFactoryBean implements FactoryBean<CronScheduleJob>,
 	}
 
 	@Override
-	public CronScheduleJob getObject() throws Exception {
+	public @Nullable CronScheduleJob getObject() {
 		return cronScheduleJob;
 	}
 
 	@Override
-	public Class<?> getObjectType() {
+	public @Nullable Class<?> getObjectType() {
 		return CronScheduleJob.class;
 	}
 
@@ -48,7 +49,7 @@ public class CronScheduleJobFactoryBean implements FactoryBean<CronScheduleJob>,
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		var executor = beanFactory.getBean(prop.getExecutor(), ExecutorService.class);
 		cronScheduleJob = new CronScheduleJob(executor, mutexFactory);
 		for (var config : prop.getConfigs()) {

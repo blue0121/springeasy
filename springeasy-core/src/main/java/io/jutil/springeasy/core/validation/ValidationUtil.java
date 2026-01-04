@@ -43,10 +43,8 @@ public class ValidationUtil {
 		if (object == null) {
 			throw new ValidationException("object 不能为空");
 		}
-		if (object instanceof CharSequence str) {
-			if (str.isEmpty()) {
-				throw new ValidationException("object 不能为空");
-			}
+		if (object instanceof CharSequence str && str.isEmpty()) {
+			throw new ValidationException("object 不能为空");
 		}
 	}
 

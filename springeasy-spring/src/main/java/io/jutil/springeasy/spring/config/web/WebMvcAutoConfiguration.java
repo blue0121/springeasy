@@ -6,7 +6,6 @@ import io.jutil.springeasy.core.codec.json.Json;
 import io.jutil.springeasy.core.io.scan.ResourceScannerFacade;
 import io.jutil.springeasy.spring.exception.ErrorCodeExceptionHandler;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -24,8 +23,11 @@ import java.util.List;
 @Import(ErrorCodeExceptionHandler.class)
 @EnableConfigurationProperties(WebProperties.class)
 public class WebMvcAutoConfiguration implements WebMvcConfigurer {
-	@Autowired
-	WebProperties prop;
+	private final WebProperties prop;
+
+	public WebMvcAutoConfiguration(WebProperties prop) {
+		this.prop = prop;
+	}
 
 	@PostConstruct
 	public void init() {

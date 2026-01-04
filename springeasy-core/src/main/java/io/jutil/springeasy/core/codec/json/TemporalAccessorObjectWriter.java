@@ -18,18 +18,12 @@ public class TemporalAccessorObjectWriter implements ObjectWriter<TemporalAccess
 
 	@Override
 	public void write(JSONWriter writer, Object object, Object fieldName, Type fieldType, long features) {
-		if (object == null) {
-			writer.writeNull();
-			return;
-		}
-		if (object instanceof LocalDateTime dateTime) {
-			writer.writeString(Formatter.DATE_TIME.format(dateTime));
-		} else if (object instanceof LocalDate date) {
-			writer.writeString(Formatter.DATE.format(date));
-		} else if (object instanceof LocalTime time) {
-			writer.writeString(Formatter.TIME.format(time));
-		} else {
-			writer.writeString(object.toString());
+		switch (object) {
+			case null -> writer.writeNull();
+			case LocalDateTime dateTime -> writer.writeString(Formatter.DATE_TIME.format(dateTime));
+			case LocalDate date -> writer.writeString(Formatter.DATE.format(date));
+			case LocalTime time -> writer.writeString(Formatter.TIME.format(time));
+			default -> writer.writeString(object.toString());
 		}
 	}
 }

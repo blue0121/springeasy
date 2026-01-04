@@ -18,7 +18,7 @@ import java.sql.Types;
 public abstract class JsonTypeHandler<T> extends BaseTypeHandler<T> {
 	protected final DatabaseInfo databaseInfo;
 
-	public JsonTypeHandler(DatabaseInfo databaseInfo) {
+	protected JsonTypeHandler(DatabaseInfo databaseInfo) {
 		this.databaseInfo = databaseInfo;
 	}
 

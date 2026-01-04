@@ -4,6 +4,7 @@ import io.jutil.springeasy.core.schedule.ExecutorThreadFactory;
 import io.jutil.springeasy.spring.config.schedule.ExecutorProperties;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -30,17 +31,17 @@ public class ExecutorServiceFactoryBean implements FactoryBean<ExecutorService>,
 	private ExecutorService executor;
 
 	@Override
-	public ExecutorService getObject() throws Exception {
+	public @Nullable ExecutorService getObject() {
 		return executor;
 	}
 
 	@Override
-	public Class<?> getObjectType() {
+	public @Nullable Class<?> getObjectType() {
 		return ExecutorService.class;
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		this.executor = switch (type) {
 			case PLATFORM -> this.createPlatform();
 			case VIRTUAL -> this.createVirtual();

@@ -12,9 +12,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Jin Zheng
@@ -27,19 +25,6 @@ import java.util.Set;
 @SuppressWarnings("java:S6813")
 public class ScheduleAutoConfiguration implements BeanFactoryAware {
 	private BeanFactory beanFactory;
-
-	private Set<String> getJobIdSet(ScheduleProperties prop) {
-		if (prop.getConfigs() == null || prop.getConfigs().isEmpty()) {
-			return Set.of();
-		}
-
-		Set<String> idSet = new HashSet<>();
-		for (var config : prop.getConfigs()) {
-			idSet.add(config.getId());
-		}
-
-		return Set.copyOf(idSet);
-	}
 
 	@Bean
 	public CronScheduleJobFactoryBean cronScheduleJob(ScheduleProperties prop,

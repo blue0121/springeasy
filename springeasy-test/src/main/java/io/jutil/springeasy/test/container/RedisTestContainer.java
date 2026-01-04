@@ -29,6 +29,8 @@ public class RedisTestContainer {
 		Runtime.getRuntime().addShutdownHook(new Thread(CONTAINER::stop));
 	}
 
+	private RedisTestContainer() {}
+
 	public static String getHost() {
 		return CONTAINER.getHost();
 	}

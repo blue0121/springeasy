@@ -3,6 +3,7 @@ package io.jutil.springeasy.spring.config.http;
 import io.jutil.springeasy.core.http.HttpTemplate;
 import io.jutil.springeasy.core.http.HttpTemplateBuilder;
 import lombok.NoArgsConstructor;
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -24,17 +25,17 @@ public class HttpTemplateFactoryBean implements FactoryBean<HttpTemplate>, Initi
 
 
 	@Override
-	public HttpTemplate getObject() throws Exception {
+	public @Nullable HttpTemplate getObject() {
 		return httpTemplate;
 	}
 
 	@Override
-	public Class<?> getObjectType() {
+	public @Nullable Class<?> getObjectType() {
 		return HttpTemplate.class;
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		this.httpTemplate = HttpTemplateBuilder.create()
 				.setId(id)
 				.setBaseUrl(baseUrl)
